@@ -7,3 +7,5 @@ https://github.com/FX-Max/Point-of-Android
 4.Android UI/UX库
 5.第三方库集合：
 https://github.com/wasabeef/awesome-android-libraries
+6.后端教程：
+https://mp.weixin.qq.com/s?__biz=MzI4Njg5MDA5NA==&mid=100003311&idx=6&sn=0f455fe5541f450c135321f2514da6e1&ascene=7&devicetype=android-29&version=2700123b&nettype=WIFI&abtest_cookie=AAACAA%3D%3D&lang=zh_CN&exportkey=A4x6raAx%2FTKf5EvtS%2Fz%2Fzlk%3D&pass_ticket=vG3sFPd8W3LjhHecRhojuh98j%2BZ1Wep52XACnmKr5JibB9gu2ZMcSDoiWS3%2BeBej&wx_header=1
