@@ -4,7 +4,8 @@ https://developer.android.google.cn/guide/
 http://hukai.me/android-training-course-in-chinese/index.html
 3.安卓一些重要知识点解析：
 https://github.com/FX-Max/Point-of-Android
-4.Android UI/UX库
+4.Android UI/UX库:
+https://github.com/wasabeef/awesome-android-ui
 5.第三方库集合：
 https://github.com/wasabeef/awesome-android-libraries
 6.后端教程：
