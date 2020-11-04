@@ -12,6 +12,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
+//登录http处理器
 public class LoginHttp {
 
     public static final MediaType JSON
@@ -70,7 +71,7 @@ public class LoginHttp {
         try{
             Response response = client.newCall(request).execute();
             ResponseBody responseBody=response.body();
-            if(responseBody==null)
+            if(responseBody==null)  //报文体为空
             {
                 return new LoginHttp.LoginResult(false,false,false,true);
             }

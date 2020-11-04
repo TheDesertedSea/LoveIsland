@@ -2,6 +2,7 @@ package com.example.loveislandapp.InputChecker;
 
 import android.util.Patterns;
 
+//用户名格式检查器
 public class UsernameChecker {
     public class CheckResult
     {
@@ -27,6 +28,7 @@ public class UsernameChecker {
         }
     }
 
+    //返回一个默认结果
     public CheckResult getInitialCheckReuslt()
     {
         return new CheckResult(false,"");

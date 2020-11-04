@@ -1,5 +1,6 @@
 package com.example.loveislandapp.data;
 
+//已登录用户信息
 public class LoginedUser {
     private static volatile LoginedUser instance;
 

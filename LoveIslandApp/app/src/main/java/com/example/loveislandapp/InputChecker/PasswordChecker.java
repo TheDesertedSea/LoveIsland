@@ -1,5 +1,6 @@
 package com.example.loveislandapp.InputChecker;
 
+//密码输入格式检查器
 public class PasswordChecker {
     public class CheckResult
     {
@@ -22,6 +23,7 @@ public class PasswordChecker {
         }
     }
 
+    //返回一个默认结果
     public CheckResult getInitialCheckReuslt()
     {
         return new CheckResult(false,"");

@@ -12,6 +12,8 @@ import android.widget.Toast;
 
 import com.example.loveislandapp.InputChecker.PasswordChecker;
 import com.example.loveislandapp.InputChecker.UsernameChecker;
+import com.example.loveislandapp.data.CachedLoginInfo;
+import com.example.loveislandapp.data.LoginedUser;
 import com.example.loveislandapp.databinding.ActivityLoginBinding;
 import com.example.loveislandapp.http.LoginHttp;
 import com.example.loveislandapp.ui.personalCenter.PersonalCenterActivity;
@@ -99,9 +101,9 @@ public class LoginActivity extends AppCompatActivity {
                 {
                     return;
                 }
-                //使按钮不可见，防止再次登录或进入注册活动
-                binding.LoginButton.setVisibility(View.INVISIBLE);
-                binding.GotoSignupButton.setVisibility(View.INVISIBLE);
+                //使按钮不可点击，防止再次登录或进入注册活动
+                binding.LoginButton.setEnabled(false);
+                binding.GotoSignupButton.setEnabled(false);
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -112,6 +114,10 @@ public class LoginActivity extends AppCompatActivity {
                         //登录成功
                         if(loginResult.success)
                         {
+                            //保存已登录用户信息
+                            LoginedUser loginedUser=LoginedUser.getInstance();
+                            loginedUser.setUsername(binding.UsernameInput.getText().toString());
+
                             if(loginResult.logined)
                             {
                                 runOnUiThread(
@@ -130,11 +136,16 @@ public class LoginActivity extends AppCompatActivity {
                                 public void run() {
                                     Intent intent=new Intent(getApplicationContext(), PersonalCenterActivity.class);
                                     startActivity(intent);
+                                    //结束登录活动生命周期
                                     finish();
                                 }
                             });
                         }else//登录失败
                         {
+                            //清空登录信息缓存
+                            CachedLoginInfo cachedLoginInfo=new CachedLoginInfo(getApplicationContext());
+                            cachedLoginInfo.clear();
+
                             if(loginResult.wrong)
                             {
                                 runOnUiThread(
@@ -143,8 +154,9 @@ public class LoginActivity extends AppCompatActivity {
                                             public void run() {
                                                 Toast.makeText(getApplicationContext(),"用户名或密码错误",Toast.LENGTH_SHORT)
                                                         .show();
-                                                binding.LoginButton.setVisibility(View.VISIBLE);
-                                                binding.GotoSignupButton.setVisibility(View.VISIBLE);
+                                                //恢复登录键、注册键点击功能
+                                                binding.LoginButton.setEnabled(true);
+                                                binding.GotoSignupButton.setEnabled(true);
                                             }
                                         }
                                 );
@@ -156,8 +168,9 @@ public class LoginActivity extends AppCompatActivity {
                                             public void run() {
                                                 Toast.makeText(getApplicationContext(),"登录失败",Toast.LENGTH_SHORT)
                                                         .show();
-                                                binding.LoginButton.setVisibility(View.VISIBLE);
-                                                binding.GotoSignupButton.setVisibility(View.VISIBLE);
+                                                //恢复登录键、注册键点击功能
+                                                binding.LoginButton.setEnabled(true);
+                                                binding.GotoSignupButton.setEnabled(true);
                                             }
                                         }
                                 );

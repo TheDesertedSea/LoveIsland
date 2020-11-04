@@ -123,16 +123,16 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
 
-        //男生、女生只能从中选一个
+        //男生、女生只能从中选一个，选择其中一个屏蔽另一个
         binding.CheckMale.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
-                    binding.CheckFemale.setVisibility(View.INVISIBLE);
+                    binding.CheckFemale.setEnabled(false);
                 }else
                 {
-                    binding.CheckFemale.setVisibility(View.VISIBLE);
+                    binding.CheckFemale.setEnabled(true);
                 }
             }
         });
@@ -142,10 +142,10 @@ public class SignupActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked)
                 {
-                    binding.CheckMale.setVisibility(View.INVISIBLE);
+                    binding.CheckMale.setEnabled(false);
                 }else
                 {
-                    binding.CheckMale.setVisibility(View.VISIBLE);
+                    binding.CheckMale.setEnabled(true);
                 }
             }
         });
@@ -162,8 +162,8 @@ public class SignupActivity extends AppCompatActivity {
                     return;
                 }
 
-                //使按钮不可见，防止再次登录或进入注册活动
-                binding.SignupButton.setVisibility(View.INVISIBLE);
+                //使按钮不可点击，防止再次注册
+                binding.SignupButton.setEnabled(false);
 
                 new Thread(new Runnable() {
                     @Override
@@ -193,7 +193,8 @@ public class SignupActivity extends AppCompatActivity {
                                             public void run() {
                                                 Toast.makeText(context,"该昵称已被使用",Toast.LENGTH_SHORT)
                                                         .show();
-                                                binding.SignupButton.setVisibility(View.VISIBLE);
+                                                //恢复注册键点击功能
+                                                binding.SignupButton.setEnabled(true);
                                             }
                                         }
                                 );
@@ -204,7 +205,8 @@ public class SignupActivity extends AppCompatActivity {
                                     public void run() {
                                         Toast.makeText(context,"该邮箱地址已被注册",Toast.LENGTH_SHORT)
                                                 .show();
-                                        binding.SignupButton.setVisibility(View.VISIBLE);
+                                        //恢复注册键点击功能
+                                        binding.SignupButton.setEnabled(true);
                                     }
                                 });
                             }else if(signupResult.exception)
@@ -214,7 +216,8 @@ public class SignupActivity extends AppCompatActivity {
                                     public void run() {
                                         Toast.makeText(context,"注册失败",Toast.LENGTH_SHORT)
                                                 .show();
-                                        binding.SignupButton.setVisibility(View.VISIBLE);
+                                        //恢复注册键点击功能
+                                        binding.SignupButton.setEnabled(true);
                                     }
                                 });
                             }

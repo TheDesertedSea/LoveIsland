@@ -14,6 +14,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
+//注册http处理器
 public class SignupHttp {
     public static final MediaType JSON
             = MediaType.get("application/json; charset=utf-8");
@@ -72,8 +73,6 @@ public class SignupHttp {
         Gson gson=new Gson();
         String json=gson.toJson(requestHttp);
 
-
-
         RequestBody body = RequestBody.create(json, JSON);
         Request request = new Request.Builder()
                 .url(url)
@@ -82,7 +81,7 @@ public class SignupHttp {
         try{
             Response response = client.newCall(request).execute();
             ResponseBody responseBody=response.body();
-            if(responseBody==null)
+            if(responseBody==null) //报文体为空
             {
                 return new SignupResult(false,false,false,true);
             }
