@@ -1,5 +1,7 @@
 package com.example.loveislandapp.http;
 
+import android.util.Log;
+
 import com.example.loveislandapp.data.HttpFormat;
 import com.google.gson.Gson;
 
@@ -12,55 +14,65 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class LoginHttp {
-
+public class SignupHttp {
     public static final MediaType JSON
             = MediaType.get("application/json; charset=utf-8");
     public static final String url
             = "http://10.0.2.2:20000";
     public static final String type
-            ="login";
+            ="signup";
 
     OkHttpClient client = new OkHttpClient();
 
-    public class LoginResult
+    public class SignupResult
     {
         public boolean success;
-        public boolean wrong;
-        public boolean logined;
+        public boolean nickNameUsed;
+        public boolean signuped;
         public boolean exception;
-        public LoginResult(boolean s,boolean w,boolean l,boolean i)
+
+        public SignupResult(boolean s,boolean si,boolean n,boolean e)
         {
             success=s;
-            wrong=w;
-            logined=l;
-            exception=i;
+            signuped=si;
+            nickNameUsed=n;
+            exception=e;
         }
     }
-    public class LoginRequestContent
+
+    public class SignupRequestContent
     {
         public String username;
         public String password;
-    }
-    public class LoginResponseContent
-    {
-        public boolean success;
-        public boolean wrong;
-        public boolean logined;
+        public String nickname;
+        public boolean male;
+        public String school;
     }
 
-    public LoginResult Login(String username,String password)
+    public class SignupResponseContent
     {
-        LoginRequestContent loginRequestContent=new LoginRequestContent();
-        loginRequestContent.username=username;
-        loginRequestContent.password=password;
+        public boolean success;
+        public boolean nickNameUsed;
+        public boolean signuped;
+    }
+
+    public SignupResult signup(String username,String password,String nickname,boolean male,String school)
+    {
+        SignupRequestContent signupRequestContent=new SignupRequestContent();
+        signupRequestContent.username=username;
+        signupRequestContent.password=password;
+        signupRequestContent.nickname=nickname;
+        signupRequestContent.male=male;
+        signupRequestContent.school=school;
 
         HttpFormat requestHttp=new HttpFormat();
         requestHttp.type=type;
-        requestHttp.content=loginRequestContent;
+        requestHttp.content=signupRequestContent;
 
         Gson gson=new Gson();
         String json=gson.toJson(requestHttp);
+
+
 
         RequestBody body = RequestBody.create(json, JSON);
         Request request = new Request.Builder()
@@ -72,23 +84,23 @@ public class LoginHttp {
             ResponseBody responseBody=response.body();
             if(responseBody==null)
             {
-                return new LoginHttp.LoginResult(false,false,false,true);
+                return new SignupResult(false,false,false,true);
             }
             HttpFormat responseHttp=gson.fromJson(responseBody.string(),HttpFormat.class);
-            if(responseHttp.type=="login")
+            if(responseHttp.type=="signup")
             {
-                LoginResponseContent loginResponseContent= (LoginResponseContent) responseHttp.content;
-                return new LoginResult(loginResponseContent.success,loginResponseContent.wrong,loginResponseContent.logined,false);
+                SignupResponseContent signupResponseContent= (SignupResponseContent) responseHttp.content;
+                return new SignupResult(signupResponseContent.success,signupResponseContent.nickNameUsed,
+                        signupResponseContent.signuped,false);
             }else
             {
-                return new LoginResult(false,false,false,true);
+                return new SignupResult(false,false,false,true);
             }
 
 
         }catch(IOException e)
         {
-            return new LoginResult(false,false,false,true);
+            return new SignupResult(false,false,false,true);
         }
-
     }
 }

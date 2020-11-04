@@ -1,10 +1,11 @@
-package com.example.loveislandapp.ui.login;
+package com.example.loveislandapp.InputChecker;
 
 public class PasswordChecker {
     public class CheckResult
     {
-        boolean valid;
-        String errorInfo;
+        public boolean valid;
+        public String errorInfo;
+
         public CheckResult(boolean v,String ei)
         {
             valid=v;
@@ -14,10 +15,15 @@ public class PasswordChecker {
 
     public CheckResult isPasswordValid(String password) {
         if(password != null && password.trim().length() > 5) {
-            return new CheckResult(true, "");
+            return new CheckResult(true, null);
         }else
         {
             return new CheckResult(false,"密码长度小于6");
         }
+    }
+
+    public CheckResult getInitialCheckReuslt()
+    {
+        return new CheckResult(false,"");
     }
 }
