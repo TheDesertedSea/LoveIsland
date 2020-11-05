@@ -23,7 +23,7 @@ public class SignupHttp {
     public static final String type
             ="signup";
 
-    OkHttpClient client = new OkHttpClient();
+    private OkHttpClient client = new OkHttpClient();
 
     public class SignupResult
     {

@@ -1,5 +1,7 @@
 package com.example.loveislandapp.http;
 
+import android.util.Log;
+
 import com.example.loveislandapp.data.HttpFormat;
 import com.google.gson.Gson;
 
@@ -18,11 +20,11 @@ public class LoginHttp {
     public static final MediaType JSON
             = MediaType.get("application/json; charset=utf-8");
     public static final String url
+            = "http://192.168.1.102:30010/login";
+    public static final String url2
             = "http://10.0.2.2:20000";
-    public static final String type
-            ="login";
 
-    OkHttpClient client = new OkHttpClient();
+    private OkHttpClient client = new OkHttpClient();
 
     public class LoginResult
     {
@@ -40,8 +42,8 @@ public class LoginHttp {
     }
     public class LoginRequestContent
     {
-        public String username;
-        public String password;
+        public String name;
+        public String pwd;
     }
     public class LoginResponseContent
     {
@@ -53,39 +55,47 @@ public class LoginHttp {
     public LoginResult Login(String username,String password)
     {
         LoginRequestContent loginRequestContent=new LoginRequestContent();
-        loginRequestContent.username=username;
-        loginRequestContent.password=password;
-
-        HttpFormat requestHttp=new HttpFormat();
-        requestHttp.type=type;
-        requestHttp.content=loginRequestContent;
+        loginRequestContent.name=username;
+        loginRequestContent.pwd=password;
 
         Gson gson=new Gson();
-        String json=gson.toJson(requestHttp);
+        String json=gson.toJson(loginRequestContent);
 
         RequestBody body = RequestBody.create(json, JSON);
-        Request request = new Request.Builder()
+//        Request request = new Request.Builder()
+//                .url(url)
+//                .get()
+//                .addHeader("name",username)
+//                .addHeader("pwd",password)
+//                .build();
+
+
+        Request request=new Request.Builder()
                 .url(url)
                 .post(body)
                 .build();
+
         try{
+            Log.v("here","here");
             Response response = client.newCall(request).execute();
-            ResponseBody responseBody=response.body();
-            if(responseBody==null)  //报文体为空
-            {
-                return new LoginHttp.LoginResult(false,false,false,true);
-            }
-            HttpFormat responseHttp=gson.fromJson(responseBody.string(),HttpFormat.class);
-            if(responseHttp.type=="login")
-            {
-                LoginResponseContent loginResponseContent= (LoginResponseContent) responseHttp.content;
-                return new LoginResult(loginResponseContent.success,loginResponseContent.wrong,loginResponseContent.logined,false);
-            }else
-            {
-                return new LoginResult(false,false,false,true);
-            }
 
+//            ResponseBody responseBody=response.body();
+//
+//            if(responseBody==null)  //报文体为空
+//            {
+//                return new LoginHttp.LoginResult(false,false,false,true);
+//            }
+//            HttpFormat responseHttp=gson.fromJson(responseBody.string(),HttpFormat.class);
+//            if(responseHttp.type=="login")
+//            {
+//                LoginResponseContent loginResponseContent= (LoginResponseContent) responseHttp.content;
+//                return new LoginResult(loginResponseContent.success,loginResponseContent.wrong,loginResponseContent.logined,false);
+//            }else
+//            {
+//                return new LoginResult(false,false,false,true);
+//            }
 
+            return new LoginResult(false,false,false,true);
         }catch(IOException e)
         {
             return new LoginResult(false,false,false,true);

@@ -6,4 +6,81 @@
     android:layout_height="match_parent"
     tools:context=".ui.personalCenter.PersonalCenterActivity">
 
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/UserIcon"
+        android:layout_width="98dp"
+        android:layout_height="106dp"
+        android:src="@drawable/icon"
+        app:civ_border_color="#FFF00000"
+        app:civ_border_width="2dp"
+       app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.078" />
+
+    <TextView
+        android:id="@+id/NickNamePersonalCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="mizhidao"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/UserIcon" />
+
+    <TextView
+        android:id="@+id/SchoolPersonalCenter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="电子科技大学"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NickNamePersonalCenter" />
+
+    <ImageView
+        android:id="@+id/MaleFemaleImage"
+        android:layout_width="21dp"
+        android:layout_height="23dp"
+        app:layout_constraintBottom_toTopOf="@+id/SchoolPersonalCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/NickNamePersonalCenter"
+        app:layout_constraintTop_toBottomOf="@+id/UserIcon"
+        app:layout_constraintVertical_bias="0.617"
+        app:srcCompat="@drawable/male" />
+
+    <TextView
+        android:id="@+id/Introduction"
+        android:layout_width="245dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="12dp"
+        android:text="超级马萨克"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/IntroductionTitle" />
+
+    <TextView
+        android:id="@+id/IntroductionTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="个人简介"
+        app:layout_constraintStart_toStartOf="@+id/Introduction"
+        app:layout_constraintTop_toBottomOf="@+id/SchoolPersonalCenter" />
+
+    <Button
+        android:id="@+id/EditInfoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="32dp"
+        android:text="编辑"
+        app:layout_constraintStart_toEndOf="@+id/UserIcon"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
