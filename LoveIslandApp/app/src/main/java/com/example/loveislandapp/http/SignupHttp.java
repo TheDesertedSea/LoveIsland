@@ -2,7 +2,6 @@ package com.example.loveislandapp.http;
 
 import android.util.Log;
 
-import com.example.loveislandapp.data.HttpFormat;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -19,9 +18,9 @@ public class SignupHttp {
     public static final MediaType JSON
             = MediaType.get("application/json; charset=utf-8");
     public static final String url
+            = "http://192.168.1.102:30010/singup";
+    public static final String testUrl
             = "http://10.0.2.2:20000";
-    public static final String type
-            ="signup";
 
     private OkHttpClient client = new OkHttpClient();
 
@@ -32,12 +31,12 @@ public class SignupHttp {
         public boolean signuped;
         public boolean exception;
 
-        public SignupResult(boolean s,boolean si,boolean n,boolean e)
+        public SignupResult(boolean success,boolean nickNameUsed,boolean signuped,boolean exception)
         {
-            success=s;
-            signuped=si;
-            nickNameUsed=n;
-            exception=e;
+            this.success=success;
+            this.nickNameUsed=nickNameUsed;
+            this.signuped=signuped;
+            this.exception=exception;
         }
     }
 
@@ -66,12 +65,8 @@ public class SignupHttp {
         signupRequestContent.male=male;
         signupRequestContent.school=school;
 
-        HttpFormat requestHttp=new HttpFormat();
-        requestHttp.type=type;
-        requestHttp.content=signupRequestContent;
-
         Gson gson=new Gson();
-        String json=gson.toJson(requestHttp);
+        String json=gson.toJson(signupRequestContent);
 
         RequestBody body = RequestBody.create(json, JSON);
         Request request = new Request.Builder()
@@ -85,17 +80,10 @@ public class SignupHttp {
             {
                 return new SignupResult(false,false,false,true);
             }
-            HttpFormat responseHttp=gson.fromJson(responseBody.string(),HttpFormat.class);
-            if(responseHttp.type=="signup")
-            {
-                SignupResponseContent signupResponseContent= (SignupResponseContent) responseHttp.content;
-                return new SignupResult(signupResponseContent.success,signupResponseContent.nickNameUsed,
-                        signupResponseContent.signuped,false);
-            }else
-            {
-                return new SignupResult(false,false,false,true);
-            }
+            String responseHttp=gson.fromJson(responseBody.string(),String.class);
+            Log.v("responseJson/signup",responseHttp);
 
+            return new SignupResult(true,false,false,false);
 
         }catch(IOException e)
         {

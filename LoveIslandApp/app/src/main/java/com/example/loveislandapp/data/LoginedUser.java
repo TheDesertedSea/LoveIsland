@@ -6,6 +6,7 @@ public class LoginedUser {
 
     private String username;
     private String nickname;
+    private String uid;
 
     public static LoginedUser getInstance()
     {
@@ -16,15 +17,17 @@ public class LoginedUser {
         return instance;
     }
 
-    public void setUsername(String u)
+    public void setUsername(String username)
     {
-        username=u;
+        this.username=username;
     }
 
-    public void setNickname(String n)
+    public void setNickname(String nickname)
     {
-        nickname=n;
+        this.nickname=nickname;
     }
+
+    public void setUid(String uid){this.uid=uid;}
 
     public String getUsername()
     {
@@ -35,4 +38,6 @@ public class LoginedUser {
     {
         return nickname;
     }
+
+    public String getUid(){return uid;}
 }
