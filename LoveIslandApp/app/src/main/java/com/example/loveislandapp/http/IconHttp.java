@@ -28,16 +28,14 @@ public class IconHttp {
     public static final String testUrl
             = "http://10.0.2.2:20000";
 
-    public boolean setIcon(String path, String uid)
+    public boolean setIcon(File picfile, String uid)
     {
-        Log.v("imagePath",path);
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(path, options);
+        BitmapFactory.decodeFile(picfile.getPath(), options);
         String type = options.outMimeType;
         Log.v("imageType",type);
-        File file=new File(path);
-        RequestBody requestBody=RequestBody.create(file, MediaType.parse(type));
+        RequestBody requestBody=RequestBody.create(picfile, MediaType.parse(type));
         Request request=new Request.Builder()
                 .url(baseUrl+uid)
                 .post(requestBody)

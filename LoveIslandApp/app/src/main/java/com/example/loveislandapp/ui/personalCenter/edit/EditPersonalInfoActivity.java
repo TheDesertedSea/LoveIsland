@@ -5,12 +5,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -22,6 +25,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -35,14 +39,17 @@ import com.example.loveislandapp.databinding.ActivityEditPersonalInfoBinding;
 import com.example.loveislandapp.databinding.ActivityPersonalCenterBinding;
 import com.example.loveislandapp.http.IconHttp;
 import com.example.loveislandapp.http.PersonalInfoHttp;
+import com.yalantis.ucrop.UCrop;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 
 public class EditPersonalInfoActivity extends AppCompatActivity {
 
     public static final int CHOOSE_PHOTO=2;
     public static final int CROP_PHOTO=3;
 
+    private String[] items = new String[] { "相册", "拍照" };
     private static final String baseUrl
             = "http://192.168.1.102:30010/usericon/";
     private LoginedUser loginedUser=LoginedUser.getInstance();
@@ -51,6 +58,13 @@ public class EditPersonalInfoActivity extends AppCompatActivity {
     private Context context;
     private PersonalInfoHttp personalInfoHttp;
     private IconHttp iconHttp;
+
+    private Uri photoUri;
+    File picFile;
+
+    private final int PIC_FROM_CAMERA = 1;
+    private final int PIC_FROM_LOCALPHOTO = 2;
+    private final int PIC_FROM_CROP=3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,14 +93,9 @@ public class EditPersonalInfoActivity extends AppCompatActivity {
         binding.EditIconButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED)
-                {
-                    ActivityCompat.requestPermissions(EditPersonalInfoActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}
-                    ,1);
-                }else {
-                    openAlbum();
-                }
+
+                showDialog();
+
             }
         });
 
@@ -140,6 +149,7 @@ public class EditPersonalInfoActivity extends AppCompatActivity {
     {
         Intent intent=new Intent("android.intent.action.GET_CONTENT");
         intent.setType("image/*");
+        intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
         startActivityForResult(intent,CHOOSE_PHOTO);
     }
 
@@ -152,10 +162,19 @@ public class EditPersonalInfoActivity extends AppCompatActivity {
             case 1:
                 if(grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED)
                 {
-                    openAlbum();
+                    doHandlerPhoto(PIC_FROM_LOCALPHOTO);
                 }else
                 {
                     Toast.makeText(context,"你拒绝了访问相册权限",Toast.LENGTH_SHORT).show();
+                }
+                break;
+            case 2:
+                if(grantResults.length>0&&grantResults[0]==PackageManager.PERMISSION_GRANTED)
+                {
+                    doHandlerPhoto(PIC_FROM_CAMERA);
+                }else
+                {
+                    Toast.makeText(context,"你拒绝了访问文件权限",Toast.LENGTH_SHORT).show();
                 }
                 break;
             default:
@@ -165,47 +184,46 @@ public class EditPersonalInfoActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch(requestCode)
+        switch (requestCode)
         {
-            case CHOOSE_PHOTO:
-                if(resultCode==RESULT_OK)
-                {
-                    Glide.with(context)
-                            .load(data.getData())
-                            .into(binding.UserIcon);
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Uri uri=data.getData();
-                            String imagePath=handleImageOnKitKat(uri);
-                            boolean result=iconHttp.setIcon(imagePath,LoginedUser.getInstance().getUid());
-                            if(result)
-                            {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(context,"修改成功",Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            }else
-                            {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Toast.makeText(context,"修改失败",Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            }
+                case PIC_FROM_CAMERA: // 拍照
+            case PIC_FROM_LOCALPHOTO:// 相册
+                try
+                    {
+                        cropImageUriByTakePhoto();
+                    } catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                    break;
+            case PIC_FROM_CROP:
+                Log.v("rt","finish");
+                Glide.with(context)
+                        .load(Uri.fromFile(picFile))
+                        .into(binding.UserIcon);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(iconHttp.setIcon(picFile,loginedUser.getUid()))
+                        {
+                         runOnUiThread(new Runnable() {
+                             @Override
+                             public void run() {
+                                 Toast.makeText(context,"修改成功",Toast.LENGTH_SHORT).show();
+                             }
+                         });
+                        }else
+                        {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Toast.makeText(context,"修改失败",Toast.LENGTH_SHORT).show();
+                                }
+                            });
                         }
-                    }).start();
-                }
-                break;
-            case CROP_PHOTO:
-                if(resultCode==RESULT_OK)
-                {
+                    }
+                }).start();
 
-                }
-                break;
             default:
 
         }
@@ -228,7 +246,6 @@ public class EditPersonalInfoActivity extends AppCompatActivity {
         return path;
     }
 
-    //获取图像path的入口，适配各种uri类型
     private String handleImageOnKitKat(Uri uri) {
         String imagePath = null;
 
@@ -253,41 +270,172 @@ public class EditPersonalInfoActivity extends AppCompatActivity {
         return imagePath;
     }
 
-    private Bitmap drawableToBitmap(Drawable drawable) {
-        if(drawable==null)
-        {
-            return null;
-        }
-        Bitmap bitmap;
-        int w = drawable.getIntrinsicWidth();
-        int h = drawable.getIntrinsicHeight();
-        System.out.println("Drawable转Bitmap");
-        Bitmap.Config config =
-                drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
-                        : Bitmap.Config.RGB_565;
-        bitmap = Bitmap.createBitmap(w,h,config);
-        //注意，下面三行代码要用到，否在在View或者surfaceview里的canvas.drawBitmap会看不到图
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, w, h);
-        drawable.draw(canvas);
-        return bitmap;
+//    private Bitmap drawableToBitmap(Drawable drawable) {
+//        if(drawable==null)
+//        {
+//            return null;
+//        }
+//        Bitmap bitmap;
+//        int w = drawable.getIntrinsicWidth();
+//        int h = drawable.getIntrinsicHeight();
+//        System.out.println("Drawable转Bitmap");
+//        Bitmap.Config config =
+//                drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
+//                        : Bitmap.Config.RGB_565;
+//        bitmap = Bitmap.createBitmap(w,h,config);
+//        //注意，下面三行代码要用到，否在在View或者surfaceview里的canvas.drawBitmap会看不到图
+//        Canvas canvas = new Canvas(bitmap);
+//        drawable.setBounds(0, 0, w, h);
+//        drawable.draw(canvas);
+//        return bitmap;
+//    }
+
+//    public void cropPhoto(Uri uri,Uri tempPhotoUri) {
+//        Log.v("rt",uri.toString());
+//        Intent intent = new Intent("com.android.camera.action.CROP");
+//        intent.setDataAndType(uri, "image/*");
+//        Log.v("rt",handleImageOnKitKat(uri));
+//        intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
+//        intent.putExtra("crop", "true");
+//// aspectX aspectY 是宽高的比例
+//        intent.putExtra("aspectX", 1);
+//        intent.putExtra("aspectY", 1);
+//        intent.putExtra("scale", true);
+//// outputX outputY 是裁剪图片宽高
+//        intent.putExtra("outputX", 250);
+//        intent.putExtra("outputY", 250);
+//        intent.putExtra("return-data", false);
+//        intent.putExtra("noFaceDetection", true);
+//        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+//        startActivityForResult(intent, CROP_PHOTO);
+//    }
+
+    private void showDialog() {
+        // TODO Auto-generated method stub
+        new AlertDialog.Builder(this).setTitle("选择头像")
+                .setItems(items, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // TODO Auto-generated method stub
+                        switch (which) {
+                            case 0:
+                                if(ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                        != PackageManager.PERMISSION_GRANTED)
+                                {
+                                    ActivityCompat.requestPermissions(EditPersonalInfoActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}
+                                            ,1);
+                                }else {
+                                    doHandlerPhoto(PIC_FROM_LOCALPHOTO);// 从相册中去获取
+                                }
+                                break;
+                            case 1:
+                                if(ContextCompat.checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                        != PackageManager.PERMISSION_GRANTED)
+                                {
+                                    ActivityCompat.requestPermissions(EditPersonalInfoActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}
+                                            ,2);
+                                }else {
+                                    doHandlerPhoto(PIC_FROM_CAMERA);// 用户点击了从照相机获取
+                                }
+
+                                break;
+                        }
+                    }
+                }).show();
     }
 
-    public void cropPhoto(Uri uri) {
+    private void doHandlerPhoto(int type)
+    {
+
+        try
+        {
+
+            //sd卡根目录
+            picFile = new File(context.getExternalCacheDir(), "upload.jpeg");
+            Log.v("path",context.getExternalCacheDir().toString());
+            Log.v("path",picFile.getPath());
+            // 文件不存在就创建
+
+
+            if (!picFile.exists()) {
+                picFile.createNewFile();
+            }
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+            Log.i("HandlerPicError", "处理图片出现错误");
+            return;
+        }
+            // photoUri标识着图片地址
+            photoUri = FileProvider.getUriForFile(context,getPackageName()+ ".fileprovider",picFile);
+
+            if (type==PIC_FROM_LOCALPHOTO)
+            {
+                Intent intent = getChooseImageIntent();
+                startActivityForResult(intent, PIC_FROM_LOCALPHOTO);
+            }else if (type == PIC_FROM_CAMERA){
+                // 隐式调用照相机程序
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                cameraIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                cameraIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                // 拍下的照片会被输入到upload.jpeg里面
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                Log.e("MainActivity", "doHandlerPhoto: "+MediaStore.EXTRA_OUTPUT );
+                startActivityForResult(cameraIntent, PIC_FROM_CAMERA);
+            }
+
+
+    }
+
+    /**
+     * 调用图片剪辑程序
+     */
+    public Intent getChooseImageIntent() {
+      /*//原始代码---
+      Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
+      intent.setType("image");
+       Log.e("MainActivity", "可以使用路径: "+photoUri );
+      setIntentParams(intent);
+      return intent;*/
+// 修改后的代码
+        Intent intent = new Intent("android.intent.action.GET_CONTENT");
+        intent.setType("image/*");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+        // file:///storage/emulated/0/upload/upload.jpeg
+        return intent;
+    }
+
+    /**
+     * 启动裁剪
+     */
+    private void cropImageUriByTakePhoto() {
+        // 此处启动裁剪程序
         Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uri, "image/*");
+        intent.setDataAndType(photoUri, "image/*");
+        setIntentParams(intent);
+        startActivityForResult(intent, PIC_FROM_CROP);
+        Log.v("crop","here");
+    }
+
+    /**
+     * 设置公用参数
+     */
+    private void setIntentParams(Intent intent)
+    {
         intent.putExtra("crop", "true");
-// aspectX aspectY 是宽高的比例
         intent.putExtra("aspectX", 1);
         intent.putExtra("aspectY", 1);
+        intent.putExtra("outputX", 250);
+        intent.putExtra("outputY", 250);
+        intent.putExtra("noFaceDetection", true); // no face detection
         intent.putExtra("scale", true);
-// outputX outputY 是裁剪图片宽高
-        intent.putExtra("outputX", 150);
-        intent.putExtra("outputY", 150);
-        intent.putExtra("return-data", true);
-        intent.putExtra("noFaceDetection", true);
+        intent.putExtra("return-data", false);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT,photoUri);
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-        startActivityForResult(intent, CROP_PHOTO);
     }
-
 }
