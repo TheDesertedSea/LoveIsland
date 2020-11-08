@@ -75,6 +75,7 @@ public class PersonalInfoHttp {
             }
 
             Gson gson=new Gson();
+            Log.v("personalInfo",responseBody.string());
             String responseHttp=gson.fromJson(responseBody.string(),String.class);
             Log.v("responseJson/personalInfo",responseHttp);
 

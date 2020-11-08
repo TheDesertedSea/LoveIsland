@@ -43,6 +43,10 @@ import com.yalantis.ucrop.UCrop;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class EditPersonalInfoActivity extends AppCompatActivity {
 
@@ -187,10 +191,27 @@ public class EditPersonalInfoActivity extends AppCompatActivity {
         switch (requestCode)
         {
                 case PIC_FROM_CAMERA: // 拍照
+                    try
+                    {
+                        cropImageUriByTakePhoto(photoUri);
+                    } catch (Exception e)
+                    {
+                        e.printStackTrace();
+                    }
+                    break;
             case PIC_FROM_LOCALPHOTO:// 相册
                 try
                     {
-                        cropImageUriByTakePhoto();
+                        Log.v("uri1",data.getData().getPath());
+                        Log.v("uri2",photoUri.getPath());
+                        Uri uri=FileProvider.getUriForFile(context,getPackageName()+
+                                ".fileprovider",new File(handleImageOnKitKat(data.getData())));
+                        Log.v("uri3",uri.getPath());
+                        Bitmap bitmap=MediaStore.Images.Media.getBitmap(this.getContentResolver(), data.getData());
+                        FileOutputStream fileOutputStream = new FileOutputStream(picFile);
+                        bitmap.compress(Bitmap.CompressFormat.JPEG,100,fileOutputStream);
+                        cropImageUriByTakePhoto(photoUri);
+
                     } catch (Exception e)
                     {
                         e.printStackTrace();
@@ -198,9 +219,12 @@ public class EditPersonalInfoActivity extends AppCompatActivity {
                     break;
             case PIC_FROM_CROP:
                 Log.v("rt","finish");
-                Glide.with(context)
-                        .load(Uri.fromFile(picFile))
-                        .into(binding.UserIcon);
+                try {
+                    Bitmap bitmap=MediaStore.Images.Media.getBitmap(this.getContentResolver(), photoUri);
+                    binding.UserIcon.setImageBitmap(bitmap);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
@@ -227,6 +251,17 @@ public class EditPersonalInfoActivity extends AppCompatActivity {
             default:
 
         }
+    }
+
+    private Bitmap decodeUriAsBitmap(Uri uri){
+        Bitmap bitmap = null;
+        try {
+            bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return bitmap;
     }
 
     //如果为content格式的获取方式
@@ -269,46 +304,6 @@ public class EditPersonalInfoActivity extends AppCompatActivity {
         }
         return imagePath;
     }
-
-//    private Bitmap drawableToBitmap(Drawable drawable) {
-//        if(drawable==null)
-//        {
-//            return null;
-//        }
-//        Bitmap bitmap;
-//        int w = drawable.getIntrinsicWidth();
-//        int h = drawable.getIntrinsicHeight();
-//        System.out.println("Drawable转Bitmap");
-//        Bitmap.Config config =
-//                drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
-//                        : Bitmap.Config.RGB_565;
-//        bitmap = Bitmap.createBitmap(w,h,config);
-//        //注意，下面三行代码要用到，否在在View或者surfaceview里的canvas.drawBitmap会看不到图
-//        Canvas canvas = new Canvas(bitmap);
-//        drawable.setBounds(0, 0, w, h);
-//        drawable.draw(canvas);
-//        return bitmap;
-//    }
-
-//    public void cropPhoto(Uri uri,Uri tempPhotoUri) {
-//        Log.v("rt",uri.toString());
-//        Intent intent = new Intent("com.android.camera.action.CROP");
-//        intent.setDataAndType(uri, "image/*");
-//        Log.v("rt",handleImageOnKitKat(uri));
-//        intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
-//        intent.putExtra("crop", "true");
-//// aspectX aspectY 是宽高的比例
-//        intent.putExtra("aspectX", 1);
-//        intent.putExtra("aspectY", 1);
-//        intent.putExtra("scale", true);
-//// outputX outputY 是裁剪图片宽高
-//        intent.putExtra("outputX", 250);
-//        intent.putExtra("outputY", 250);
-//        intent.putExtra("return-data", false);
-//        intent.putExtra("noFaceDetection", true);
-//        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-//        startActivityForResult(intent, CROP_PHOTO);
-//    }
 
     private void showDialog() {
         // TODO Auto-generated method stub
@@ -399,11 +394,10 @@ public class EditPersonalInfoActivity extends AppCompatActivity {
       setIntentParams(intent);
       return intent;*/
 // 修改后的代码
-        Intent intent = new Intent("android.intent.action.GET_CONTENT");
+        Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
         intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
         // file:///storage/emulated/0/upload/upload.jpeg
         return intent;
     }
@@ -411,10 +405,10 @@ public class EditPersonalInfoActivity extends AppCompatActivity {
     /**
      * 启动裁剪
      */
-    private void cropImageUriByTakePhoto() {
+    private void cropImageUriByTakePhoto(Uri uri) {
         // 此处启动裁剪程序
         Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(photoUri, "image/*");
+        intent.setDataAndType(uri, "image/*");
         setIntentParams(intent);
         startActivityForResult(intent, PIC_FROM_CROP);
         Log.v("crop","here");
