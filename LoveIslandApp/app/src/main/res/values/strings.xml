@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">LoveIslandApp</string>
+    <string name="CheckMaleHint">男</string>
+    <string name="CheckFemaleHint">女</string>
+    <string name="SignupButtonText">注册</string>
+    <string name="NewNicknameHint">昵称</string>
+    <string name="SchoolInputHint">所在院校</string>
+    <string name="NewPasswordInputRepeatHint">再次输入密码</string>
+    <string name="NewPasswordInputHint">密码</string>
+    <string name="NewUsernameInputHint">邮箱地址</string>
+    <string name="LoginButtonText">登录</string>
+    <string name="UsernameInputHint">邮箱地址</string>
+    <string name="PasswordInputHint">密码</string>
+    <string name="AppName">LoveIsland</string>
+    <string name="GotoSignupButtonText">注册</string>
+    <string name="SexTextViewText">性别</string>
+</resources>

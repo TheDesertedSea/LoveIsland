@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.personalCenter.edit.EditPersonalInfoActivity">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/UserIcon"
+        android:layout_width="98dp"
+        android:layout_height="106dp"
+        android:src="@drawable/icon"
+        app:civ_border_color="#FFF00000"
+        app:civ_border_width="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.078" />
+
+    <EditText
+        android:id="@+id/EditTextNickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/UserIcon" />
+
+    <EditText
+        android:id="@+id/EditTextIntroduction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="52dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditTextSchool" />
+
+    <EditText
+        android:id="@+id/EditTextSchool"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/EditTextNickname" />
+
+    <TextView
+        android:id="@+id/EditNickNameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="昵称"
+        app:layout_constraintBottom_toTopOf="@+id/EditTextNickname"
+        app:layout_constraintStart_toStartOf="@+id/EditTextNickname" />
+
+    <TextView
+        android:id="@+id/EditSchoolTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="学校"
+        app:layout_constraintBottom_toTopOf="@+id/EditTextSchool"
+        app:layout_constraintStart_toStartOf="@+id/EditTextSchool" />
+
+    <TextView
+        android:id="@+id/EditIntroductionTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="个人简介"
+        app:layout_constraintBottom_toTopOf="@+id/EditTextIntroduction"
+        app:layout_constraintStart_toStartOf="@+id/EditTextIntroduction" />
+
+    <Button
+        android:id="@+id/SaveEditButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="保存"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/EditIconButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="28dp"
+        android:text="编辑头像"
+        app:layout_constraintStart_toEndOf="@+id/UserIcon"
+        app:layout_constraintTop_toTopOf="@+id/UserIcon" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
