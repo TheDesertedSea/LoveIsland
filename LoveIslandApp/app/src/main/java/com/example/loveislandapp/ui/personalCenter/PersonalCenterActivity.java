@@ -12,6 +12,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
 import com.example.loveislandapp.data.LoginedUser;
 import com.example.loveislandapp.databinding.ActivityPersonalCenterBinding;
 import com.example.loveislandapp.http.PersonalInfoHttp;
@@ -52,50 +53,55 @@ public class PersonalCenterActivity extends AppCompatActivity {
         //加载用户头像
         String iconUrl=baseUrl+loginedUser.getUid();
 
-
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                PersonalInfoHttp.PersonalInfoResult personalInfoResult= personalInfoHttp.getPersonalInfo(loginedUser.getUid());
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Bitmap bitmap = null;
-                        try {
-                            File tempFile=File.createTempFile("temp","temp");
-                            FileOutputStream fileOutputStream=new FileOutputStream(tempFile);
-                            fileOutputStream.write(personalInfoResult.image);
-                            bitmap=BitmapFactory.decodeFile(tempFile.getPath());
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+        Glide.with(context)
+                .load("http://192.168.1.102:30010/")
+                .into(binding.UserIcon);
 
 
 
-                            binding.UserIcon.setImageBitmap(bitmap);
 
-//                        binding.UserIcon.setImageBitmap(bitmap);
-//                        if(personalInfoResult.sex)
-//                        {
-//                            Glide.with(context)
-//                                    .load(R.drawable.male)
-//                                    .into(binding.MaleFemaleImage);
-//                        }else
-//                        {
-//                            Glide.with(context)
-//                                    .load(R.drawable.female)
-//                                    .into(binding.MaleFemaleImage);
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                PersonalInfoHttp.PersonalInfoResult personalInfoResult= personalInfoHttp.getPersonalInfo(loginedUser.getUid());
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Bitmap bitmap = null;
+//                        try {
+//                            File tempFile=File.createTempFile("temp","temp");
+//                            FileOutputStream fileOutputStream=new FileOutputStream(tempFile);
+//                            fileOutputStream.write(personalInfoResult.image);
+//                            bitmap=BitmapFactory.decodeFile(tempFile.getPath());
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
 //                        }
-//                        binding.NickNamePersonalCenter.setText(loginedUser.getNickname());
-//                        binding.SchoolPersonalCenter.setText(personalInfoResult.school);
-//                        binding.Introduction.setText(personalInfoResult.introduction);
-                        binding.EditInfoButton.setEnabled(true);
-                    }
-                });
-
-            }
-        }).start();
+//
+//
+//
+//                            binding.UserIcon.setImageBitmap(bitmap);
+//
+////                        binding.UserIcon.setImageBitmap(bitmap);
+////                        if(personalInfoResult.sex)
+////                        {
+////                            Glide.with(context)
+////                                    .load(R.drawable.male)
+////                                    .into(binding.MaleFemaleImage);
+////                        }else
+////                        {
+////                            Glide.with(context)
+////                                    .load(R.drawable.female)
+////                                    .into(binding.MaleFemaleImage);
+////                        }
+////                        binding.NickNamePersonalCenter.setText(loginedUser.getNickname());
+////                        binding.SchoolPersonalCenter.setText(personalInfoResult.school);
+////                        binding.Introduction.setText(personalInfoResult.introduction);
+//                        binding.EditInfoButton.setEnabled(true);
+//                    }
+//                });
+//
+//            }
+//        }).start();
 
         //进行编辑将已加载个人信息传递过去
         binding.EditInfoButton.setOnClickListener(new View.OnClickListener() {

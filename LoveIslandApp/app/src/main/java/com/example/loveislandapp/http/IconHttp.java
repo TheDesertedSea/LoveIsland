@@ -23,6 +23,7 @@ import java.net.URI;
 import java.nio.ByteBuffer;
 
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -31,7 +32,7 @@ import okhttp3.ResponseBody;
 
 public class IconHttp {
     private static final String baseUrl
-            = "http://192.168.1.112:30010/userPortrait";
+            = "http://192.168.1.102:8080/upload";
     private OkHttpClient client = new OkHttpClient();
     public static final String testUrl
             = "http://10.0.2.2:20000";
@@ -48,11 +49,16 @@ public class IconHttp {
         requestContent.image=image;
         Gson gson=new Gson();
 
-        RequestBody requestBody=RequestBody.create(gson.toJson(requestContent),MediaType.get("application/json; charset=utf-8"));
+        RequestBody requestBody=RequestBody.create(picFile,MediaType.get("image/jpeg"));
         Log.v("requestBodyContent",String.valueOf(requestBody.toString()));
+        MultipartBody multipartBody=new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("photo","photo.jpeg",requestBody)
+                .build();
+
         Request request=new Request.Builder()
                 .url(baseUrl)
-                .post(requestBody)
+                .post(multipartBody)
                 .build();
         try{
             Response response = client.newCall(request).execute();

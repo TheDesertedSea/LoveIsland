@@ -31,6 +31,7 @@
         </provider>
 
         <activity android:name=".ui.personalCenter.edit.EditPersonalInfoActivity" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
