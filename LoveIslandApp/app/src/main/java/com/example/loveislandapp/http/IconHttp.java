@@ -1,18 +1,26 @@
 package com.example.loveislandapp.http;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.util.Log;
 
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.net.URI;
+import java.nio.ByteBuffer;
 
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -23,21 +31,27 @@ import okhttp3.ResponseBody;
 
 public class IconHttp {
     private static final String baseUrl
-            = "http://192.168.1.102:30010/usericon/";
+            = "http://192.168.1.112:30010/userPortrait";
     private OkHttpClient client = new OkHttpClient();
     public static final String testUrl
             = "http://10.0.2.2:20000";
 
-    public boolean setIcon(File picfile, String uid)
-    {
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeFile(picfile.getPath(), options);
-        String type = options.outMimeType;
-        Log.v("imageType",type);
-        RequestBody requestBody=RequestBody.create(picfile, MediaType.parse(type));
+    class RequestContent{
+        byte[] image;
+    }
+
+    public boolean setIcon(File picFile) throws IOException {
+        FileInputStream fis = new FileInputStream(picFile);
+        byte[] image=new byte[fis.available()];
+        fis.read(image);
+        RequestContent requestContent=new RequestContent();
+        requestContent.image=image;
+        Gson gson=new Gson();
+
+        RequestBody requestBody=RequestBody.create(gson.toJson(requestContent),MediaType.get("application/json; charset=utf-8"));
+        Log.v("requestBodyContent",String.valueOf(requestBody.toString()));
         Request request=new Request.Builder()
-                .url(baseUrl+uid)
+                .url(baseUrl)
                 .post(requestBody)
                 .build();
         try{
@@ -47,9 +61,7 @@ public class IconHttp {
             {
                 return false;
             }
-            Gson gson=new Gson();
-            String responseHttp=gson.fromJson(responseBody.string(),String.class);
-            Log.v("responseJson/icon",responseHttp);
+            Log.v("responseJson/icon",responseBody.string());
 
             return true;
 
@@ -58,6 +70,41 @@ public class IconHttp {
             return false;
         }
     }
+
+//    public boolean setIcon(Uri uri, String uid, Context context) throws IOException {
+//        Bitmap bitmap= MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+//
+//        int bytes = bitmap.getByteCount();
+//        Log.v("bytecount",String.valueOf(bitmap.getByteCount()));
+//        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+//        bitmap.compress(Bitmap.CompressFormat.JPEG,100,byteArrayOutputStream);
+//        Log.v("streamContent",byteArrayOutputStream.toString("UTF-8"));
+//
+//
+//
+//        RequestBody requestBody=RequestBody.create(json,MediaType.get("application/json; charset=utf-8"));
+//
+//        Log.v("requestBodyContent",String.valueOf(requestBody.contentLength()));
+//        Request request=new Request.Builder()
+//                .url(baseUrl)
+//                .post(requestBody)
+//                .build();
+//        try{
+//            Response response = client.newCall(request).execute();
+//            ResponseBody responseBody=response.body();
+//            if(responseBody==null) //报文体为空
+//            {
+//                return false;
+//            }
+//            Log.v("responseJson/icon",responseBody.string());
+//
+//            return true;
+//
+//        }catch(IOException e)
+//        {
+//            return false;
+//        }
+//    }
 
     private byte[] bitmap2Bytes(Bitmap bm){
         if(bm==null)

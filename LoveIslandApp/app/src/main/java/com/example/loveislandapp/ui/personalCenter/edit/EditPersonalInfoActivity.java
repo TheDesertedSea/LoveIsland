@@ -55,7 +55,7 @@ public class EditPersonalInfoActivity extends AppCompatActivity {
 
     private String[] items = new String[] { "相册", "拍照" };
     private static final String baseUrl
-            = "http://192.168.1.102:30010/usericon/";
+            = "http://192.168.1.112:30010/uers/userPortrait";
     private LoginedUser loginedUser=LoginedUser.getInstance();
 
     private ActivityEditPersonalInfoBinding binding;
@@ -228,22 +228,26 @@ public class EditPersonalInfoActivity extends AppCompatActivity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        if(iconHttp.setIcon(picFile,loginedUser.getUid()))
-                        {
-                         runOnUiThread(new Runnable() {
-                             @Override
-                             public void run() {
-                                 Toast.makeText(context,"修改成功",Toast.LENGTH_SHORT).show();
-                             }
-                         });
-                        }else
-                        {
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Toast.makeText(context,"修改失败",Toast.LENGTH_SHORT).show();
-                                }
-                            });
+                        try {
+                            if(iconHttp.setIcon(picFile))
+                            {
+                             runOnUiThread(new Runnable() {
+                                 @Override
+                                 public void run() {
+                                     Toast.makeText(context,"修改成功",Toast.LENGTH_SHORT).show();
+                                 }
+                             });
+                            }else
+                            {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(context,"修改失败",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
                     }
                 }).start();

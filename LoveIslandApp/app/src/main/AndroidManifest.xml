@@ -17,11 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LoveIslandApp">
         <activity android:name=".ui.chat.ChatActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <provider
@@ -34,7 +30,13 @@
                 android:resource="@xml/file_paths" />
         </provider>
 
-        <activity android:name=".ui.personalCenter.edit.EditPersonalInfoActivity" />
+        <activity android:name=".ui.personalCenter.edit.EditPersonalInfoActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.signup.SignupActivity" />
         <activity android:name=".ui.personalCenter.PersonalCenterActivity">
 

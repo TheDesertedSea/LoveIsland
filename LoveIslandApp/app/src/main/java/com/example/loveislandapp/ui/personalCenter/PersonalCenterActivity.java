@@ -5,28 +5,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 
-import com.bumptech.glide.Glide;
-import com.example.loveislandapp.R;
 import com.example.loveislandapp.data.LoginedUser;
-import com.example.loveislandapp.databinding.ActivityLoginBinding;
 import com.example.loveislandapp.databinding.ActivityPersonalCenterBinding;
-import com.example.loveislandapp.http.LoginHttp;
 import com.example.loveislandapp.http.PersonalInfoHttp;
 import com.example.loveislandapp.ui.personalCenter.edit.EditPersonalInfoActivity;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Base64;
 
 public class PersonalCenterActivity extends AppCompatActivity {
 
     private static final String baseUrl
-            = "http://192.168.1.102:30010/usericon/";
+            = "http://192.168.1.112:30010/usericon/";
     private LoginedUser loginedUser=LoginedUser.getInstance();
 
     private ActivityPersonalCenterBinding binding;
@@ -52,9 +52,6 @@ public class PersonalCenterActivity extends AppCompatActivity {
         //加载用户头像
         String iconUrl=baseUrl+loginedUser.getUid();
 
-        Glide.with(context)
-                .load(iconUrl)
-                .into(binding.UserIcon);
 
 
         new Thread(new Runnable() {
@@ -64,20 +61,35 @@ public class PersonalCenterActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if(personalInfoResult.sex)
-                        {
-                            Glide.with(context)
-                                    .load(R.drawable.male)
-                                    .into(binding.MaleFemaleImage);
-                        }else
-                        {
-                            Glide.with(context)
-                                    .load(R.drawable.female)
-                                    .into(binding.MaleFemaleImage);
+                        Bitmap bitmap = null;
+                        try {
+                            File tempFile=File.createTempFile("temp","temp");
+                            FileOutputStream fileOutputStream=new FileOutputStream(tempFile);
+                            fileOutputStream.write(personalInfoResult.image);
+                            bitmap=BitmapFactory.decodeFile(tempFile.getPath());
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
-                        binding.NickNamePersonalCenter.setText(loginedUser.getNickname());
-                        binding.SchoolPersonalCenter.setText(personalInfoResult.school);
-                        binding.Introduction.setText(personalInfoResult.introduction);
+
+
+
+                            binding.UserIcon.setImageBitmap(bitmap);
+
+//                        binding.UserIcon.setImageBitmap(bitmap);
+//                        if(personalInfoResult.sex)
+//                        {
+//                            Glide.with(context)
+//                                    .load(R.drawable.male)
+//                                    .into(binding.MaleFemaleImage);
+//                        }else
+//                        {
+//                            Glide.with(context)
+//                                    .load(R.drawable.female)
+//                                    .into(binding.MaleFemaleImage);
+//                        }
+//                        binding.NickNamePersonalCenter.setText(loginedUser.getNickname());
+//                        binding.SchoolPersonalCenter.setText(personalInfoResult.school);
+//                        binding.Introduction.setText(personalInfoResult.introduction);
                         binding.EditInfoButton.setEnabled(true);
                     }
                 });
