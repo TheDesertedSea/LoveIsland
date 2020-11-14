@@ -42,18 +42,19 @@ public class IconHttp {
     }
 
     public boolean setIcon(File picFile) throws IOException {
-        FileInputStream fis = new FileInputStream(picFile);
-        byte[] image=new byte[fis.available()];
-        fis.read(image);
-        RequestContent requestContent=new RequestContent();
-        requestContent.image=image;
-        Gson gson=new Gson();
+//        FileInputStream fis = new FileInputStream(picFile);
+//        byte[] image=new byte[fis.available()];
+//        fis.read(image);
+//        RequestContent requestContent=new RequestContent();
+//        requestContent.image=image;
+//        Gson gson=new Gson();
 
         RequestBody requestBody=RequestBody.create(picFile,MediaType.get("image/jpeg"));
         Log.v("requestBodyContent",String.valueOf(requestBody.toString()));
         MultipartBody multipartBody=new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("photo","photo.jpeg",requestBody)
+                .addFormDataPart("uid","sdfsd")
                 .build();
 
         Request request=new Request.Builder()
