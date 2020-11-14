@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -16,10 +17,13 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.loveislandapp.R;
+import com.example.loveislandapp.data.LoginedUser;
 import com.example.loveislandapp.data.Msg;
 import com.example.loveislandapp.databinding.ActivityChatBinding;
 
@@ -113,7 +117,11 @@ public class ChatActivity extends AppCompatActivity {
         });
         LinearLayoutManager layoutManager = new LinearLayoutManager(context);
         binding.msgRecyclerView.setLayoutManager(layoutManager);
-        adapter = new MsgAdapter(msgList);
+        ImageView imageView=findViewById(R.id.chatTargetIcon);
+        TextView textView=findViewById(R.id.text_room);
+        Glide.with(context).load("http://192.168.1.112:30010/userInfo").into(imageView);
+        textView.setText(LoginedUser.getInstance().getNickname());
+        adapter = new MsgAdapter(msgList,imageView.getDrawingCache(),imageView.getDrawingCache());
         binding.msgRecyclerView.setAdapter(adapter);
         new Thread(new Runnable(){
             @Override
