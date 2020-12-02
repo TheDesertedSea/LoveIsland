@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3E00FF7B"
+    android:backgroundTint="#41BC7C7C"
+    tools:context=".ui.personal_center.PersonalCenterFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_zone_personal_center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#16C8FF00"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/user_icon"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/ic_confession_black_24dp"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+
+            />
+
+        <ImageButton
+            android:id="@+id/button_edit_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_marginRight="50dp"
+            android:backgroundTint="#195A756D"
+            android:src="@drawable/ic_edit_black_36dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/nick_name_personal_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="荒海"
+            android:textSize="28sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/user_icon" />
+
+        <TextView
+            android:id="@+id/sex_school_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="男生，电子科技大学"
+            android:textSize="20sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/nick_name_personal_center" />
+
+        <TextView
+            android:id="@+id/intro_personal_center"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="荒海，遥远天边的旅人。周游四海，只为寻求那传说中的冰山宝石？冰山何在，绿林存乎？"
+            android:textSize="14sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sex_school_center" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0C31CFCF"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/top_zone_personal_center">
+
+        <ImageButton
+            android:id="@+id/button_my_confession"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#19594F4F"
+            android:src="@drawable/ic_my_confession_black_64dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.25"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_button_m_c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的表白"
+            app:layout_constraintLeft_toLeftOf="@id/button_my_confession"
+            app:layout_constraintRight_toRightOf="@id/button_my_confession"
+            app:layout_constraintTop_toBottomOf="@id/button_my_confession" />
+
+        <ImageButton
+            android:id="@+id/button_my_discussion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#19594F4F"
+            android:src="@drawable/ic_my_discussion_black_64dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.75"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_button_m_d"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的讨论"
+            app:layout_constraintLeft_toLeftOf="@id/button_my_discussion"
+            app:layout_constraintRight_toRightOf="@id/button_my_discussion"
+            app:layout_constraintTop_toBottomOf="@id/button_my_discussion" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

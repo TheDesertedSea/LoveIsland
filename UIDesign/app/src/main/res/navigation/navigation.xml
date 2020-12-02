@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@+id/navigation_confession">
+
+    <fragment
+        android:id="@+id/navigation_confession"
+        android:name="com.example.uidesign.ui.confession.ConfessionFragment"
+        android:label="表白"
+        tools:layout="@layout/fragment_confession" />
+
+    <fragment
+        android:id="@+id/navigation_discussion"
+        android:name="com.example.uidesign.ui.discussion.DiscussionFragment"
+        android:label="讨论"
+        tools:layout="@layout/fragment_discussion" />
+
+    <fragment
+        android:id="@+id/navigation_lucky_card"
+        android:name="com.example.uidesign.ui.lucky_card.LuckyCardFragment"
+        android:label="幸运卡片"
+        tools:layout="@layout/fragment_lucky_card" />
+
+    <fragment
+        android:id="@+id/navigation_notifications"
+        android:name="com.example.uidesign.ui.notifications.NotificationsFragment"
+        android:label="消息"
+        tools:layout="@layout/fragment_notifications" />
+
+    <fragment
+        android:id="@+id/navigation_personal_center"
+        android:name="com.example.uidesign.ui.personal_center.PersonalCenterFragment"
+        android:label="我的"
+        tools:layout="@layout/fragment_personal_center" />
+</navigation>

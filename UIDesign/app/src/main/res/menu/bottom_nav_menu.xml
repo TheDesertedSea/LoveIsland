@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_confession"
+        android:icon="@drawable/ic_confession_black_24dp"
+        android:title="表白" />
+
+    <item
+        android:id="@+id/navigation_discussion"
+        android:icon="@drawable/ic_discussion_black_24dp"
+        android:title="讨论" />
+
+    <item
+        android:id="@+id/navigation_lucky_card"
+        android:icon="@drawable/ic_lucky_card_black_24dp"
+        android:title="幸运卡片" />
+
+    <item
+        android:id="@+id/navigation_notifications"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="消息" />
+
+    <item
+        android:id="@+id/navigation_personal_center"
+        android:icon="@drawable/ic_mine_black_24dp"
+        android:title="我的" />
+
+</menu>

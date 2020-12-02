@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_1"
+    android:layout_width="150dp"
+    android:layout_height="200dp"
+    app:cardBackgroundColor="#5677FF00"
+    app:cardCornerRadius="6dp">
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/card_button_1"
+        android:layout_width="145dp"
+        android:layout_height="195dp"
+        android:layout_marginLeft="2.5dp"
+        android:layout_marginTop="2.5dp"
+        android:background="#3900EAD6"
+        android:text="卡片内容" />
+
+</androidx.cardview.widget.CardView>
