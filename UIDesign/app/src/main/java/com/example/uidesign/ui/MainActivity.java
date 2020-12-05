@@ -1,5 +1,7 @@
 package com.example.uidesign.ui;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
 import com.example.uidesign.R;
@@ -14,6 +16,7 @@ import androidx.navigation.ui.NavigationUI;
 public class MainActivity extends BaseActivity {
 
     private ActivityMainBinding binding;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

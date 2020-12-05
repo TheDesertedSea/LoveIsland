@@ -31,6 +31,7 @@
         app:mtf_image="@drawable/ic_email_black_24dp">
 
         <EditText
+            android:id="@+id/username_input_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
@@ -52,6 +53,7 @@
         app:mtf_image="@drawable/ic_key_black_24dp">
 
         <EditText
+            android:id="@+id/password_input_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
