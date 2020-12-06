@@ -1,6 +1,18 @@
 package com.example.uidesign.net;
 
+import com.google.gson.Gson;
+
+import java.io.IOException;
+
+import okhttp3.HttpUrl;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+
 public class NetLogin {
+    private static final boolean DEBUG=true;
+
     private static final String format=":30010/login/login?mailbox=****&password=****&time=****";
     private static final String serverIp="";
     private static final String baseUrl=serverIp+":30010/login/login";
@@ -16,9 +28,45 @@ public class NetLogin {
     public static final String ERROR_INFO_WRONG="用户名或密码错误";
     public static final String ERROR_OTHER_FAIL="登录失败";
 
+    public class ResponseClass
+    {
+        
+    }
+
     public int login(String username,String password)
     {
+        if(DEBUG)
+        {
+            return OK;
+        }
 
-        return OK;
+        OkHttpClient client=new OkHttpClient();
+
+        String url=baseUrl+"?mailbox="+username+"&password="+password+"&time="+System.currentTimeMillis();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .build();
+
+        try
+        {
+            Response response=client.newCall(request).execute();
+            ResponseBody responseBody=response.body();
+            if(responseBody==null)
+            {
+                return OTHER_FAIL;
+            }
+            String responseJson=responseBody.string();
+            Gson gson=new Gson();
+            gson.fromJson(responseJson,)
+        }catch (IOException e)
+        {
+
+        }
+
+
+
     }
+
+
 }

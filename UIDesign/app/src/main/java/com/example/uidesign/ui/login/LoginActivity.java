@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.uidesign.data.CachedLoginData;
 import com.example.uidesign.net.NetLogin;
 import com.example.uidesign.tool.InputFormatCheck;
 import com.example.uidesign.ui.BaseActivity;
@@ -46,9 +47,12 @@ public class LoginActivity extends BaseActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                CachedLoginData cachedLoginData=new CachedLoginData(thisContext);
                                 switch(result)
                                 {
                                     case NetLogin.OK:
+                                        cachedLoginData.saveCachedLoginData(binding.usernameInputText.getText().toString(),
+                                                binding.passwordInputText.getText().toString());
                                         binding.LoginButtonLoginActivity.stopAnimation(TransitionButton.StopAnimationStyle.EXPAND, new TransitionButton.OnAnimationStopEndListener() {
                                             @Override
                                             public void onAnimationStopEnd() {
@@ -60,16 +64,30 @@ public class LoginActivity extends BaseActivity {
                                         });
                                         break;
                                     case NetLogin.DUPLICATE_LOGIN:
-                                        binding.LoginButtonLoginActivity.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null);
-                                        Toast.makeText(thisContext,NetLogin.ERROR_DUPLICATE_LOGIN,Toast.LENGTH_SHORT);
+                                        cachedLoginData.saveCachedLoginData(binding.usernameInputText.getText().toString(),
+                                                binding.passwordInputText.getText().toString());
+                                        binding.LoginButtonLoginActivity.stopAnimation(TransitionButton.StopAnimationStyle.EXPAND, new TransitionButton.OnAnimationStopEndListener() {
+                                            @Override
+                                            public void onAnimationStopEnd() {
+                                                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                                startActivity(intent);
+                                                thisActivity.finish();
+                                            }
+                                        });
+                                        Toast.makeText(thisContext,NetLogin.ERROR_DUPLICATE_LOGIN,Toast.LENGTH_SHORT).show();
                                         break;
                                     case NetLogin.INFO_WRONG:
+                                        cachedLoginData.saveCachedLoginData("",
+                                                "");
                                         binding.LoginButtonLoginActivity.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null);
-                                        Toast.makeText(thisContext,NetLogin.ERROR_INFO_WRONG,Toast.LENGTH_SHORT);
+                                        Toast.makeText(thisContext,NetLogin.ERROR_INFO_WRONG,Toast.LENGTH_SHORT).show();
                                         break;
                                     case NetLogin.OTHER_FAIL:
+                                        cachedLoginData.saveCachedLoginData("",
+                                                "");
                                         binding.LoginButtonLoginActivity.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null);
-                                        Toast.makeText(thisContext,NetLogin.ERROR_OTHER_FAIL,Toast.LENGTH_SHORT);
+                                        Toast.makeText(thisContext,NetLogin.ERROR_OTHER_FAIL,Toast.LENGTH_SHORT).show();
                                         break;
                                 }
                             }
