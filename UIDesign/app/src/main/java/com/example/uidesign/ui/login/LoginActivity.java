@@ -162,7 +162,7 @@ public class LoginActivity extends BaseActivity {
         binding.SignUpTextViewLoginActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(), SignUpActivity.class);
+                Intent intent = new Intent(thisContext, SignUpActivity.class);
                 startActivity(intent);
             }
         });

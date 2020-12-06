@@ -2,6 +2,7 @@ package com.example.uidesign.net;
 
 import android.util.Log;
 
+import com.example.uidesign.data.CachedLoginData;
 import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.data.UserSocketManager;
 import com.google.gson.Gson;
@@ -95,6 +96,5 @@ public class NetLogin {
         }
 
     }
-
 
 }
