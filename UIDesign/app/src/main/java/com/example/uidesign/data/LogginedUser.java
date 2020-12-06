@@ -10,10 +10,11 @@ public class LogginedUser {
         }
         return instance;
     }
-    private String uid;
+    private int uid;
     private String nickName;
+    private String token;
 
-    public String getUid() {
+    public int getUid() {
         return uid;
     }
 
@@ -21,7 +22,9 @@ public class LogginedUser {
         return nickName;
     }
 
-    public void setUid(String e)
+    public String getToken(){ return token;}
+
+    public void setUid(int e)
     {
         uid=e;
     }
@@ -30,4 +33,6 @@ public class LogginedUser {
     {
         nickName=e;
     }
+
+    public void setToken(String e){token=e;}
 }
