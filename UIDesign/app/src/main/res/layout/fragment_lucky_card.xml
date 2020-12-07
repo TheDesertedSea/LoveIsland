@@ -22,7 +22,7 @@
         app:layout_constraintVertical_bias="0.05">
 
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/card_button_1"
             android:layout_width="145dp"
             android:layout_height="195dp"
@@ -47,7 +47,7 @@
         app:layout_constraintTop_toTopOf="@id/card_1">
 
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/card_button_2"
             android:layout_width="145dp"
             android:layout_height="195dp"
@@ -72,7 +72,7 @@
         app:layout_constraintVertical_bias="0.45">
 
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/card_button_3"
             android:layout_width="145dp"
             android:layout_height="195dp"
@@ -96,7 +96,7 @@
         app:layout_constraintTop_toTopOf="@id/card_3">
 
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/card_button_4"
             android:layout_width="145dp"
             android:layout_height="195dp"
@@ -121,7 +121,7 @@
         app:layout_constraintVertical_bias="0.85">
 
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/card_button_5"
             android:layout_width="145dp"
             android:layout_height="195dp"
@@ -145,7 +145,7 @@
         app:layout_constraintTop_toTopOf="@id/card_5">
 
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/card_button_6"
             android:layout_width="145dp"
             android:layout_height="195dp"
