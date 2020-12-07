@@ -7,6 +7,16 @@
     android:background="#1700FFFF"
     tools:context=".ui.sign_up.SignUpActivity">
 
+    <Button
+        android:id="@+id/sign_up_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="注册"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/school_input_layout" />
+
     <ImageButton
         android:id="@+id/back_button"
         android:layout_width="wrap_content"

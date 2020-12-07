@@ -26,8 +26,8 @@ import com.royrodriguez.transitionbutton.TransitionButton;
 public class LoginActivity extends BaseActivity {
 
     private ActivityLoginBinding binding;
-    private Activity thisActivity=this;
-    private Context thisContext=this;
+    private final Activity thisActivity=this;
+    private final Context thisContext=this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,39 +98,6 @@ public class LoginActivity extends BaseActivity {
             }
         });
 
-        binding.usernameInputText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                InputFormatCheck inputFormatCheck=new InputFormatCheck();
-                int result=inputFormatCheck.checkPassword(binding.usernameInputText.getText().toString());
-                switch(result)
-                {
-                    case InputFormatCheck.OK:
-                        binding.LoginButtonLoginActivity.setEnabled(true);
-                        return;
-                    case InputFormatCheck.PWD_MAX_LENGTH:
-                        binding.usernameInputText.setError(InputFormatCheck.ERROR_PWD_OVER_LENGTH);
-                        break;
-                    case InputFormatCheck.PWD_BELOW_LENGTH:
-                        binding.usernameInputText.setError(InputFormatCheck.ERROR_PWD_BELOW_LENGTH);
-                        break;
-                    case InputFormatCheck.PWD_FORMAT_WRONG:
-                        binding.usernameInputText.setError(InputFormatCheck.ERROR_PWD_FORMAT_WRONG);
-                }
-                binding.LoginButtonLoginActivity.setEnabled(false);
-            }
-        });
-
         binding.passwordInputText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -149,12 +116,42 @@ public class LoginActivity extends BaseActivity {
                 switch(result)
                 {
                     case InputFormatCheck.OK:
-                        binding.LoginButtonLoginActivity.setEnabled(true);
+                        return;
+                    case InputFormatCheck.PWD_MAX_LENGTH:
+                        binding.usernameInputText.setError(InputFormatCheck.ERROR_PWD_OVER_LENGTH);
+                        break;
+                    case InputFormatCheck.PWD_BELOW_LENGTH:
+                        binding.usernameInputText.setError(InputFormatCheck.ERROR_PWD_BELOW_LENGTH);
+                        break;
+                    case InputFormatCheck.PWD_FORMAT_WRONG:
+                        binding.usernameInputText.setError(InputFormatCheck.ERROR_PWD_FORMAT_WRONG);
+                }
+
+            }
+        });
+
+        binding.usernameInputText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                InputFormatCheck inputFormatCheck=new InputFormatCheck();
+                int result=inputFormatCheck.checkUsername(binding.usernameInputText.getText().toString());
+                switch(result)
+                {
+                    case InputFormatCheck.OK:
                         return;
                     case InputFormatCheck.USERNAME_FORMAT_WRONG:
                         binding.passwordInputText.setError(InputFormatCheck.ERROR_USERNAME_FORMAT_WRONG);
                 }
-                binding.LoginButtonLoginActivity.setEnabled(false);
             }
         });
 

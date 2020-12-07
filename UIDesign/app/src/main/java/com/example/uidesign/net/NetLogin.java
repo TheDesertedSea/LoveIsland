@@ -19,7 +19,7 @@ public class NetLogin {
     private static final boolean DEBUG=true;
 
     private static final String SCHEME="http";
-    private static final String FORMAT=":30010/login/login?mailbox=****&password=****&time=****";
+    private static final String FORMAT="host:30010/login/login?mailbox=****&password=****&time=****";
     private static final String HOST="";
     private static final int PORT=30010;
     private static final String PATH_SEGMENTS="login/login";
