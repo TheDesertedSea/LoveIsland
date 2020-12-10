@@ -7,8 +7,7 @@
     android:background="#23FF5100"
     tools:context=".ui.lucky_card.LuckyCardFragment">
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView
         android:id="@+id/card_1"
         android:layout_width="150dp"
         android:layout_height="200dp"
@@ -29,12 +28,11 @@
             android:layout_marginLeft="2.5dp"
             android:layout_marginTop="2.5dp"
             android:background="#3900EAD6"
-            android:text="卡片内容" />
+            android:text="加载中" />
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView
         android:id="@+id/card_2"
         android:layout_width="150dp"
         android:layout_height="200dp"
@@ -54,12 +52,11 @@
             android:layout_marginLeft="2.5dp"
             android:layout_marginTop="2.5dp"
             android:background="#3900EAD6"
-            android:text="卡片内容" />
+            android:text="加载中" />
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView
         android:id="@+id/card_3"
         android:layout_width="150dp"
         android:layout_height="200dp"
@@ -79,12 +76,11 @@
             android:layout_marginLeft="2.5dp"
             android:layout_marginTop="2.5dp"
             android:background="#3900EAD6"
-            android:text="卡片内容" />
+            android:text="加载中" />
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView
         android:id="@+id/card_4"
         android:layout_width="150dp"
         android:layout_height="200dp"
@@ -103,12 +99,11 @@
             android:layout_marginLeft="2.5dp"
             android:layout_marginTop="2.5dp"
             android:background="#3900EAD6"
-            android:text="卡片内容" />
+            android:text="加载中" />
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView
         android:id="@+id/card_5"
         android:layout_width="150dp"
         android:layout_height="200dp"
@@ -128,12 +123,11 @@
             android:layout_marginLeft="2.5dp"
             android:layout_marginTop="2.5dp"
             android:background="#3900EAD6"
-            android:text="卡片内容" />
+            android:text="加载中" />
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView
         android:id="@+id/card_6"
         android:layout_width="150dp"
         android:layout_height="200dp"
@@ -152,7 +146,7 @@
             android:layout_marginLeft="2.5dp"
             android:layout_marginTop="2.5dp"
             android:background="#3900EAD6"
-            android:text="卡片内容" />
+            android:text="加载中" />
 
     </androidx.cardview.widget.CardView>
 

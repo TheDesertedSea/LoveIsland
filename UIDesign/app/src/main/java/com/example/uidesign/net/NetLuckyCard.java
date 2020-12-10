@@ -34,8 +34,8 @@ public class NetLuckyCard {
 
     public class CardType
     {
-        int cid;
-        String cardName;
+        public int cid;
+        public String cardName;
     }
 
     public class MatchResponseClass
