@@ -1,7 +1,10 @@
 package com.example.uidesign.data;
 
 import java.io.IOException;
-import java.net.Socket;
+
+import io.socket.client.IO;
+import io.socket.client.Socket;
+
 
 public class UserSocketManager {
     private static UserSocketManager instance;
@@ -19,8 +22,8 @@ public class UserSocketManager {
     {
         try
         {
-            socket=new Socket(host,port);
-        }catch(IOException e)
+            socket= IO.socket("http://"+host+String.valueOf(port));
+        }catch(Exception e)
         {
             e.printStackTrace();
         }
