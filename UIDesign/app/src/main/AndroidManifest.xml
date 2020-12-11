@@ -11,10 +11,17 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.UIDesign"
-        android:networkSecurityConfig="@xml/network_security_config">
+        android:theme="@style/Theme.UIDesign">
+        <activity android:name=".ui.chat.ChatActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -25,7 +32,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-        <activity android:name=".ui.add_comment.AddCommentActivity"></activity>
+
+        <activity android:name=".ui.add_comment.AddCommentActivity" />
         <activity android:name=".ui.thumb_to_me.ThumbToMeActivity" />
         <activity android:name=".ui.comment_to_me.CommentToMeActivity" />
         <activity android:name=".ui.sign_up.SignUpActivity" />
@@ -38,16 +46,10 @@
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/title_activity_main" />
-        <activity android:name=".ui.entry.EntryActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".ui.login.LoginActivity">
+        <activity android:name=".ui.entry.EntryActivity">
 
         </activity>
+        <activity android:name=".ui.login.LoginActivity"></activity>
     </application>
 
 </manifest>
