@@ -74,12 +74,24 @@
         app:layout_constraintTop_toBottomOf="@id/school_input_layout">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/personal_intro"
+            android:id="@+id/personal_intro_input"
             android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:hint="个人简介"
             android:text="荒海，遥远天边的旅人。周游四海，只为寻求那传说中的冰山宝石？冰山何在，绿林存乎？"
             android:textSize="18dp" />
+
     </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/ack_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="修改"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/personal_intro_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

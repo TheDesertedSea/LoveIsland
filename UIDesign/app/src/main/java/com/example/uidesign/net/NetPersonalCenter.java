@@ -30,6 +30,14 @@ public class NetPersonalCenter {
     private static final String PATH_SEGMENTS_INFO_GET="user/userInfo";
     private static final String PATH_SEGMENTS_INFO_EDIT="user/setInfo";
 
+    public static final int PERSONAL_INFO_EDIT_SUCCESS=0;
+    public static final int DUPLICATE_NICK_NAME=1;
+    public static final int PERSONAL_INFO_EDIT_OTHER_FAIL=2;
+
+    public static final String MESSAGE_PERSONAL_INFO_EDIT_SUCCESS="个人信息修改成功";
+    public static final String MESSAGE_DUPLICATE_NICK_NAME="该昵称已被使用，修改失败";
+    public static final String MESSAGE_PERSONAL_INFO_EDIT_OTHER_FAIL="个人信息修改失败";
+
     public class UserInfo
     {
         public String nickName;
@@ -113,11 +121,11 @@ public class NetPersonalCenter {
         }
     }
 
-    public boolean setUserInfo(int uid,String nickName,String school,String introduction)
+    public int setUserInfo(int uid,String nickName,String school,String introduction)
     {
         if(DEBUG)
         {
-            return true;
+            return PERSONAL_INFO_EDIT_SUCCESS;
         }
 
         OkHttpClient client=new OkHttpClient();
@@ -150,20 +158,20 @@ public class NetPersonalCenter {
             ResponseBody responseBody=response.body();
             if(requestBody==null)
             {
-                return false;
+                return PERSONAL_INFO_EDIT_OTHER_FAIL;
             }
             String responseJson=responseBody.string();
             UserInfoEditResponse userInfoEditResponse=gson.fromJson(requestJson,UserInfoEditResponse.class);
             if(userInfoEditResponse.result_code==1)
             {
-                return true;
+                return PERSONAL_INFO_EDIT_SUCCESS;
             }else
             {
-                return false;
+                return PERSONAL_INFO_EDIT_OTHER_FAIL;
             }
         }catch(IOException e)
         {
-            return false;
+            return PERSONAL_INFO_EDIT_OTHER_FAIL;
         }
     }
 
