@@ -91,7 +91,7 @@ public class PersonalCenterFragment extends Fragment {
             @Override
             public void run() {
                 userInfo=netPersonalCenter.getUserInfo(LogginedUser.getInstance().getUid());
-                Message message=new Message();
+                Message message=personalCenterFragmentHandler.obtainMessage();
                 message.what=100;
                 personalCenterFragmentHandler.sendMessage(message);
             }
