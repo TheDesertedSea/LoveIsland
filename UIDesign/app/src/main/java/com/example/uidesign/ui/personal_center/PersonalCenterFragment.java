@@ -23,6 +23,8 @@ import com.bumptech.glide.Glide;
 import com.example.uidesign.R;
 import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.net.NetPersonalCenter;
+import com.example.uidesign.ui.my_confession.MyConfessionActivity;
+import com.example.uidesign.ui.my_discussion.MyDiscussionActivity;
 import com.example.uidesign.ui.personal_info_edit.PersonalInfoEditActivity;
 
 import androidx.annotation.NonNull;
@@ -109,6 +111,29 @@ public class PersonalCenterFragment extends Fragment {
                 intent.putExtra("nickName",userInfo.nickName);
                 intent.putExtra("school",userInfo.school);
                 intent.putExtra("introduction",userInfo.introduction);
+                startActivity(intent);
+            }
+        });
+
+        ImageButton myConfessionButton=root.findViewById(R.id.button_my_confession);
+        ImageButton myDiscussionButton=root.findViewById(R.id.button_my_discussion);
+        myConfessionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(), MyConfessionActivity.class);
+                intent.putExtra("uid",LogginedUser.getInstance().getUid());
+                intent.putExtra("sex",userInfo.sex);
+                intent.putExtra("me",true);
+                startActivity(intent);
+            }
+        });
+        myDiscussionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getContext(), MyDiscussionActivity.class);
+                intent.putExtra("uid",LogginedUser.getInstance().getUid());
+                intent.putExtra("sex",userInfo.sex);
+                intent.putExtra("me",true);
                 startActivity(intent);
             }
         });
