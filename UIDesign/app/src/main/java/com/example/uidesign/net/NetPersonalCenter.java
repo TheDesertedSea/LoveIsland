@@ -44,7 +44,6 @@ public class NetPersonalCenter {
         public boolean sex;
         public String school;
         public String introduction;
-        public String portraitName;
     }
 
     public class UserInfoResponse
@@ -81,7 +80,6 @@ public class NetPersonalCenter {
             userInfo.sex=true;
             userInfo.school="电子科技大学";
             userInfo.introduction="荒海，遥远天边的旅人。周游四海，只为寻求那传说中的冰山宝石？冰山何在，绿林存乎？";
-            userInfo.portraitName="wario";
             return userInfo;
         }
 
@@ -182,11 +180,11 @@ public class NetPersonalCenter {
             return true;
         }
 
-        RequestBody requestBody=RequestBody.create(picFile,MediaType.get("image/jpeg"));
+        RequestBody requestBody=RequestBody.create(picFile,MediaType.get("image/jpg"));
 
         MultipartBody multipartBody=new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("photo",uid+".jpeg",requestBody)
+                .addFormDataPart("photo",uid+".jpg",requestBody)
                 .build();
 
         OkHttpClient client=new OkHttpClient();

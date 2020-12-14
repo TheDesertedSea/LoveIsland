@@ -88,16 +88,15 @@ public class ChatActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                NetPersonalCenter.UserInfo myUserInfo=netPersonalCenter.getUserInfo(LogginedUser.getInstance().getUid());
                 NetPersonalCenter.UserInfo otherUserInfo=netPersonalCenter.getUserInfo(otherUid);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         ImageView temp1=new ImageView(thisContext);
                         ImageView temp2=new ImageView(thisContext);
-                        Glide.with(thisContext).load(baseIconUrl+myUserInfo.portraitName).into(temp1);
-                        Glide.with(thisContext).load(baseIconUrl+otherUserInfo.portraitName).into(temp2);
-                        adapter=new ChatMsgAdapter(msgList,temp2.getDrawingCache(),temp1.getDrawingCache(),myUserInfo.nickName,
+                        Glide.with(thisContext).load(baseIconUrl+LogginedUser.getInstance().getUid()+".jpg").into(temp1);
+                        Glide.with(thisContext).load(baseIconUrl+otherUid+".jpg").into(temp2);
+                        adapter=new ChatMsgAdapter(msgList,temp2.getDrawingCache(),temp1.getDrawingCache(),LogginedUser.getInstance().getNickName(),
                                 otherUserInfo.nickName);
                         binding.messageRecyclerView.setAdapter(adapter);
                     }

@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.uidesign.coldboot.ColdBootActivity;
 import com.example.uidesign.data.CachedLoginData;
 import com.example.uidesign.net.NetLogin;
 import com.example.uidesign.tool.InputFormatCheck;
@@ -88,6 +89,19 @@ public class LoginActivity extends BaseActivity {
                                                 "");
                                         binding.LoginButtonLoginActivity.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null);
                                         Toast.makeText(thisContext,NetLogin.ERROR_OTHER_FAIL,Toast.LENGTH_SHORT).show();
+                                        break;
+                                    case NetLogin.GO_TO_COLD_BOOT:
+                                        cachedLoginData.saveCachedLoginData(binding.usernameInputText.getText().toString(),
+                                                binding.passwordInputText.getText().toString());
+                                        binding.LoginButtonLoginActivity.stopAnimation(TransitionButton.StopAnimationStyle.EXPAND, new TransitionButton.OnAnimationStopEndListener() {
+                                            @Override
+                                            public void onAnimationStopEnd() {
+                                                Intent intent = new Intent(getBaseContext(), ColdBootActivity.class);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                                startActivity(intent);
+                                                thisActivity.finish();
+                                            }
+                                        });
                                         break;
                                 }
                             }
