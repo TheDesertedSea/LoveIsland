@@ -28,12 +28,20 @@
             app:layout_constraintTop_toTopOf="@id/writer_icon" />
 
         <TextView
+            android:id="@+id/comment_or_like_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/nick_name"
+            app:layout_constraintLeft_toRightOf="@id/writer_icon"
+            android:text="2020-12-14 19:15" />
+
+        <TextView
             android:id="@+id/content_brief"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="司马小孤儿"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@id/writer_icon"
+            app:layout_constraintTop_toBottomOf="@id/comment_or_like_date"
             app:layout_constraintLeft_toRightOf="@id/writer_icon" />
 
 
