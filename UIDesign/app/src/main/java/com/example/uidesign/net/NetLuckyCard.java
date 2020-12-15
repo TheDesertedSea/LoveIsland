@@ -68,6 +68,7 @@ public class NetLuckyCard {
 
         Request request = new Request.Builder()
                 .url(url)
+                .addHeader("token",LogginedUser.getInstance().getToken())
                 .build();
 
         try
@@ -108,6 +109,7 @@ public class NetLuckyCard {
 
         Request request = new Request.Builder()
                 .url(url)
+                .addHeader("token",LogginedUser.getInstance().getToken())
                 .build();
 
         try

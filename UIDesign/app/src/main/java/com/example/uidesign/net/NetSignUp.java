@@ -76,6 +76,7 @@ public class NetSignUp {
 
         Request request = new Request.Builder()
                 .url(url)
+                .addHeader("token",LogginedUser.getInstance().getToken())
                 .post(requestBody)
                 .build();
 

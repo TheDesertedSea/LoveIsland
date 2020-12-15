@@ -67,6 +67,7 @@ public class NetLogin {
                         String.valueOf(System.currentTimeMillis())).build();
         Log.v("httpUrl",url.toString());
 
+
         Request request = new Request.Builder()
                 .url(url)
                 .build();

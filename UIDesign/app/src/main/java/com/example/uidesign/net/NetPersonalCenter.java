@@ -2,6 +2,7 @@ package com.example.uidesign.net;
 
 import android.util.Log;
 
+import com.example.uidesign.data.LogginedUser;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -92,6 +93,7 @@ public class NetPersonalCenter {
 
         Request request = new Request.Builder()
                 .url(url)
+                .addHeader("token", LogginedUser.getInstance().getToken())
                 .build();
         try
         {
@@ -147,6 +149,7 @@ public class NetPersonalCenter {
 
         Request request = new Request.Builder()
                 .url(url)
+                .addHeader("token",LogginedUser.getInstance().getToken())
                 .post(requestBody)
                 .build();
 
@@ -196,6 +199,7 @@ public class NetPersonalCenter {
 
         Request request = new Request.Builder()
                 .url(url)
+                .addHeader("token",LogginedUser.getInstance().getToken())
                 .post(multipartBody)
                 .build();
         try
