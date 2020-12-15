@@ -49,7 +49,8 @@
             android:id="@+id/email_input"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:hint="邮箱地址" />
+            android:hint="邮箱地址"
+            android:singleLine="true"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -66,7 +67,8 @@
             android:id="@+id/password_input"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-            android:hint="密码" />
+            android:hint="密码"
+            android:singleLine="true"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,8 +85,8 @@
             android:id="@+id/password_twice_input"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
-
-            android:hint="再次输入密码" />
+            android:hint="再次输入密码"
+            android:singleLine="true"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -102,7 +104,9 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
 
-            android:hint="昵称" />
+            android:hint="昵称"
+            android:singleLine="true"
+            android:imeOptions="actionDone"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -163,7 +167,9 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
 
-            android:hint="所在院校" />
+            android:hint="所在院校"
+            android:singleLine="true"
+            android:imeOptions="actionDone"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

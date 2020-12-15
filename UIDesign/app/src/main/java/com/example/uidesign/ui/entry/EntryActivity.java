@@ -1,11 +1,13 @@
 package com.example.uidesign.ui.entry;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
 
+import com.example.uidesign.coldboot.ColdBootActivity;
 import com.example.uidesign.data.CachedLoginData;
 import com.example.uidesign.net.NetLogin;
 import com.example.uidesign.ui.BaseActivity;
@@ -18,6 +20,7 @@ public class EntryActivity extends BaseActivity {
 
     private ActivityEntryBinding binding;
     private Context thisContext=this;
+    private Activity thisActivity=this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +44,27 @@ public class EntryActivity extends BaseActivity {
         }
 
         NetLogin netLogin=new NetLogin();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int result=netLogin.login(username,password);
+                Intent intent;
+                if(result==NetLogin.OK||result==NetLogin.DUPLICATE_LOGIN)
+                {
+                    intent=new Intent(thisContext, MainActivity.class);
 
-        int result=netLogin.login(username,password);
-        if(result==NetLogin.OK||result==NetLogin.DUPLICATE_LOGIN)
-        {
-            Intent intent=new Intent(thisContext, MainActivity.class);
-            startActivity(intent);
-            this.finish();
-        }
+                }else if(result==NetLogin.GO_TO_COLD_BOOT)
+                {
+                    intent = new Intent(thisContext, ColdBootActivity.class);
+                }else
+                {
+                    intent = new Intent(thisContext, LoginActivity.class);
+                }
+                startActivity(intent);
+                thisActivity.finish();
+            }
+        }).start();
+
 
     }
 }

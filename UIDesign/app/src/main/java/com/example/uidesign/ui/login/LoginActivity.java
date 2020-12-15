@@ -132,13 +132,13 @@ public class LoginActivity extends BaseActivity {
                     case InputFormatCheck.OK:
                         return;
                     case InputFormatCheck.PWD_MAX_LENGTH:
-                        binding.usernameInputText.setError(InputFormatCheck.ERROR_PWD_OVER_LENGTH);
+                        binding.passwordInputText.setError(InputFormatCheck.ERROR_PWD_OVER_LENGTH);
                         break;
                     case InputFormatCheck.PWD_BELOW_LENGTH:
-                        binding.usernameInputText.setError(InputFormatCheck.ERROR_PWD_BELOW_LENGTH);
+                        binding.passwordInputText.setError(InputFormatCheck.ERROR_PWD_BELOW_LENGTH);
                         break;
                     case InputFormatCheck.PWD_FORMAT_WRONG:
-                        binding.usernameInputText.setError(InputFormatCheck.ERROR_PWD_FORMAT_WRONG);
+                        binding.passwordInputText.setError(InputFormatCheck.ERROR_PWD_FORMAT_WRONG);
                 }
 
             }
@@ -164,7 +164,7 @@ public class LoginActivity extends BaseActivity {
                     case InputFormatCheck.OK:
                         return;
                     case InputFormatCheck.USERNAME_FORMAT_WRONG:
-                        binding.passwordInputText.setError(InputFormatCheck.ERROR_USERNAME_FORMAT_WRONG);
+                        binding.usernameInputText.setError(InputFormatCheck.ERROR_USERNAME_FORMAT_WRONG);
                 }
             }
         });
