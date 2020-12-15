@@ -20,7 +20,7 @@ public class NetLogin {
 
     private static final String SCHEME="http";
     private static final String FORMAT="host:30010/login/login?mailbox=****&password=****&time=****";
-    private static final String HOST="";
+    private static final String HOST="192.168.1.108";
     private static final int PORT=30010;
     private static final String PATH_SEGMENTS="login/login";
 
@@ -39,17 +39,17 @@ public class NetLogin {
     public static class ResponseClass
     {
         public int user;
-        public Object content;
+        public Object Obj;
     }
 
     public static class SuccessContent
     {
         public int uid;
-        public String nickName;
+        public String nickname;
         public String token;
         public String host;
         public int port;
-        public boolean bColdBooted;
+        public boolean firstLogin;
     }
 
     public int login(String username,String password)
@@ -87,12 +87,12 @@ public class NetLogin {
             {
                 return INFO_WRONG;
             }
-            SuccessContent successContent=(SuccessContent)responseClass.content;
+            SuccessContent successContent=(SuccessContent)responseClass.Obj;
             LogginedUser.getInstance().setUid(successContent.uid);
-            LogginedUser.getInstance().setNickName(successContent.nickName);
+            LogginedUser.getInstance().setNickName(successContent.nickname);
             LogginedUser.getInstance().setToken(successContent.token);
             UserSocketManager.getInstance().connect(successContent.host,successContent.port);
-            if(!successContent.bColdBooted)
+            if(successContent.firstLogin)
             {
                 return GO_TO_COLD_BOOT;
             }

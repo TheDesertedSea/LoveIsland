@@ -14,6 +14,7 @@ public class ColdBootActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding=ActivityColdBootBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         binding.nextButton.setOnClickListener(new View.OnClickListener() {

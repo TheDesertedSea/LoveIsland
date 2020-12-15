@@ -21,7 +21,7 @@ public class NetSignUp {
 
     private static final String SCHEME="http";
     private static final String FORMAT="host:30010/login/register";
-    private static final String HOST="";
+    private static final String HOST="192.168.1.108";
     private static final int PORT=30010;
     private static final String PATH_SEGMENTS="login/register";
 
@@ -37,7 +37,7 @@ public class NetSignUp {
 
     public static class RequestClass
     {
-        public String username;
+        public String mailbox;
         public String password;
         public String nickName;
         public boolean sex;
@@ -46,7 +46,7 @@ public class NetSignUp {
 
     public static class ResponseClass
     {
-        public int result_code;
+        public int registered;
     }
 
     public int signUp(String username,String password,String nickName,boolean sex,String school)
@@ -63,7 +63,7 @@ public class NetSignUp {
         Log.v("httpUrl",url.toString());
 
         RequestClass requestClass=new RequestClass();
-        requestClass.username=username;
+        requestClass.mailbox=username;
         requestClass.password=password;
         requestClass.nickName=nickName;
         requestClass.sex=sex;
@@ -90,11 +90,11 @@ public class NetSignUp {
             }
             String responseJson=responseBody.string();
             ResponseClass responseClass=gson.fromJson(responseJson, ResponseClass.class);
-            if(responseClass.result_code==0)
+            if(responseClass.registered==0)
             {
                 return DUPLICATE_SIGN_UP;
             }
-            if(responseClass.result_code==2)
+            if(responseClass.registered==2)
             {
                 return OTHER_FAIL;
             }
