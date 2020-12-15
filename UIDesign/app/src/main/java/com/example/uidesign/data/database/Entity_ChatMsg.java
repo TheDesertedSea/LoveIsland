@@ -9,7 +9,6 @@ public class Entity_ChatMsg {
 
     public int from;
 
-
     public int to;
 
     @ColumnInfo(name = "content")

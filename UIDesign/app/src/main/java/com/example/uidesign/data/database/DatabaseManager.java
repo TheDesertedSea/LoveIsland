@@ -6,7 +6,7 @@ import androidx.room.Room;
 
 public class DatabaseManager {
     private static boolean bInitial=false;
-    private static AppDatabase appDatabase;
+    private static AppDatabase appDatabase=null;
     public static AppDatabase getAppDatabase(){
         if(bInitial)
         {

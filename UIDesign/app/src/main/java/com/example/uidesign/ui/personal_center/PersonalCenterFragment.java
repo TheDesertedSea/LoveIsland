@@ -57,8 +57,7 @@ public class PersonalCenterFragment extends Fragment {
             switch(msg.what)
             {
                 case 100:
-                    Glide.with(thisFragment).load(baseIconUrl+userInfo.portraitName)
-                            .into(iconView);
+
                     nickNameText.setText(userInfo.nickName);
                     String sexAndSchool=", "+userInfo.school;
                     if(userInfo.sex)
@@ -89,6 +88,8 @@ public class PersonalCenterFragment extends Fragment {
 
         netPersonalCenter=new NetPersonalCenter();
         personalCenterFragmentHandler=new PersonalCenterFragmentHandler();
+        Glide.with(thisFragment).load(baseIconUrl+LogginedUser.getInstance().getUid()+".jpg")
+                .into(iconView);
         new Thread(new Runnable() {
             @Override
             public void run() {

@@ -29,6 +29,7 @@ public class NetLogin {
     public static final int DUPLICATE_LOGIN=1;
     public static final int INFO_WRONG=2;
     public static final int OTHER_FAIL=3;
+    public static final int GO_TO_COLD_BOOT=4;
 
     //报错信息
     public static final String ERROR_DUPLICATE_LOGIN="重复登录，已将之前登录设备下线";
@@ -48,6 +49,7 @@ public class NetLogin {
         public String token;
         public String host;
         public int port;
+        public boolean bColdBooted;
     }
 
     public int login(String username,String password)
@@ -64,6 +66,7 @@ public class NetLogin {
                 .addQueryParameter("time",
                         String.valueOf(System.currentTimeMillis())).build();
         Log.v("httpUrl",url.toString());
+
 
         Request request = new Request.Builder()
                 .url(url)
@@ -89,6 +92,10 @@ public class NetLogin {
             LogginedUser.getInstance().setNickName(successContent.nickName);
             LogginedUser.getInstance().setToken(successContent.token);
             UserSocketManager.getInstance().connect(successContent.host,successContent.port);
+            if(!successContent.bColdBooted)
+            {
+                return GO_TO_COLD_BOOT;
+            }
             return OK;
         }catch (IOException e)
         {

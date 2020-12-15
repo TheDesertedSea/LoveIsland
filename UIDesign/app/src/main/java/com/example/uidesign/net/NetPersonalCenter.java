@@ -2,6 +2,7 @@ package com.example.uidesign.net;
 
 import android.util.Log;
 
+import com.example.uidesign.data.LogginedUser;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -44,7 +45,6 @@ public class NetPersonalCenter {
         public boolean sex;
         public String school;
         public String introduction;
-        public String portraitName;
     }
 
     public class UserInfoResponse
@@ -81,7 +81,6 @@ public class NetPersonalCenter {
             userInfo.sex=true;
             userInfo.school="电子科技大学";
             userInfo.introduction="荒海，遥远天边的旅人。周游四海，只为寻求那传说中的冰山宝石？冰山何在，绿林存乎？";
-            userInfo.portraitName="wario";
             return userInfo;
         }
 
@@ -94,6 +93,7 @@ public class NetPersonalCenter {
 
         Request request = new Request.Builder()
                 .url(url)
+                .addHeader("token", LogginedUser.getInstance().getToken())
                 .build();
         try
         {
@@ -149,6 +149,7 @@ public class NetPersonalCenter {
 
         Request request = new Request.Builder()
                 .url(url)
+                .addHeader("token",LogginedUser.getInstance().getToken())
                 .post(requestBody)
                 .build();
 
@@ -182,11 +183,11 @@ public class NetPersonalCenter {
             return true;
         }
 
-        RequestBody requestBody=RequestBody.create(picFile,MediaType.get("image/jpeg"));
+        RequestBody requestBody=RequestBody.create(picFile,MediaType.get("image/jpg"));
 
         MultipartBody multipartBody=new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("photo",uid+".jpeg",requestBody)
+                .addFormDataPart("photo",uid+".jpg",requestBody)
                 .build();
 
         OkHttpClient client=new OkHttpClient();
@@ -198,6 +199,7 @@ public class NetPersonalCenter {
 
         Request request = new Request.Builder()
                 .url(url)
+                .addHeader("token",LogginedUser.getInstance().getToken())
                 .post(multipartBody)
                 .build();
         try
