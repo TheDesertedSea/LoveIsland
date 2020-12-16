@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.example.uidesign.data.ChatMsg;
 import com.example.uidesign.data.LogginedUser;
+import com.example.uidesign.data.UserInfo;
 import com.example.uidesign.data.UserSocketManager;
 import com.example.uidesign.databinding.ActivityChatBinding;
 import com.example.uidesign.net.NetPersonalCenter;
@@ -88,7 +89,7 @@ public class ChatActivity extends AppCompatActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                NetPersonalCenter.UserInfo otherUserInfo=netPersonalCenter.getUserInfo(otherUid);
+                UserInfo otherUserInfo=netPersonalCenter.getUserInfo(otherUid);
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -99,6 +100,7 @@ public class ChatActivity extends AppCompatActivity {
                         adapter=new ChatMsgAdapter(msgList,temp2.getDrawingCache(),temp1.getDrawingCache(),LogginedUser.getInstance().getNickName(),
                                 otherUserInfo.nickName);
                         binding.messageRecyclerView.setAdapter(adapter);
+                        binding.chatTitle.setText(otherUserInfo.nickName);
                     }
                 });
             }
