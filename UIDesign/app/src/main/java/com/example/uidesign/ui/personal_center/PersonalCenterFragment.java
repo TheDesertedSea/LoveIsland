@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.uidesign.R;
 import com.example.uidesign.data.LogginedUser;
+import com.example.uidesign.data.UserInfo;
 import com.example.uidesign.net.NetPersonalCenter;
 import com.example.uidesign.ui.my_confession.MyConfessionActivity;
 import com.example.uidesign.ui.my_discussion.MyDiscussionActivity;
@@ -35,7 +36,7 @@ public class PersonalCenterFragment extends Fragment {
 
     private Fragment thisFragment=this;
 
-    private NetPersonalCenter.UserInfo userInfo;
+    private UserInfo userInfo;
     private NetPersonalCenter netPersonalCenter;
     private PersonalCenterFragmentHandler personalCenterFragmentHandler;
 
@@ -45,8 +46,8 @@ public class PersonalCenterFragment extends Fragment {
     private TextView sexAndSchoolText;
     private TextView introductionText;
 
-    private String HOST="";
-    private String baseIconUrl="http://"+HOST+":30010/user/userPortrait/";
+    private final String HOST="";
+    private final String baseIconUrl="http://"+HOST+":30010/user/userPortrait/";
 
 
     public class PersonalCenterFragmentHandler extends Handler

@@ -15,7 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.UIDesign">
-        <activity android:name=".coldboot.ColdBootActivity"></activity>
+        <activity android:name=".ui.coldboot.ColdBootActivity"></activity>
         <activity android:name=".ui.chat.ChatActivity"></activity>
 
         <provider

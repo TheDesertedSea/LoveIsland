@@ -3,6 +3,7 @@ package com.example.uidesign.net;
 import android.util.Log;
 
 import com.example.uidesign.data.LogginedUser;
+import com.example.uidesign.data.UserInfo;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -39,13 +40,6 @@ public class NetPersonalCenter {
     public static final String MESSAGE_DUPLICATE_NICK_NAME="该昵称已被使用，修改失败";
     public static final String MESSAGE_PERSONAL_INFO_EDIT_OTHER_FAIL="个人信息修改失败";
 
-    public class UserInfo
-    {
-        public String nickName;
-        public boolean sex;
-        public String school;
-        public String introduction;
-    }
 
     public class UserInfoResponse
     {

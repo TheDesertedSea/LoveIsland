@@ -3,6 +3,7 @@ package com.example.uidesign.net;
 import android.util.Log;
 
 
+import com.example.uidesign.data.CardType;
 import com.example.uidesign.data.LogginedUser;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -31,12 +32,6 @@ public class NetLuckyCard {
     private static final int PORT=30010;
     private static final String PATH_SEGMENTS_GET="card/getcard";
     private static final String PATH_SEGMENTS_MATCH="card/match";
-
-    public class CardType
-    {
-        public int cid;
-        public String cardName;
-    }
 
     public class MatchResponseClass
     {
