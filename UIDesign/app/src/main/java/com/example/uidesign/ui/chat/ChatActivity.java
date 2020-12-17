@@ -18,12 +18,15 @@ import com.example.uidesign.data.ChatMsg;
 import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.data.UserInfo;
 import com.example.uidesign.data.UserSocketManager;
+import com.example.uidesign.data.database.DatabaseManager;
+import com.example.uidesign.data.database.Entity_ChatMsg;
 import com.example.uidesign.databinding.ActivityChatBinding;
 import com.example.uidesign.net.NetPersonalCenter;
 
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ChatActivity extends AppCompatActivity {
@@ -61,6 +64,7 @@ public class ChatActivity extends AppCompatActivity {
     public class TempChatMsg
     {
         public int from;
+        public String fromName;
         public int to;
         public String content;
         public long date;
@@ -84,6 +88,14 @@ public class ChatActivity extends AppCompatActivity {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(thisContext);
         binding.messageRecyclerView.setLayoutManager(layoutManager);
+
+        List<Entity_ChatMsg> entity_chatMsgs= DatabaseManager.getAppDatabase().dao_chatMsg().getChatMsgLog(LogginedUser.getInstance().getUid(),otherUid);
+        msgList=new ArrayList<ChatMsg>();
+        for(Entity_ChatMsg e:entity_chatMsgs)
+        {
+            ChatMsg chatMsg=new ChatMsg(e.from,e.to,e.content,new Date(e.date));
+            msgList.add(chatMsg);
+        }
 
         NetPersonalCenter netPersonalCenter=new NetPersonalCenter();
         new Thread(new Runnable() {
@@ -112,8 +124,10 @@ public class ChatActivity extends AppCompatActivity {
 
                 TempChatMsg temp=new TempChatMsg();
                 temp.from=LogginedUser.getInstance().getUid();
+                temp.fromName=LogginedUser.getInstance().getNickName();
                 temp.to=otherUid;
                 temp.date=System.currentTimeMillis();
+
                 UserSocketManager.getInstance().getSocket().emit("sendMsg",temp);
             }
         });

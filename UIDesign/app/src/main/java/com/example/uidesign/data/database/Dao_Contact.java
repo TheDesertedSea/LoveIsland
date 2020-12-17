@@ -2,6 +2,7 @@ package com.example.uidesign.data.database;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -13,8 +14,11 @@ public interface Dao_Contact {
     void insertAll(Entity_Contact... entity_contacts);
 
     @Query("SELECT * FROM Entity_Contact WHERE user_uid LIKE:queryUid")
-    List<Entity_Comment> getContacts(int queryUid);
+    List<Entity_Contact> getContacts(int queryUid);
 
-    @Update
-    void setLatestContent(List<Entity_Contact> entity_contacts);
+    @Query("SELECT COUNT(*) FROM Entity_Contact WHERE user_uid LIKE:queryUid AND other_uid LIKE:otherUid")
+    int isContactExisted(int queryUid,int otherUid);
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    void setLatestContent(Entity_Contact... entity_contacts);
 }

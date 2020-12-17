@@ -8,6 +8,9 @@ public class Entity_Comment {
     public int from;
     public int to;
 
+    @ColumnInfo(name = "fromName")
+    public String fromName;
+
     @ColumnInfo(name = "content")
     public String content;
 
