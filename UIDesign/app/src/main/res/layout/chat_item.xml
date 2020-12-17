@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/chat_inform"
+        android:id="@+id/chat_layout_left"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#CDF9EB"
@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/writer_icon"
+            android:id="@+id/icon_left"
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:src="@drawable/ic_confession_black_24dp"
@@ -25,23 +25,79 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/nick_name"
+            android:id="@+id/nick_name_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="余沐寒"
             android:textSize="24sp"
             android:textStyle="bold"
-            app:layout_constraintLeft_toRightOf="@id/writer_icon"
-            app:layout_constraintTop_toTopOf="@id/writer_icon" />
+            app:layout_constraintLeft_toRightOf="@id/icon_left"
+            app:layout_constraintTop_toTopOf="@id/icon_left" />
 
         <TextView
-            android:id="@+id/content_brief"
+            android:id="@+id/date_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="date"
+            app:layout_constraintLeft_toRightOf="@id/icon_left"
+            app:layout_constraintTop_toBottomOf="@id/nick_name_left" />
+
+        <TextView
+            android:id="@+id/chat_content_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="快点来上课，等会要签到"
             android:textSize="20sp"
-            app:layout_constraintBottom_toBottomOf="@id/writer_icon"
-            app:layout_constraintLeft_toRightOf="@id/writer_icon" />
+            app:layout_constraintLeft_toRightOf="@id/icon_left"
+            app:layout_constraintTop_toBottomOf="@id/date_left" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chat_layout_right"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#CDF9EB"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/icon_right"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:src="@drawable/ic_confession_black_24dp"
+            app:civ_border_color="#FF000000"
+            app:civ_border_width="2dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/nick_name_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="余沐寒"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintRight_toLeftOf="@id/icon_right"
+            app:layout_constraintTop_toTopOf="@id/icon_right" />
+
+        <TextView
+            android:id="@+id/date_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="date"
+            app:layout_constraintRight_toLeftOf="@id/icon_right"
+            app:layout_constraintTop_toBottomOf="@id/nick_name_right" />
+
+        <TextView
+            android:id="@+id/chat_content_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="快点来上课，等会要签到"
+            android:textSize="20sp"
+            app:layout_constraintRight_toLeftOf="@id/icon_right"
+            app:layout_constraintTop_toBottomOf="@id/date_right" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

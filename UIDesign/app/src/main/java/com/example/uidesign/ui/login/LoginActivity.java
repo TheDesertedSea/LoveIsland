@@ -1,25 +1,22 @@
 package com.example.uidesign.ui.login;
 
-import androidx.appcompat.app.ActionBar;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.uidesign.ui.coldboot.ColdBootActivity;
 import com.example.uidesign.data.CachedLoginData;
 import com.example.uidesign.net.NetLogin;
 import com.example.uidesign.tool.InputFormatCheck;
 import com.example.uidesign.ui.BaseActivity;
 import com.example.uidesign.ui.MainActivity;
 import com.example.uidesign.databinding.ActivityLoginBinding;
-import com.example.uidesign.ui.entry.EntryActivity;
 import com.example.uidesign.ui.sign_up.SignUpActivity;
 import com.royrodriguez.transitionbutton.TransitionButton;
 
@@ -89,6 +86,19 @@ public class LoginActivity extends BaseActivity {
                                         binding.LoginButtonLoginActivity.stopAnimation(TransitionButton.StopAnimationStyle.SHAKE, null);
                                         Toast.makeText(thisContext,NetLogin.ERROR_OTHER_FAIL,Toast.LENGTH_SHORT).show();
                                         break;
+                                    case NetLogin.GO_TO_COLD_BOOT:
+                                        cachedLoginData.saveCachedLoginData(binding.usernameInputText.getText().toString(),
+                                                binding.passwordInputText.getText().toString());
+                                        binding.LoginButtonLoginActivity.stopAnimation(TransitionButton.StopAnimationStyle.EXPAND, new TransitionButton.OnAnimationStopEndListener() {
+                                            @Override
+                                            public void onAnimationStopEnd() {
+                                                Intent intent = new Intent(getBaseContext(), ColdBootActivity.class);
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                                startActivity(intent);
+                                                thisActivity.finish();
+                                            }
+                                        });
+                                        break;
                                 }
                             }
                         });
@@ -118,13 +128,13 @@ public class LoginActivity extends BaseActivity {
                     case InputFormatCheck.OK:
                         return;
                     case InputFormatCheck.PWD_MAX_LENGTH:
-                        binding.usernameInputText.setError(InputFormatCheck.ERROR_PWD_OVER_LENGTH);
+                        binding.passwordInputText.setError(InputFormatCheck.ERROR_PWD_OVER_LENGTH);
                         break;
                     case InputFormatCheck.PWD_BELOW_LENGTH:
-                        binding.usernameInputText.setError(InputFormatCheck.ERROR_PWD_BELOW_LENGTH);
+                        binding.passwordInputText.setError(InputFormatCheck.ERROR_PWD_BELOW_LENGTH);
                         break;
                     case InputFormatCheck.PWD_FORMAT_WRONG:
-                        binding.usernameInputText.setError(InputFormatCheck.ERROR_PWD_FORMAT_WRONG);
+                        binding.passwordInputText.setError(InputFormatCheck.ERROR_PWD_FORMAT_WRONG);
                 }
 
             }
@@ -150,7 +160,7 @@ public class LoginActivity extends BaseActivity {
                     case InputFormatCheck.OK:
                         return;
                     case InputFormatCheck.USERNAME_FORMAT_WRONG:
-                        binding.passwordInputText.setError(InputFormatCheck.ERROR_USERNAME_FORMAT_WRONG);
+                        binding.usernameInputText.setError(InputFormatCheck.ERROR_USERNAME_FORMAT_WRONG);
                 }
             }
         });

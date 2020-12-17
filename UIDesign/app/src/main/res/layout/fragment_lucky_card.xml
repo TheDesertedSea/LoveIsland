@@ -7,11 +7,19 @@
     android:background="#23FF5100"
     tools:context=".ui.lucky_card.LuckyCardFragment">
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <Button
+        android:id="@+id/refresh_button"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:text="换一批"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
         android:id="@+id/card_1"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
+        android:layout_width="130dp"
+        android:layout_height="180dp"
         app:cardBackgroundColor="#5677FF00"
         app:cardCornerRadius="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,25 +27,24 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.05">
+        app:layout_constraintVertical_bias="0.10">
 
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/card_button_1"
-            android:layout_width="145dp"
-            android:layout_height="195dp"
+            android:layout_width="135dp"
+            android:layout_height="175dp"
             android:layout_marginLeft="2.5dp"
             android:layout_marginTop="2.5dp"
             android:background="#3900EAD6"
-            android:text="卡片内容" />
+            android:text="加载中" />
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView
         android:id="@+id/card_2"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
+        android:layout_width="130dp"
+        android:layout_height="180dp"
         app:cardBackgroundColor="#5677FF00"
         app:cardCornerRadius="6dp"
         app:layout_constraintBottom_toBottomOf="@id/card_1"
@@ -47,22 +54,21 @@
         app:layout_constraintTop_toTopOf="@id/card_1">
 
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/card_button_2"
-            android:layout_width="145dp"
-            android:layout_height="195dp"
+            android:layout_width="125dp"
+            android:layout_height="175dp"
             android:layout_marginLeft="2.5dp"
             android:layout_marginTop="2.5dp"
             android:background="#3900EAD6"
-            android:text="卡片内容" />
+            android:text="加载中" />
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView
         android:id="@+id/card_3"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
+        android:layout_width="130dp"
+        android:layout_height="180dp"
         app:cardBackgroundColor="#5677FF00"
         app:cardCornerRadius="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -72,22 +78,21 @@
         app:layout_constraintVertical_bias="0.45">
 
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/card_button_3"
-            android:layout_width="145dp"
-            android:layout_height="195dp"
+            android:layout_width="125dp"
+            android:layout_height="175dp"
             android:layout_marginLeft="2.5dp"
             android:layout_marginTop="2.5dp"
             android:background="#3900EAD6"
-            android:text="卡片内容" />
+            android:text="加载中" />
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView
         android:id="@+id/card_4"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
+        android:layout_width="130dp"
+        android:layout_height="180dp"
         app:cardBackgroundColor="#5677FF00"
         app:cardCornerRadius="6dp"
         app:layout_constraintBottom_toBottomOf="@id/card_3"
@@ -96,47 +101,45 @@
         app:layout_constraintTop_toTopOf="@id/card_3">
 
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/card_button_4"
-            android:layout_width="145dp"
-            android:layout_height="195dp"
+            android:layout_width="125dp"
+            android:layout_height="175dp"
             android:layout_marginLeft="2.5dp"
             android:layout_marginTop="2.5dp"
             android:background="#3900EAD6"
-            android:text="卡片内容" />
+            android:text="加载中" />
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView
         android:id="@+id/card_5"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
+        android:layout_width="130dp"
+        android:layout_height="180dp"
         app:cardBackgroundColor="#5677FF00"
         app:cardCornerRadius="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="@id/card_1"
         app:layout_constraintRight_toRightOf="@id/card_1"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.85">
+        app:layout_constraintVertical_bias="0.80">
 
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/card_button_5"
-            android:layout_width="145dp"
-            android:layout_height="195dp"
+            android:layout_width="125dp"
+            android:layout_height="175dp"
             android:layout_marginLeft="2.5dp"
             android:layout_marginTop="2.5dp"
             android:background="#3900EAD6"
-            android:text="卡片内容" />
+            android:text="加载中" />
 
     </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView
         android:id="@+id/card_6"
-        android:layout_width="150dp"
-        android:layout_height="200dp"
+        android:layout_width="130dp"
+        android:layout_height="180dp"
         app:cardBackgroundColor="#5677FF00"
         app:cardCornerRadius="6dp"
         app:layout_constraintBottom_toBottomOf="@id/card_5"
@@ -145,14 +148,14 @@
         app:layout_constraintTop_toTopOf="@id/card_5">
 
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/card_button_6"
-            android:layout_width="145dp"
-            android:layout_height="195dp"
+            android:layout_width="125dp"
+            android:layout_height="175dp"
             android:layout_marginLeft="2.5dp"
             android:layout_marginTop="2.5dp"
             android:background="#3900EAD6"
-            android:text="卡片内容" />
+            android:text="加载中" />
 
     </androidx.cardview.widget.CardView>
 

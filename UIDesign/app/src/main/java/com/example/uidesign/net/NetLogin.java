@@ -20,7 +20,7 @@ public class NetLogin {
 
     private static final String SCHEME="http";
     private static final String FORMAT="host:30010/login/login?mailbox=****&password=****&time=****";
-    private static final String HOST="";
+    private static final String HOST="192.168.1.108";
     private static final int PORT=30010;
     private static final String PATH_SEGMENTS="login/login";
 
@@ -29,6 +29,7 @@ public class NetLogin {
     public static final int DUPLICATE_LOGIN=1;
     public static final int INFO_WRONG=2;
     public static final int OTHER_FAIL=3;
+    public static final int GO_TO_COLD_BOOT=4;
 
     //报错信息
     public static final String ERROR_DUPLICATE_LOGIN="重复登录，已将之前登录设备下线";
@@ -38,16 +39,17 @@ public class NetLogin {
     public static class ResponseClass
     {
         public int user;
-        public Object content;
+        public Object Obj;
     }
 
     public static class SuccessContent
     {
         public int uid;
-        public String nickName;
+        public String nickname;
         public String token;
         public String host;
         public int port;
+        public boolean firstLogin;
     }
 
     public int login(String username,String password)
@@ -64,6 +66,7 @@ public class NetLogin {
                 .addQueryParameter("time",
                         String.valueOf(System.currentTimeMillis())).build();
         Log.v("httpUrl",url.toString());
+
 
         Request request = new Request.Builder()
                 .url(url)
@@ -84,11 +87,15 @@ public class NetLogin {
             {
                 return INFO_WRONG;
             }
-            SuccessContent successContent=(SuccessContent)responseClass.content;
+            SuccessContent successContent=(SuccessContent)responseClass.Obj;
             LogginedUser.getInstance().setUid(successContent.uid);
-            LogginedUser.getInstance().setNickName(successContent.nickName);
+            LogginedUser.getInstance().setNickName(successContent.nickname);
             LogginedUser.getInstance().setToken(successContent.token);
             UserSocketManager.getInstance().connect(successContent.host,successContent.port);
+            if(successContent.firstLogin)
+            {
+                return GO_TO_COLD_BOOT;
+            }
             return OK;
         }catch (IOException e)
         {

@@ -10,6 +10,9 @@ public class LogginedUser {
         }
         return instance;
     }
+
+    private LogginedUser(){}
+
     private int uid;
     private String nickName;
     private String token;
