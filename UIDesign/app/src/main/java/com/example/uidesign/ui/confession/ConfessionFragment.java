@@ -1,22 +1,17 @@
 package com.example.uidesign.ui.confession;
 
-<<<<<<< HEAD
-=======
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
->>>>>>> front-end
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
-=======
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
->>>>>>> front-end
 
 
 import androidx.annotation.NonNull;
@@ -31,15 +26,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.uidesign.R;
 import com.example.uidesign.adapter.ConfessionListAdapter;
 import com.example.uidesign.data.LogginedUser;
+import com.example.uidesign.data.UserInfo;
 import com.example.uidesign.databinding.FragmentConfessionBinding;
-<<<<<<< HEAD
-=======
 import com.example.uidesign.net.NetGetConfession;
+import com.example.uidesign.net.NetPersonalCenter;
 import com.example.uidesign.net.NetSendConfession;
 import com.example.uidesign.ui.item_detail.ItemDetailActivity;
 import com.example.uidesign.ui.item_edit.ItemEditActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
->>>>>>> front-end
 import com.scwang.smart.refresh.footer.ClassicsFooter;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
@@ -56,45 +50,17 @@ public class ConfessionFragment extends Fragment {
     private final ConfessionFragment thisContext = this;
     private LogginedUser Me = LogginedUser.getInstance();
 
-<<<<<<< HEAD
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding=FragmentConfessionBinding.inflate(getLayoutInflater());
-        RefreshLayout refreshLayout = (RefreshLayout)binding.refreshLayout;
-        refreshLayout.setRefreshHeader(new ClassicsHeader(getContext()));
-        refreshLayout.setRefreshFooter(new ClassicsFooter(getContext()));
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
-            }
-        });
-        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(RefreshLayout refreshlayout) {
-                refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
-            }
-        });
-    }
-=======
     private Button EditItemButton;
 
     private RecyclerView confessionList;
     private ArrayList<ConfessionItem> listData;
     private ConfessionListAdapter mAdapter;
     private RefreshLayout refreshLayout;
->>>>>>> front-end
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-<<<<<<< HEAD
 
-        View root = inflater.inflate(R.layout.fragment_confession, container, false);
-        return root;
-    }
-=======
         View root = inflater.inflate(R.layout.fragment_confession, container, false);
         return root;
     }
@@ -143,10 +109,19 @@ public class ConfessionFragment extends Fragment {
                             //把取得的数据更新到数据集中
                             ArrayList<NetGetConfession.ResponseItem> mResponseItemList = mResponseClass.confessionArray;
                             ConfessionItem addingItem = new ConfessionItem();
+
                             for (NetGetConfession.ResponseItem i : mResponseItemList) {
                                 addingItem.content_text = i.content;
                                 //通过获得的uid去取得用户头像和用户名
-//                                addingItem.title_username = ;
+                                UserInfo addUserInfo = new UserInfo();
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        NetPersonalCenter mNetPersonalCenter = new NetPersonalCenter();
+                                        addUserInfo = mNetPersonalCenter.getUserInfo(i.uid);
+                                    }
+                                }).start();
+                                addingItem.title_username = addUserInfo.nickName;
 //                                addingItem.title_avatarId = ;
 
                                 listData.add(addingItem);
@@ -204,5 +179,4 @@ public class ConfessionFragment extends Fragment {
         confessionList.setAdapter(mAdapter);
     }
 
->>>>>>> front-end
 }
