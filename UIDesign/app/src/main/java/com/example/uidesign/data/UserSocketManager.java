@@ -58,6 +58,7 @@ public class UserSocketManager {
                     try {
                         int from=obj.getInt("from");
                         int to=obj.getInt("to");
+                        String fromName=obj.getString("fromName");
                         String content=obj.getString("msg");
                         long nowDate=obj.getLong("nowDate");
                         AppDatabase appDatabase=DatabaseManager.getAppDatabase();
@@ -94,14 +95,18 @@ public class UserSocketManager {
                             Entity_Contact entity_contact=new Entity_Contact();
                             entity_contact.user_uid=LogginedUser.getInstance().getUid();
                             entity_contact.other_uid=otherUid;
+                            entity_contact.other_nick_name=fromName;
                             entity_contact.latest_content=content;
+                            entity_contact.date=nowDate;
                             appDatabase.dao_contact().setLatestContent(entity_contact);
                         }else
                         {
                             Entity_Contact entity_contact=new Entity_Contact();
                             entity_contact.user_uid=LogginedUser.getInstance().getUid();
                             entity_contact.other_uid=otherUid;
+                            entity_contact.other_nick_name=fromName;
                             entity_contact.latest_content=content;
+                            entity_contact.date=nowDate;
                             appDatabase.dao_contact().insertAll(entity_contact);
                         }
 

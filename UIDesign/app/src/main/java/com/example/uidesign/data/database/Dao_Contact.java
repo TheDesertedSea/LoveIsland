@@ -14,7 +14,7 @@ public interface Dao_Contact {
     void insertAll(Entity_Contact... entity_contacts);
 
     @Query("SELECT * FROM Entity_Contact WHERE user_uid LIKE:queryUid")
-    List<Entity_Comment> getContacts(int queryUid);
+    List<Entity_Contact> getContacts(int queryUid);
 
     @Query("SELECT COUNT(*) FROM Entity_Contact WHERE user_uid LIKE:queryUid AND other_uid LIKE:otherUid")
     int isContactExisted(int queryUid,int otherUid);

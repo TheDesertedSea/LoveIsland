@@ -10,6 +10,12 @@ public class Entity_Contact {
 
     public int other_uid;
 
+    @ColumnInfo(name="other_nick_name")
+    public String other_nick_name;
+
     @ColumnInfo(name="latest_content")
     public String latest_content;
+
+    @ColumnInfo(name="date")
+    public long date;
 }
