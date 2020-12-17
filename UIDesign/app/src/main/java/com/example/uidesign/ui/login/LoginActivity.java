@@ -1,26 +1,22 @@
 package com.example.uidesign.ui.login;
 
-import androidx.appcompat.app.ActionBar;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.uidesign.coldboot.ColdBootActivity;
+import com.example.uidesign.ui.coldboot.ColdBootActivity;
 import com.example.uidesign.data.CachedLoginData;
 import com.example.uidesign.net.NetLogin;
 import com.example.uidesign.tool.InputFormatCheck;
 import com.example.uidesign.ui.BaseActivity;
 import com.example.uidesign.ui.MainActivity;
 import com.example.uidesign.databinding.ActivityLoginBinding;
-import com.example.uidesign.ui.entry.EntryActivity;
 import com.example.uidesign.ui.sign_up.SignUpActivity;
 import com.royrodriguez.transitionbutton.TransitionButton;
 

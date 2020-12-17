@@ -1,5 +1,6 @@
 package com.example.uidesign.ui.lucky_card;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,16 +12,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.uidesign.R;
+import com.example.uidesign.data.CardType;
 import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.net.NetLuckyCard;
+import com.example.uidesign.ui.chat.ChatActivity;
 
 import java.util.ArrayList;
 
 public class LuckyCardFragment extends Fragment {
 
-    private ArrayList<NetLuckyCard.CardType> result;
+    private ArrayList<CardType> result;
     private LuckyCardFragmentHandler luckyCardFragmentHandler;
     private View root;
     private NetLuckyCard netLuckyCard=new NetLuckyCard();
@@ -30,6 +34,7 @@ public class LuckyCardFragment extends Fragment {
     private Button button4;
     private Button button5;
     private Button button6;
+    private Button refreshButton;
 
     public class LuckyCardFragmentHandler extends Handler
     {
@@ -45,14 +50,32 @@ public class LuckyCardFragment extends Fragment {
                     button4.setText(result.get(3).cardName);
                     button5.setText(result.get(4).cardName);
                     button6.setText(result.get(5).cardName);
+                    EnabledAllButtons();
                     break;
                 case 200:
+                    Intent intent=new Intent(getContext(), ChatActivity.class);
+                    intent.putExtra("otherUid",msg.arg1);
+                    startActivity(intent);
+                case 300:
                     EnabledAllButtons();
+                    Toast.makeText(getContext(),"匹配失败",Toast.LENGTH_SHORT);
             }
         }
     }
 
-    public void DisabledAllButtons()
+    private void refreshCard()
+    {
+        result=netLuckyCard.getLuckyCard(LogginedUser.getInstance().getUid());
+        if(result!=null)
+        {
+            Message message=new Message();
+            message.what=100;
+            luckyCardFragmentHandler.sendMessage(message);
+        }
+
+    }
+
+    private void DisabledAllButtons()
     {
         button1.setEnabled(false);
         button2.setEnabled(false);
@@ -60,9 +83,10 @@ public class LuckyCardFragment extends Fragment {
         button4.setEnabled(false);
         button5.setEnabled(false);
         button6.setEnabled(false);
+        refreshButton.setEnabled(false);
     }
 
-    public void EnabledAllButtons()
+    private void EnabledAllButtons()
     {
         button1.setEnabled(true);
         button2.setEnabled(true);
@@ -70,9 +94,10 @@ public class LuckyCardFragment extends Fragment {
         button4.setEnabled(true);
         button5.setEnabled(true);
         button6.setEnabled(true);
+        refreshButton.setEnabled(true);
     }
 
-    void doNet(int cid)
+    private void doNet(int cid)
     {
         new Thread(new Runnable() {
             @Override
@@ -83,11 +108,12 @@ public class LuckyCardFragment extends Fragment {
                     //去聊天室
                     Message message=new Message();
                     message.what=200;
+                    message.arg1=targetUid;
                     luckyCardFragmentHandler.sendMessage(message);
                 }else
                 {
                     Message message=new Message();
-                    message.what=200;
+                    message.what=300;
                     luckyCardFragmentHandler.sendMessage(message);
                 }
             }
@@ -107,6 +133,17 @@ public class LuckyCardFragment extends Fragment {
         button4=root.findViewById(R.id.card_button_4);
         button5=root.findViewById(R.id.card_button_5);
         button6=root.findViewById(R.id.card_button_6);
+        refreshButton=root.findViewById(R.id.refresh_button);
+        DisabledAllButtons();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                refreshCard();
+            }
+        }).start();
+
+
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -150,20 +187,19 @@ public class LuckyCardFragment extends Fragment {
             }
         });
 
-        new Thread(new Runnable() {
+        refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
+            public void onClick(View v) {
+                DisabledAllButtons();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
 
-                result=netLuckyCard.getLuckyCard(LogginedUser.getInstance().getUid());
-                if(result!=null)
-                {
-                    Message message=new Message();
-                    message.what=100;
-                    luckyCardFragmentHandler.sendMessage(message);
-                }
+                        refreshCard();
+                    }
+                }).start();
             }
-        }).start();
-
+        });
 
         return root;
     }

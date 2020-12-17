@@ -5,9 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.appcompat.app.ActionBar;
-
-import com.example.uidesign.coldboot.ColdBootActivity;
+import com.example.uidesign.ui.coldboot.ColdBootActivity;
 import com.example.uidesign.data.CachedLoginData;
 import com.example.uidesign.net.NetLogin;
 import com.example.uidesign.ui.BaseActivity;
