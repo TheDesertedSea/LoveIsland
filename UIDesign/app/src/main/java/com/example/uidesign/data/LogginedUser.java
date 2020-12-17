@@ -17,6 +17,9 @@ public class LogginedUser {
     private String nickName;
     private String token;
 
+    private int confession_MaxID = 0;
+    private int discussion_MaxID = 0;
+
     public int getUid() {
         return uid;
     }
@@ -26,6 +29,14 @@ public class LogginedUser {
     }
 
     public String getToken(){ return token;}
+
+    public int getConfession_MaxID() {
+        return this.confession_MaxID;
+    }
+
+    public int getDiscussion_MaxID() {
+        return this.discussion_MaxID;
+    }
 
     public void setUid(int e)
     {
@@ -38,4 +49,12 @@ public class LogginedUser {
     }
 
     public void setToken(String e){token=e;}
+
+    public void setConfession_MaxID(int confession_MaxID) {
+        this.confession_MaxID = confession_MaxID;
+    }
+
+    public void setDiscussion_MaxID(int discussion_MaxID) {
+        this.discussion_MaxID = discussion_MaxID;
+    }
 }
