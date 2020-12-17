@@ -43,6 +43,14 @@ public class NotificationsFragment extends Fragment {
             {
                 case 100:
                     Contact contact=(Contact) msg.obj;
+                    for(Contact e:contactList)
+                    {
+                        if(e.uid==contact.uid)
+                        {
+                            e.latestMsg=contact.latestMsg;
+                            return;
+                        }
+                    }
                     contactList.add(contact);
                     contactAdapter.notifyItemInserted(contactList.size()-1);
                     recyclerView.scrollToPosition(contactList.size()-1);

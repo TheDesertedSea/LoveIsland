@@ -6,6 +6,7 @@ import android.os.Message;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 import com.example.uidesign.data.database.AppDatabase;
+import com.example.uidesign.data.database.Contact;
 import com.example.uidesign.data.database.DatabaseManager;
 import com.example.uidesign.data.database.Entity_ChatMsg;
 import com.example.uidesign.data.database.Entity_Comment;
@@ -77,10 +78,8 @@ public class UserSocketManager {
                             message.what=100;
                             message.obj=chatMsg;
                             chatActivityHandler.sendMessage(message);
-                        }else if(bInNotifications)
-                        {
-
                         }
+
                         Entity_ChatMsg entity_chatMsg=new Entity_ChatMsg();
                         entity_chatMsg.from=from;
                         entity_chatMsg.to=to;
@@ -89,9 +88,21 @@ public class UserSocketManager {
                         assert DatabaseManager.getAppDatabase() != null;
                         appDatabase.dao_chatMsg().insertAll(entity_chatMsg);
                         int otherUid=(LogginedUser.getInstance().getUid() == to ? from : to);
+                        if(bInNotifications)
+                        {
+                            Contact contact=new Contact();
+                            contact.uid=otherUid;
+                            contact.latestMsg=content;
+                            contact.nickName=fromName;
+                            contact.date=new Date(nowDate);
+                            Message message=chatActivityHandler.obtainMessage();
+                            message.what=100;
+                            message.obj=contact;
+                        }
                         if(appDatabase.dao_contact().isContactExisted(LogginedUser.getInstance().getUid()
                                 , otherUid) == 1)
                         {
+
                             Entity_Contact entity_contact=new Entity_Contact();
                             entity_contact.user_uid=LogginedUser.getInstance().getUid();
                             entity_contact.other_uid=otherUid;
@@ -99,6 +110,7 @@ public class UserSocketManager {
                             entity_contact.latest_content=content;
                             entity_contact.date=nowDate;
                             appDatabase.dao_contact().setLatestContent(entity_contact);
+
                         }else
                         {
                             Entity_Contact entity_contact=new Entity_Contact();

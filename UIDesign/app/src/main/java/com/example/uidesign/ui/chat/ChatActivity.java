@@ -64,6 +64,7 @@ public class ChatActivity extends AppCompatActivity {
     public class TempChatMsg
     {
         public int from;
+        public String fromName;
         public int to;
         public String content;
         public long date;
@@ -123,8 +124,10 @@ public class ChatActivity extends AppCompatActivity {
 
                 TempChatMsg temp=new TempChatMsg();
                 temp.from=LogginedUser.getInstance().getUid();
+                temp.fromName=LogginedUser.getInstance().getNickName();
                 temp.to=otherUid;
                 temp.date=System.currentTimeMillis();
+
                 UserSocketManager.getInstance().getSocket().emit("sendMsg",temp);
             }
         });
