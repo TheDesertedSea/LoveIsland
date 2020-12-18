@@ -60,8 +60,8 @@ public class ConfessionFragment extends Fragment {
 
     private UserInfo addUserInfo = new UserInfo();
 
-    private final String HOST="";
-    private final String baseIconUrl="http://"+HOST+":30010/user/userPortrait/";
+
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -118,12 +118,7 @@ public class ConfessionFragment extends Fragment {
 
                             for (NetGetConfession.ResponseItem i : mResponseItemList) {
                                 addingItem.content_text = i.content;
-                                //通过获得的uid去取得用户头像和用户名
-                                Glide.with(thisContext)
-                                        .load(baseIconUrl+i.uid)
-                                        .into(binding.userIcon);
-
-
+                                //通过获得的uid去取得用户名
                                 new Thread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -132,7 +127,6 @@ public class ConfessionFragment extends Fragment {
                                     }
                                 }).start();
                                 addingItem.title_username = addUserInfo.nickName;
-                                addingItem.title_avatarId = ;
 
                                 listData.add(addingItem);
                             }
@@ -157,26 +151,26 @@ public class ConfessionFragment extends Fragment {
 
     }
 
-    //设置item点击的监听事件
+    //设置item点击的监听事件，点击后跳转到详情页
     private void initListener() {
         mAdapter.setOnItemClickListener(new ConfessionListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 //处理点击item的事件，跳转到item详情页
                 Intent intent = new Intent(getActivity(), ItemDetailActivity.class);
-                intent.setAction("confessionItemDetail");   //这个intent的action叫做"edit"
+                intent.setAction("confessionItemDetail");   //这个intent的action叫做"confessionItemDetail"
                 getActivity().startActivity(intent);
             }
         });
     }
 
+    //初始化数据
     private void initData() {
         //创建数据集合
         listData = new ArrayList<ConfessionItem>();
 
-        //从服务器请求表白帖数据初始化(ing
+        //自动刷新，从服务器请求表白帖数据初始化
         refreshLayout.autoRefresh();
-
 
         //Recyclerview设置样式/布局管理器
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
@@ -184,8 +178,8 @@ public class ConfessionFragment extends Fragment {
         //设置item的分割线
         confessionList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         //创建适配器
-        mAdapter = new ConfessionListAdapter(listData);
-        //设置到Recyclerview里面去
+        mAdapter = new ConfessionListAdapter(thisContext, listData);
+        //适配器设置到Recyclerview里面去
         confessionList.setAdapter(mAdapter);
     }
 
