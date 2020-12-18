@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.bumptech.glide.Glide;
 import com.example.uidesign.R;
 import com.example.uidesign.adapter.ConfessionListAdapter;
 import com.example.uidesign.data.LogginedUser;
@@ -56,6 +57,11 @@ public class ConfessionFragment extends Fragment {
     private ArrayList<ConfessionItem> listData;
     private ConfessionListAdapter mAdapter;
     private RefreshLayout refreshLayout;
+
+    private UserInfo addUserInfo = new UserInfo();
+
+    private final String HOST="";
+    private final String baseIconUrl="http://"+HOST+":30010/user/userPortrait/";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -113,7 +119,11 @@ public class ConfessionFragment extends Fragment {
                             for (NetGetConfession.ResponseItem i : mResponseItemList) {
                                 addingItem.content_text = i.content;
                                 //通过获得的uid去取得用户头像和用户名
-                                UserInfo addUserInfo = new UserInfo();
+                                Glide.with(thisContext)
+                                        .load(baseIconUrl+i.uid)
+                                        .into(binding.userIcon);
+
+
                                 new Thread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -122,7 +132,7 @@ public class ConfessionFragment extends Fragment {
                                     }
                                 }).start();
                                 addingItem.title_username = addUserInfo.nickName;
-//                                addingItem.title_avatarId = ;
+                                addingItem.title_avatarId = ;
 
                                 listData.add(addingItem);
                             }

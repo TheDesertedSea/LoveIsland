@@ -33,6 +33,7 @@ public class PersonalPageActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         binding=ActivityPersonalPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        //接收intent，额外信息uid
         Intent intent=getIntent();
         int uid=intent.getIntExtra("uid", -1);
 
