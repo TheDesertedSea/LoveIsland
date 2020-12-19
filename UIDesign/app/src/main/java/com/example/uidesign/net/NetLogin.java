@@ -39,7 +39,7 @@ public class NetLogin {
     public static class ResponseClass
     {
         public int user;
-        public Object Obj;
+        public SuccessContent Obj;
     }
 
     public static class SuccessContent
