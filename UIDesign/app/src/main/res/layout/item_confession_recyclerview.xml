@@ -63,6 +63,27 @@
 
             </RelativeLayout>
 
+            <LinearLayout
+                android:id="@+id/like_and_comment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/item_like"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_like_non_24dp"/>
+
+                <ImageView
+                    android:id="@+id/item_comment"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_comment_24dp"/>
+
+            </LinearLayout>
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

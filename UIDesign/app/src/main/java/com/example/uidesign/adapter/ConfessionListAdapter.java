@@ -105,7 +105,7 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
 
             this.mPosition = position;
             //开始设置数据
-            Glide.with(thisContext).load(baseIconUrl+confessionItem.uid).into(mAvatar);
+            Glide.with(thisContext).load(baseIconUrl + confessionItem.uid).into(mAvatar);
             mUsername.setText(confessionItem.title_username);
             mContentText.setText(confessionItem.content_text);
             mContentImage.setImageResource(confessionItem.content_imageId);
