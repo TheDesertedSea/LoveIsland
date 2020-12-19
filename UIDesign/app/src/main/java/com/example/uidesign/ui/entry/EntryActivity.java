@@ -56,6 +56,8 @@ public class EntryActivity extends BaseActivity {
                     intent = new Intent(thisContext, ColdBootActivity.class);
                 }else
                 {
+                    cachedLoginData.saveCachedLoginData("",
+                            "");
                     intent = new Intent(thisContext, LoginActivity.class);
                 }
                 startActivity(intent);

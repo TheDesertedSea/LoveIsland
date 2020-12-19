@@ -38,6 +38,7 @@ public class ChatActivity extends AppCompatActivity {
     private Activity thisActivity=this;
     private List<ChatMsg> msgList = new ArrayList<>();
     private ChatMsgAdapter adapter;
+    private ChatActivityHandler chatActivityHandler=new ChatActivityHandler();
 
     private int otherUid;
 
@@ -84,6 +85,9 @@ public class ChatActivity extends AppCompatActivity {
         {
             otherUid=LogginedUser.getInstance().getUid();
         }
+        UserSocketManager.getInstance().chatActivityHandler=chatActivityHandler;
+        UserSocketManager.getInstance().bInChat=true;
+        UserSocketManager.getInstance().currentChatWith=otherUid;
 
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(thisContext);

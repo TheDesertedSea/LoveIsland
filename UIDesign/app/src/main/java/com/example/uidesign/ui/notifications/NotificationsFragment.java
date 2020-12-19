@@ -54,6 +54,20 @@ public class NotificationsFragment extends Fragment {
                     contactList.add(contact);
                     contactAdapter.notifyItemInserted(contactList.size()-1);
                     recyclerView.scrollToPosition(contactList.size()-1);
+                    break;
+                case 200:
+                    contactList=new ArrayList<Contact>();
+                    for(Entity_Contact e:entity_contacts)
+                    {
+                        Contact contact2=new Contact();
+                        contact2.uid=e.other_uid;
+                        contact2.nickName=e.other_nick_name;
+                        contact2.latestMsg=e.latest_content;
+                        contact2.date=new Date(e.date);
+                        contactList.add(contact2);
+                    }
+                    contactAdapter=new ContactAdapter(contactList,thisContext);
+                    recyclerView.setAdapter(contactAdapter);
             }
         }
 
@@ -64,6 +78,8 @@ public class NotificationsFragment extends Fragment {
     private RecyclerView recyclerView;
     private List<Contact> contactList;
     private ContactAdapter contactAdapter;
+    private List<Entity_Contact> entity_contacts;
+    private NotificationsFragmentHandler notificationsFragmentHandler=new NotificationsFragmentHandler();
 
     private Context thisContext;
 
@@ -79,19 +95,15 @@ public class NotificationsFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(thisContext);
         recyclerView.setLayoutManager(layoutManager);
 
-        List<Entity_Contact> entity_contacts=DatabaseManager.getAppDatabase().dao_contact().getContacts(LogginedUser.getInstance().getUid());
-        contactList=new ArrayList<Contact>();
-        for(Entity_Contact e:entity_contacts)
-        {
-            Contact contact=new Contact();
-            contact.uid=e.other_uid;
-            contact.nickName=e.other_nick_name;
-            contact.latestMsg=e.latest_content;
-            contact.date=new Date(e.date);
-            contactList.add(contact);
-        }
-        contactAdapter=new ContactAdapter(contactList,thisContext);
-        recyclerView.setAdapter(contactAdapter);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                entity_contacts=DatabaseManager.getAppDatabase().dao_contact().getContacts(LogginedUser.getInstance().getUid());
+                Message message=notificationsFragmentHandler.obtainMessage();
+                message.what=200;
+            }
+        }).start();
+
 
         commentToMeButton.setOnClickListener(new View.OnClickListener() {
             @Override

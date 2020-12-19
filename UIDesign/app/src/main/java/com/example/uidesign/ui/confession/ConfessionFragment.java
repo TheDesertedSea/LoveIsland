@@ -51,7 +51,7 @@ public class ConfessionFragment extends Fragment {
     private final ConfessionFragment thisContext = this;
     private LogginedUser Me = LogginedUser.getInstance();
 
-    private Button EditItemButton;
+    private FloatingActionButton EditItemButton;
 
     private RecyclerView confessionList;
     private ArrayList<ConfessionItem> listData;

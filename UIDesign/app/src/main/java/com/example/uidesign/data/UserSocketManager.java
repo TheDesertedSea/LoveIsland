@@ -3,8 +3,6 @@ package com.example.uidesign.data;
 import android.os.Message;
 
 
-import androidx.appcompat.widget.LinearLayoutCompat;
-
 import com.example.uidesign.data.database.AppDatabase;
 import com.example.uidesign.data.database.Contact;
 import com.example.uidesign.data.database.DatabaseManager;
@@ -19,9 +17,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-import java.util.ArrayList;
-
-import java.net.Socket;
 
 import java.util.Date;
 
@@ -56,6 +51,7 @@ public class UserSocketManager {
         try
         {
             socket= IO.socket("http://"+host+String.valueOf(port));
+            socket.connect();
             socket.on("receiveMsg", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
