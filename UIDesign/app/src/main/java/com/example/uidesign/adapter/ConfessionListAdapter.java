@@ -1,5 +1,6 @@
 package com.example.uidesign.adapter;
 
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -9,17 +10,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.uidesign.R;
+import com.example.uidesign.ui.confession.ConfessionFragment;
 import com.example.uidesign.ui.confession.ConfessionItem;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAdapter.InnerHolder> {
-    private final List<ConfessionItem> mData;
+    private ArrayList<ConfessionItem> mData;
     private OnItemClickListener mOnItemClickListener;
 
+    private ConfessionFragment thisContext;
+    private final String HOST="";
+    private final String baseIconUrl="http://"+HOST+":30010/user/userPortrait/";
+
     //构造方法
-    public ConfessionListAdapter(List<ConfessionItem> data) {
+    public ConfessionListAdapter(ConfessionFragment context, ArrayList<ConfessionItem> data) {
+        this.thisContext = context;
         this.mData = data;
     }
 
@@ -97,7 +105,7 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
 
             this.mPosition = position;
             //开始设置数据
-            mAvatar.setImageResource(confessionItem.title_avatarId);
+            Glide.with(thisContext).load(baseIconUrl + confessionItem.uid).into(mAvatar);
             mUsername.setText(confessionItem.title_username);
             mContentText.setText(confessionItem.content_text);
             mContentImage.setImageResource(confessionItem.content_imageId);

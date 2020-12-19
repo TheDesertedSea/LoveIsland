@@ -1,22 +1,17 @@
 package com.example.uidesign.ui.confession;
 
-<<<<<<< HEAD
-=======
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
->>>>>>> front-end
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-<<<<<<< HEAD
-=======
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
->>>>>>> front-end
 
 
 import androidx.annotation.NonNull;
@@ -28,18 +23,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.bumptech.glide.Glide;
 import com.example.uidesign.R;
 import com.example.uidesign.adapter.ConfessionListAdapter;
 import com.example.uidesign.data.LogginedUser;
+import com.example.uidesign.data.UserInfo;
 import com.example.uidesign.databinding.FragmentConfessionBinding;
-<<<<<<< HEAD
-=======
 import com.example.uidesign.net.NetGetConfession;
+import com.example.uidesign.net.NetPersonalCenter;
 import com.example.uidesign.net.NetSendConfession;
 import com.example.uidesign.ui.item_detail.ItemDetailActivity;
 import com.example.uidesign.ui.item_edit.ItemEditActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
->>>>>>> front-end
 import com.scwang.smart.refresh.footer.ClassicsFooter;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
@@ -56,45 +51,22 @@ public class ConfessionFragment extends Fragment {
     private final ConfessionFragment thisContext = this;
     private LogginedUser Me = LogginedUser.getInstance();
 
-<<<<<<< HEAD
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding=FragmentConfessionBinding.inflate(getLayoutInflater());
-        RefreshLayout refreshLayout = (RefreshLayout)binding.refreshLayout;
-        refreshLayout.setRefreshHeader(new ClassicsHeader(getContext()));
-        refreshLayout.setRefreshFooter(new ClassicsFooter(getContext()));
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
-            }
-        });
-        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(RefreshLayout refreshlayout) {
-                refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
-            }
-        });
-    }
-=======
     private Button EditItemButton;
 
     private RecyclerView confessionList;
     private ArrayList<ConfessionItem> listData;
     private ConfessionListAdapter mAdapter;
     private RefreshLayout refreshLayout;
->>>>>>> front-end
+
+    private UserInfo addUserInfo = new UserInfo();
+
+
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-<<<<<<< HEAD
 
-        View root = inflater.inflate(R.layout.fragment_confession, container, false);
-        return root;
-    }
-=======
         View root = inflater.inflate(R.layout.fragment_confession, container, false);
         return root;
     }
@@ -143,11 +115,18 @@ public class ConfessionFragment extends Fragment {
                             //把取得的数据更新到数据集中
                             ArrayList<NetGetConfession.ResponseItem> mResponseItemList = mResponseClass.confessionArray;
                             ConfessionItem addingItem = new ConfessionItem();
+
                             for (NetGetConfession.ResponseItem i : mResponseItemList) {
                                 addingItem.content_text = i.content;
-                                //通过获得的uid去取得用户头像和用户名
-//                                addingItem.title_username = ;
-//                                addingItem.title_avatarId = ;
+                                //通过获得的uid去取得用户名
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        NetPersonalCenter mNetPersonalCenter = new NetPersonalCenter();
+                                        addUserInfo = mNetPersonalCenter.getUserInfo(i.uid);
+                                    }
+                                }).start();
+                                addingItem.title_username = addUserInfo.nickName;
 
                                 listData.add(addingItem);
                             }
@@ -172,26 +151,26 @@ public class ConfessionFragment extends Fragment {
 
     }
 
-    //设置item点击的监听事件
+    //设置item点击的监听事件，点击后跳转到详情页
     private void initListener() {
         mAdapter.setOnItemClickListener(new ConfessionListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 //处理点击item的事件，跳转到item详情页
                 Intent intent = new Intent(getActivity(), ItemDetailActivity.class);
-                intent.setAction("confessionItemDetail");   //这个intent的action叫做"edit"
+                intent.setAction("confessionItemDetail");   //这个intent的action叫做"confessionItemDetail"
                 getActivity().startActivity(intent);
             }
         });
     }
 
+    //初始化数据
     private void initData() {
         //创建数据集合
         listData = new ArrayList<ConfessionItem>();
 
-        //从服务器请求表白帖数据初始化(ing
+        //自动刷新，从服务器请求表白帖数据初始化
         refreshLayout.autoRefresh();
-
 
         //Recyclerview设置样式/布局管理器
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
@@ -199,10 +178,9 @@ public class ConfessionFragment extends Fragment {
         //设置item的分割线
         confessionList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         //创建适配器
-        mAdapter = new ConfessionListAdapter(listData);
-        //设置到Recyclerview里面去
+        mAdapter = new ConfessionListAdapter(thisContext, listData);
+        //适配器设置到Recyclerview里面去
         confessionList.setAdapter(mAdapter);
     }
 
->>>>>>> front-end
 }
