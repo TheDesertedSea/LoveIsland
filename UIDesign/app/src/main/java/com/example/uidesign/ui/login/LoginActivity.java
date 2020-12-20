@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.uidesign.BaseApplication;
 import com.example.uidesign.ui.coldboot.ColdBootActivity;
 import com.example.uidesign.data.CachedLoginData;
 import com.example.uidesign.net.NetLogin;
@@ -40,7 +41,7 @@ public class LoginActivity extends BaseActivity {
                     public void run() {
                         NetLogin netLogin=new NetLogin();
                         int result=netLogin.login(binding.usernameInputText.getText().toString(),
-                                binding.passwordInputText.getText().toString());
+                                binding.passwordInputText.getText().toString(),(BaseApplication) getApplication());
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

@@ -2,6 +2,7 @@ package com.example.uidesign.net;
 
 import android.util.Log;
 
+import com.example.uidesign.BaseApplication;
 import com.example.uidesign.data.CachedLoginData;
 import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.data.UserSocketManager;
@@ -16,11 +17,11 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class NetLogin {
-    private static final boolean DEBUG=true;
+    private static final boolean DEBUG=false;
 
     private static final String SCHEME="http";
     private static final String FORMAT="host:30010/login/login?mailbox=****&password=****&time=****";
-    private static final String HOST="192.168.1.108";
+    private static final String HOST="192.168.1.105";
     private static final int PORT=30010;
     private static final String PATH_SEGMENTS="login/login";
 
@@ -57,7 +58,7 @@ public class NetLogin {
         public int uid;
     }
 
-    public int login(String username,String password)
+    public int login(String username, String password, BaseApplication baseApplication)
     {
         if(DEBUG)
         {
@@ -96,10 +97,10 @@ public class NetLogin {
             LogginedUser.getInstance().setUid(successContent.uid);
             LogginedUser.getInstance().setNickName(successContent.nickname);
             LogginedUser.getInstance().setToken(successContent.token);
-            UserSocketManager.getInstance().connect(successContent.host,successContent.port);
+//            UserSocketManager.getInstance().connect(successContent.host,successContent.port,baseApplication);
             NewOnline newOnline=new NewOnline();
             newOnline.uid=successContent.uid;
-            UserSocketManager.getInstance().getSocket().emit("newOnline",newOnline);
+//            UserSocketManager.getInstance().getSocket().emit("newOnline",newOnline);
             if(successContent.firstLogin)
             {
                 return GO_TO_COLD_BOOT;
