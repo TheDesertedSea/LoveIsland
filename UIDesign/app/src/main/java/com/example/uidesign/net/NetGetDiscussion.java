@@ -19,16 +19,15 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class NetGetConfession {
-
+public class NetGetDiscussion {
     private static final String SCHEME = "http";
-    private static final String FORMAT = "host:30010/forum/pull";
+    private static final String FORMAT = "host:30010/discuss/pull";
     private static final String HOST = "";
     private static final int PORT = 30010;
-    private static final String PATH_SEGMENTS = "forum/pull";
+    private static final String PATH_SEGMENTS = "discuss/pull";
 
     //返回结果
-    public static final ResponseClass FAIL = null;
+    public static final NetGetDiscussion.ResponseClass FAIL = null;
 
     //结果信息
     public static final String SUCCESS_INFO = "刷新成功";
@@ -51,13 +50,13 @@ public class NetGetConfession {
     public static class ResponseClass
     {
         public int maxID;
-        public ArrayList<ResponseItem> confessionArray;
+        public ArrayList<NetGetDiscussion.ResponseItem> discussionArray;
     }
 
-    public ResponseClass getConfession(int commentID, int uid) {
+    public NetGetDiscussion.ResponseClass getDiscussion(int commentID, int uid) {
 
-        ResponseClass responseClass = new ResponseClass();
-        responseClass.confessionArray = new ArrayList<ResponseItem>();
+        NetGetDiscussion.ResponseClass responseClass = new NetGetDiscussion.ResponseClass();
+        responseClass.discussionArray = new ArrayList<NetGetDiscussion.ResponseItem>();
         responseClass.maxID = 0;
 
         OkHttpClient client = new OkHttpClient();
@@ -66,7 +65,7 @@ public class NetGetConfession {
                 .build();
         Log.v("httpUrl",url.toString());
 
-        NetGetConfession.RequestClass requestClass=new NetGetConfession.RequestClass();
+        NetGetDiscussion.RequestClass requestClass=new NetGetDiscussion.RequestClass();
         requestClass.commentID = commentID;
         requestClass.uid = uid;
 
@@ -94,8 +93,8 @@ public class NetGetConfession {
             Gson gson_get = new Gson();
             for(JsonElement e:jsonElements)
             {
-                NetGetConfession.ResponseItem temp = gson_get.fromJson(e, NetGetConfession.ResponseItem.class);
-                responseClass.confessionArray.add(temp);
+                NetGetDiscussion.ResponseItem temp = gson_get.fromJson(e, NetGetDiscussion.ResponseItem.class);
+                responseClass.discussionArray.add(temp);
                 if(responseClass.maxID < temp.commentID) {
                     responseClass.maxID = temp.commentID;
                 }

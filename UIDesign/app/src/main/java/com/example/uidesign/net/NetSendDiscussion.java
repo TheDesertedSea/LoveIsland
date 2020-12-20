@@ -15,13 +15,12 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class NetSendConfession {
-
+public class NetSendDiscussion {
     private static final String SCHEME = "http";
-    private static final String FORMAT = "host:30010/forum/push";
+    private static final String FORMAT = "host:30010/discuss/push";
     private static final String HOST = "";
     private static final int PORT = 30010;
-    private static final String PATH_SEGMENTS = "forum/push";
+    private static final String PATH_SEGMENTS = "discuss/push";
 
     //返回结果
     public static final String SUCCESS = "success";
@@ -35,7 +34,7 @@ public class NetSendConfession {
     {
         public int uid;
         //这里的String以后可以改成类，类里面放入文本和图片
-        public String confcont;
+        public String discont;
     }
 
     public static class ResponseClass
@@ -43,7 +42,7 @@ public class NetSendConfession {
         public String result_code;
     }
 
-    public String sendConfession(int uid, String content_text) {
+    public String sendDiscussion(int uid, String content_text) {
 
         OkHttpClient client = new OkHttpClient();
 
@@ -51,9 +50,9 @@ public class NetSendConfession {
                 .build();
         Log.v("httpUrl",url.toString());
 
-        NetSendConfession.RequestClass requestClass = new NetSendConfession.RequestClass();
+        NetSendDiscussion.RequestClass requestClass = new RequestClass();
         requestClass.uid = uid;
-        requestClass.confcont = content_text;
+        requestClass.discont = content_text;
 
         Gson gson = new Gson();
         String requestJson = gson.toJson(requestClass);
@@ -75,7 +74,7 @@ public class NetSendConfession {
                 return FAIL;
             }
             String responseJson = responseBody.string();
-            NetSendConfession.ResponseClass responseClass = gson.fromJson(responseJson, NetSendConfession.ResponseClass.class);
+            NetSendDiscussion.ResponseClass responseClass = gson.fromJson(responseJson, NetSendDiscussion.ResponseClass.class);
             if(responseClass.result_code == "success")
             {
                 return SUCCESS;

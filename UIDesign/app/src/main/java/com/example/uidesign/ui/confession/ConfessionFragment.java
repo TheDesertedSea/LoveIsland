@@ -82,7 +82,7 @@ public class ConfessionFragment extends Fragment {
             public void onClick(View v) {
                 //跳转到编辑页面
                 Intent intent = new Intent(getActivity(), ItemEditActivity.class);
-                intent.setAction("edit");   //这个intent的action叫做"edit"
+                intent.putExtra("name", "confession");
                 getActivity().startActivity(intent);
             }
         });
