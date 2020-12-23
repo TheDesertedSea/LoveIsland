@@ -51,7 +51,9 @@ public class ConfessionFragment extends Fragment {
     private final ConfessionFragment thisContext = this;
     private LogginedUser Me = LogginedUser.getInstance();
 
-    private FloatingActionButton EditItemButton;
+    private Button EditItemButton;
+    private Button LikeButton;
+    private Button CommentButton;
 
     private RecyclerView confessionList;
     private ArrayList<ConfessionItem> listData;
@@ -82,7 +84,7 @@ public class ConfessionFragment extends Fragment {
             public void onClick(View v) {
                 //跳转到编辑页面
                 Intent intent = new Intent(getActivity(), ItemEditActivity.class);
-                intent.setAction("edit");   //这个intent的action叫做"edit"
+                intent.putExtra("name", "confession");
                 getActivity().startActivity(intent);
             }
         });

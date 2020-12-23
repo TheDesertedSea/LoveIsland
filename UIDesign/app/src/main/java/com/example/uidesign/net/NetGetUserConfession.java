@@ -19,16 +19,15 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class NetGetConfession {
-
+public class NetGetUserConfession {
     private static final String SCHEME = "http";
-    private static final String FORMAT = "host:30010/forum/pull";
+    private static final String FORMAT = "host:30010/forum/pull_userconf";
     private static final String HOST = "";
     private static final int PORT = 30010;
-    private static final String PATH_SEGMENTS = "forum/pull";
+    private static final String PATH_SEGMENTS = "forum/pull_userconf";
 
     //返回结果
-    public static final ResponseClass FAIL = null;
+    public static final NetGetUserConfession.ResponseClass FAIL = null;
 
     //结果信息
     public static final String SUCCESS_INFO = "刷新成功";
@@ -36,8 +35,8 @@ public class NetGetConfession {
 
     public static class RequestClass
     {
-        public int commentID;   //目前客户端已有的最大表白帖号
-        public int uid; //账号的id
+        public int get_uid;   //请求的账号id
+        public int local_uid; //本地账号的id
     }
 
     //返回的一个帖子的信息
@@ -51,13 +50,13 @@ public class NetGetConfession {
     public static class ResponseClass
     {
         public int maxID;
-        public ArrayList<ResponseItem> confessionArray;
+        public ArrayList<NetGetConfession.ResponseItem> confessionArray;
     }
 
-    public ResponseClass getConfession(int commentID, int uid) {
+    public NetGetConfession.ResponseClass getConfession(int commentID, int uid) {
 
-        ResponseClass responseClass = new ResponseClass();
-        responseClass.confessionArray = new ArrayList<ResponseItem>();
+        NetGetConfession.ResponseClass responseClass = new NetGetConfession.ResponseClass();
+        responseClass.confessionArray = new ArrayList<NetGetConfession.ResponseItem>();
         responseClass.maxID = 0;
 
         OkHttpClient client = new OkHttpClient();
@@ -96,9 +95,7 @@ public class NetGetConfession {
             {
                 NetGetConfession.ResponseItem temp = gson_get.fromJson(e, NetGetConfession.ResponseItem.class);
                 responseClass.confessionArray.add(temp);
-                if(responseClass.maxID < temp.commentID) {
-                    responseClass.maxID = temp.commentID;
-                }
+
             }
             return responseClass;
         }catch (IOException e)
