@@ -45,6 +45,8 @@ public class DiscussionFragment extends Fragment {
     private LogginedUser Me = LogginedUser.getInstance();
 
     private Button EditItemButton;
+    private Button LikeButton;
+    private Button CommentButton;
 
     private RecyclerView discussionList;
     private ArrayList<DiscussionItem> listData;

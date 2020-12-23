@@ -52,6 +52,8 @@ public class ConfessionFragment extends Fragment {
     private LogginedUser Me = LogginedUser.getInstance();
 
     private Button EditItemButton;
+    private Button LikeButton;
+    private Button CommentButton;
 
     private RecyclerView confessionList;
     private ArrayList<ConfessionItem> listData;
