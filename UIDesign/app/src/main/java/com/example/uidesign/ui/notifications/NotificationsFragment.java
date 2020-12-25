@@ -25,6 +25,7 @@ import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.data.database.Contact;
 import com.example.uidesign.data.database.DatabaseManager;
 import com.example.uidesign.data.database.Entity_Contact;
+import com.example.uidesign.net.UserSocketManager;
 import com.example.uidesign.ui.comment_to_me.CommentToMeActivity;
 import com.example.uidesign.ui.thumb_to_me.ThumbToMeActivity;
 
@@ -68,6 +69,7 @@ public class NotificationsFragment extends Fragment {
                     }
                     contactAdapter=new ContactAdapter(contactList,thisContext);
                     recyclerView.setAdapter(contactAdapter);
+                    UserSocketManager.getInstance().bInNotifications=true;
             }
         }
 
@@ -122,5 +124,12 @@ public class NotificationsFragment extends Fragment {
         });
 
         return root;
+
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        UserSocketManager.getInstance().bInNotifications= !hidden;
     }
 }

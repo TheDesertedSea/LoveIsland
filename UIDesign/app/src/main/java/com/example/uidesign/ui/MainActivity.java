@@ -1,12 +1,10 @@
 package com.example.uidesign.ui;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 
 import com.example.uidesign.BaseApplication;
 import com.example.uidesign.R;
-import com.example.uidesign.data.UserSocketManager;
+import com.example.uidesign.net.UserSocketManager;
 import com.example.uidesign.databinding.ActivityMainBinding;
 
 import androidx.appcompat.app.ActionBar;

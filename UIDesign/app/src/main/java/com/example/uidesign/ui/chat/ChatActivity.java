@@ -17,14 +17,15 @@ import com.bumptech.glide.Glide;
 import com.example.uidesign.data.ChatMsg;
 import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.data.UserInfo;
-import com.example.uidesign.data.UserSocketManager;
+import com.example.uidesign.net.SocketMsg;
+import com.example.uidesign.net.UserSocketManager;
 import com.example.uidesign.data.database.DatabaseManager;
 import com.example.uidesign.data.database.Entity_ChatMsg;
 import com.example.uidesign.databinding.ActivityChatBinding;
 import com.example.uidesign.net.NetPersonalCenter;
+import com.google.gson.Gson;
 
-import org.json.JSONObject;
-
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -62,14 +63,6 @@ public class ChatActivity extends AppCompatActivity {
 
     }
 
-    public class TempChatMsg
-    {
-        public int from;
-        public String fromName;
-        public int to;
-        public String content;
-        public long date;
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,19 +119,31 @@ public class ChatActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                TempChatMsg temp=new TempChatMsg();
+                SocketMsg temp=new SocketMsg();
                 temp.from=LogginedUser.getInstance().getUid();
                 temp.fromName=LogginedUser.getInstance().getNickName();
                 temp.to=otherUid;
-                temp.date=System.currentTimeMillis();
+                temp.nowDate=System.currentTimeMillis();
+                Gson gson=new Gson();
+                String sendString=gson.toJson(temp);
 
-                UserSocketManager.getInstance().getSocket().emit("sendMsg",temp);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            UserSocketManager.getInstance().getDataOutputStream().writeUTF(sendString);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
             }
         });
 
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                UserSocketManager.getInstance().bInChat=false;
                 thisActivity.finish();
             }
         });

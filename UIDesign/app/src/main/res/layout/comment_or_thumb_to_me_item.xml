@@ -39,7 +39,7 @@
             android:id="@+id/content_brief"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="有考虑过做说唱吗？"
+            android:text="你想表达什么？"
             android:textSize="20sp"
             app:layout_constraintLeft_toRightOf="@id/writer_icon"
             app:layout_constraintTop_toBottomOf="@id/comment_or_like_date" />
