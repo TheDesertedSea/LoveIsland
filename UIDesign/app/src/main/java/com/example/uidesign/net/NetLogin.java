@@ -3,9 +3,7 @@ package com.example.uidesign.net;
 import android.util.Log;
 
 import com.example.uidesign.BaseApplication;
-import com.example.uidesign.data.CachedLoginData;
 import com.example.uidesign.data.LogginedUser;
-import com.example.uidesign.data.UserSocketManager;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -53,10 +51,10 @@ public class NetLogin {
         public boolean firstLogin;
     }
 
-    public static class NewOnline
-    {
-        public int uid;
-    }
+//    public static class NewOnline
+//    {
+//        public int uid;
+//    }
 
     public int login(String username, String password, BaseApplication baseApplication)
     {
@@ -97,9 +95,10 @@ public class NetLogin {
             LogginedUser.getInstance().setUid(successContent.uid);
             LogginedUser.getInstance().setNickName(successContent.nickname);
             LogginedUser.getInstance().setToken(successContent.token);
+            UserSocketManager.getInstance().connect(successContent.host,successContent.port);
 //            UserSocketManager.getInstance().connect(successContent.host,successContent.port,baseApplication);
-            NewOnline newOnline=new NewOnline();
-            newOnline.uid=successContent.uid;
+//            NewOnline newOnline=new NewOnline();
+//            newOnline.uid=successContent.uid;
 //            UserSocketManager.getInstance().getSocket().emit("newOnline",newOnline);
             if(successContent.firstLogin)
             {
