@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1700FFFF"
+    android:background="#1180FF00"
     tools:context=".ui.sign_up.SignUpActivity">
 
     <Button
@@ -50,7 +50,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:hint="邮箱地址"
-            android:singleLine="true"/>
+            android:singleLine="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -68,7 +68,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:hint="密码"
-            android:singleLine="true"/>
+            android:singleLine="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -86,7 +86,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:hint="再次输入密码"
-            android:singleLine="true"/>
+            android:singleLine="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -105,8 +105,8 @@
             android:layout_height="wrap_content"
 
             android:hint="昵称"
-            android:singleLine="true"
-            android:imeOptions="actionDone"/>
+            android:imeOptions="actionDone"
+            android:singleLine="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -168,8 +168,8 @@
             android:layout_height="wrap_content"
 
             android:hint="所在院校"
-            android:singleLine="true"
-            android:imeOptions="actionDone"/>
+            android:imeOptions="actionDone"
+            android:singleLine="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -66,7 +66,7 @@
             android:id="@+id/icon_right"
             android:layout_width="72dp"
             android:layout_height="72dp"
-            android:src="@drawable/ic_confession_black_24dp"
+            android:src="@drawable/lilimu"
             app:civ_border_color="#FF000000"
             app:civ_border_width="2dp"
             app:layout_constraintRight_toRightOf="parent"
@@ -86,7 +86,7 @@
             android:id="@+id/date_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="date"
+            android:text="2020/12/25 10:50"
             app:layout_constraintRight_toLeftOf="@id/icon_right"
             app:layout_constraintTop_toBottomOf="@id/nick_name_right" />
 

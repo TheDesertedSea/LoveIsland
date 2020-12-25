@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.uidesign.BaseApplication;
 import com.example.uidesign.ui.coldboot.ColdBootActivity;
 import com.example.uidesign.data.CachedLoginData;
 import com.example.uidesign.net.NetLogin;
@@ -45,7 +46,7 @@ public class EntryActivity extends BaseActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                int result=netLogin.login(username,password);
+                int result=netLogin.login(username,password,(BaseApplication) getApplication());
                 Intent intent;
                 if(result==NetLogin.OK||result==NetLogin.DUPLICATE_LOGIN)
                 {

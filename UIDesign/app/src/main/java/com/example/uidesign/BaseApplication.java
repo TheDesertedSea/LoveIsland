@@ -5,7 +5,19 @@ import android.app.Application;
 import com.example.uidesign.data.UserSocketManager;
 import com.example.uidesign.data.database.DatabaseManager;
 
+import java.net.URISyntaxException;
+
+import io.socket.client.IO;
+import io.socket.client.Socket;
+
 public class BaseApplication extends Application {
+
+    private Socket mSocket;
+
+    public Socket getSocket() {
+        return mSocket;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -23,9 +35,9 @@ public class BaseApplication extends Application {
         if(DatabaseManager.getAppDatabase()!=null) {
             DatabaseManager.getAppDatabase().close();
         }
-        if(UserSocketManager.getInstance().getSocket()!=null)
+        if(mSocket!=null)
         {
-            UserSocketManager.getInstance().getSocket().disconnect();
+            mSocket.disconnect();
         }
     }
 }

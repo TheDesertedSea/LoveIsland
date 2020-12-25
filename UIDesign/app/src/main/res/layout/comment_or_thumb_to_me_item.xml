@@ -11,7 +11,7 @@
             android:id="@+id/writer_icon"
             android:layout_width="72dp"
             android:layout_height="72dp"
-            android:src="@drawable/ic_confession_black_24dp"
+            android:src="@drawable/lilimu"
             app:civ_border_color="#FF000000"
             app:civ_border_width="2dp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -39,10 +39,10 @@
             android:id="@+id/content_brief"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="司马小孤儿"
+            android:text="有考虑过做说唱吗？"
             android:textSize="20sp"
-            app:layout_constraintTop_toBottomOf="@id/comment_or_like_date"
-            app:layout_constraintLeft_toRightOf="@id/writer_icon" />
+            app:layout_constraintLeft_toRightOf="@id/writer_icon"
+            app:layout_constraintTop_toBottomOf="@id/comment_or_like_date" />
 
 
 

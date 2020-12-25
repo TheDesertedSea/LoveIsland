@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.example.uidesign.BaseApplication;
 import com.example.uidesign.R;
+import com.example.uidesign.data.UserSocketManager;
 import com.example.uidesign.databinding.ActivityMainBinding;
 
 import androidx.appcompat.app.ActionBar;
@@ -31,7 +33,7 @@ public class MainActivity extends BaseActivity {
         NavController navController = Navigation.findNavController(this,R.id.nav_host_fragment);
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
-
+        UserSocketManager.getInstance().connect("successContent.host",43,(BaseApplication) getApplication());
 
     }
 

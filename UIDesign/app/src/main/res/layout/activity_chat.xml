@@ -49,7 +49,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#17FF0303"
+        android:background="#1E00CCFF"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/message_recycler_view">
@@ -65,8 +65,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/message_input"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="hint" />
+                android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button

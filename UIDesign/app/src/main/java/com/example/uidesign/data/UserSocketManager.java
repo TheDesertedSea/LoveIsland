@@ -1,8 +1,10 @@
 package com.example.uidesign.data;
 
 import android.os.Message;
+import android.util.Log;
 
 
+import com.example.uidesign.BaseApplication;
 import com.example.uidesign.data.database.AppDatabase;
 import com.example.uidesign.data.database.Contact;
 import com.example.uidesign.data.database.DatabaseManager;
@@ -46,12 +48,16 @@ public class UserSocketManager {
     private final LikeListener likeListener=new LikeListener();
     private final CommentListener commentListener=new CommentListener();
 
-    public void connect(String host,int port)
+    public void connect(String host, int port, BaseApplication baseApplication)
     {
+        Log.v("socket-connect",host+":"+port);
         try
         {
-            socket= IO.socket("http://"+host+String.valueOf(port));
-            socket.connect();
+            socket=baseApplication.getSocket();
+            socket=IO.socket("http://192.168.1.105:3000");
+//            socket= IO.socket("http://"+host+String.valueOf(port));
+
+            Log.v("socket-connect",String.valueOf(socket.connected()));
             socket.on("receiveMsg", new Emitter.Listener() {
                 @Override
                 public void call(Object... args) {
@@ -131,6 +137,8 @@ public class UserSocketManager {
                     .on("receiveDisLike", likeListener)
                     .on("receiveConfCom",commentListener)
                     .on("receiveDisCom",commentListener);
+
+            socket.connect();
         }catch(Exception e)
         {
             e.printStackTrace();

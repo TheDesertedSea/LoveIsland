@@ -23,7 +23,7 @@ public class NetGetConfession {
 
     private static final String SCHEME = "http";
     private static final String FORMAT = "host:30010/forum/pull";
-    private static final String HOST = "";
+    private static final String HOST = "192.168.1.105";
     private static final int PORT = 30010;
     private static final String PATH_SEGMENTS = "forum/pull";
 
