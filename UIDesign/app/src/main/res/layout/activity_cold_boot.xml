@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#1180FF00"
     tools:context=".ui.coldboot.ColdBootActivity">
 
     <TextView
@@ -11,11 +12,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:text="选择你感兴趣的领域"
+        android:textSize="28sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="选择你感兴趣的领域"
-        android:textSize="28sp">
+        app:layout_constraintTop_toTopOf="parent">
 
     </TextView>
 
@@ -23,105 +24,102 @@
         android:id="@+id/check_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
         android:layout_marginLeft="75dp"
-        app:layout_constraintTop_toBottomOf="@id/coldboot_title"
-        app:layout_constraintLeft_toLeftOf="parent">
+        android:layout_marginTop="15dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/coldboot_title">
 
         <CheckBox
             android:id="@+id/checkBox_1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="麻花"
             android:layout_marginTop="15dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            android:text="麻花"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <CheckBox
             android:id="@+id/checkBox_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="麻花"
             android:layout_marginTop="15dp"
-            app:layout_constraintTop_toBottomOf="@id/checkBox_1"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            android:text="麻花"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/checkBox_1" />
 
         <CheckBox
             android:id="@+id/checkBox_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="麻花"
             android:layout_marginTop="15dp"
-            app:layout_constraintTop_toBottomOf="@id/checkBox_2"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            android:text="麻花"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/checkBox_2" />
 
         <CheckBox
             android:id="@+id/checkBox_4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="麻花"
             android:layout_marginTop="15dp"
-            app:layout_constraintTop_toBottomOf="@id/checkBox_3"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            android:text="麻花"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/checkBox_3" />
 
         <CheckBox
             android:id="@+id/checkBox_5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="麻花"
             android:layout_marginTop="15dp"
-            app:layout_constraintTop_toBottomOf="@id/checkBox_4"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            android:text="麻花"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/checkBox_4" />
 
         <CheckBox
             android:id="@+id/checkBox_6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="麻花"
             android:layout_marginTop="15dp"
-            app:layout_constraintTop_toBottomOf="@id/checkBox_5"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            android:text="麻花"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/checkBox_5" />
 
         <CheckBox
             android:id="@+id/checkBox_7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="麻花"
             android:layout_marginTop="15dp"
-            app:layout_constraintTop_toBottomOf="@id/checkBox_6"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            android:text="麻花"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/checkBox_6" />
 
         <CheckBox
             android:id="@+id/checkBox_8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="麻花"
             android:layout_marginTop="15dp"
-            app:layout_constraintTop_toBottomOf="@id/checkBox_7"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            android:text="麻花"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/checkBox_7" />
 
         <CheckBox
             android:id="@+id/checkBox_9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="麻花"
             android:layout_marginTop="15dp"
-            app:layout_constraintTop_toBottomOf="@id/checkBox_8"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            android:text="麻花"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/checkBox_8" />
 
         <CheckBox
             android:id="@+id/checkBox_10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="麻花"
             android:layout_marginTop="15dp"
-            app:layout_constraintTop_toBottomOf="@id/checkBox_9"
-            app:layout_constraintLeft_toLeftOf="parent"/>
+            android:text="麻花"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/checkBox_9" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
 
 
     <Button

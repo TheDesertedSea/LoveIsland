@@ -10,7 +10,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#2DFF00DD"
+        android:background="#0D00FFC4"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -29,7 +29,7 @@
             android:id="@+id/my_confession_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="我收到的评论"
+            android:text="我收到的点赞"
             android:textSize="28dp"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintLeft_toLeftOf="parent"

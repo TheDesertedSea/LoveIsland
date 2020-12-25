@@ -18,7 +18,7 @@
             android:id="@+id/writer_icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/ic_confession_black_24dp"
+            android:src="@drawable/IMG_20201213_201642"
             app:civ_border_color="#FF000000"
             app:civ_border_width="2dp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -28,7 +28,7 @@
             android:id="@+id/nick_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="余沐寒"
+            android:text="荒海"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintLeft_toRightOf="@id/writer_icon"
@@ -51,8 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
-        android:text="图片文本或者前期先不用作图片也行图片文本或者前期先不用作图片也行图片文本或者前期先不用作
-        图片也行图片文本或者前期先不用作图片也行"
+        android:text="手越来越抖了。 我的手究竟是怎么回事？ 好想它恢复正常啊。  遥远的回忆之梦，那位女孩还在等我吗？ 我始终感觉，这一切只是我绘就的梦境，一个我在内心书写的小说。 但总有期盼这部小说能够成真。 但是，毫无依据，你如何能够相信别人也是这样想的呢？ 究竟是我有感知他人想法的超能力还是这只是我的自我意识过剩呢？ 还是说，我只是从她的气息感受到，我们非常相配呢？"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header" />

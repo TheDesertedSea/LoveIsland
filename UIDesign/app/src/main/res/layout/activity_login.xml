@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#48E91E63"
+    android:background="#1180FF00"
     tools:context=".ui.login.LoginActivity">
 
     <TextView
@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
-        android:text="LoveIsland"
+        android:text="偕行"
         android:textColor="#0C704D"
         android:textSize="32dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -27,8 +27,8 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Title_LoginActivity"
-        app:mtf_labelColor="#666"
-        app:mtf_image="@drawable/ic_email_black_24dp">
+        app:mtf_image="@drawable/ic_email_black_24dp"
+        app:mtf_labelColor="#666">
 
         <EditText
             android:id="@+id/username_input_text"
@@ -37,9 +37,9 @@
             android:hint="Email"
             android:imeOptions="actionDone"
             android:inputType="textEmailAddress"
+            android:singleLine="true"
             android:textColor="#333"
-            android:textSize="15sp"
-            android:singleLine="true"/>
+            android:textSize="15sp" />
 
     </com.github.florent37.materialtextfield.MaterialTextField>
 
@@ -50,8 +50,8 @@
         android:layout_marginTop="25dp"
         app:layout_constraintLeft_toLeftOf="@id/EmailInputField_LoginActivity"
         app:layout_constraintTop_toBottomOf="@id/EmailInputField_LoginActivity"
-        app:mtf_labelColor="#666"
-        app:mtf_image="@drawable/ic_key_black_24dp">
+        app:mtf_image="@drawable/ic_key_black_24dp"
+        app:mtf_labelColor="#666">
 
         <EditText
             android:id="@+id/password_input_text"
@@ -60,9 +60,9 @@
             android:hint="Password"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
+            android:singleLine="true"
             android:textColor="#333"
-            android:textSize="15sp"
-            android:singleLine="true"/>
+            android:textSize="15sp" />
 
     </com.github.florent37.materialtextfield.MaterialTextField>
 

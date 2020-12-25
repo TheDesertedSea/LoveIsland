@@ -50,7 +50,7 @@
             android:id="@+id/writer_icon"
             android:layout_width="64dp"
             android:layout_height="64dp"
-            android:src="@drawable/ic_confession_black_24dp"
+            android:src="@drawable/lilimu"
             app:civ_border_color="#FF000000"
             app:civ_border_width="2dp"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -82,8 +82,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
-        android:text="图片文本或者前期先不用作图片也行图片文本或者前期先不用作图片也行图片文本或者前期先不用作
-        图片也行图片文本或者前期先不用作图片也行"
+        android:text="如果我一定要有颜色。 那会是什么颜色？ 黑色？ 红色？ 还是blue？ 都不是，是风的颜色。  从深渊中复活，刺破黑色的迷雾！ bluemist. 将其用风之🗡斩断！是选择创造世界，还是探索世界？ 可没有什么我全都要哦 创造世界等于无限。 但是我现在对于无限感到有些厌倦了。 我真正在乎的，是探索这个我正在进行中的游戏吧。"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/header" />
