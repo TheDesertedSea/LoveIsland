@@ -89,6 +89,8 @@ public class ConfessionFragment extends Fragment {
             }
         });
 
+        //点击点赞按钮点赞
+
         //下拉刷新
         //找到控件
         confessionList = (RecyclerView) root.findViewById(R.id.recyclerView);

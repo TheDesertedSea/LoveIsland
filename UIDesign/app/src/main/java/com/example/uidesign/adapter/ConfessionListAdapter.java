@@ -21,6 +21,9 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
     private ArrayList<ConfessionItem> mData;
     private OnItemClickListener mOnItemClickListener;
 
+//    private ItemInnerLikeListener mItemInnerLikeListener;
+//    private ItemInnerCommentListener mItemInnerCommentListener;
+
     private ConfessionFragment thisContext;
     private final String HOST="";
     private final String baseIconUrl="http://"+HOST+":30010/user/userPortrait/";
@@ -68,6 +71,14 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
         this.mOnItemClickListener = listener;
     }
 
+//    public void setOnItemLikeClickListener(ItemInnerLikeListener mItemInnerLikeListener) {
+//        this.mItemInnerLikeListener = mItemInnerLikeListener;
+//    }
+//
+//    public void setOnItemCommentClickListener(ItemInnerCommentListener mItemInnerCommentListener) {
+//        this.mItemInnerCommentListener = mItemInnerCommentListener;
+//    }
+
     public interface OnItemClickListener{
         void onItemClick(int position);
     }
@@ -98,6 +109,7 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
                     }
                 }
             });
+
         }
 
         //用于设置数据
