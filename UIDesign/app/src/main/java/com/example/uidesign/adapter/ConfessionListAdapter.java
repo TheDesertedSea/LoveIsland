@@ -47,6 +47,7 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
     public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
         //在这里设置数据
         holder.setData(mData.get(position), position);
+
     }
 
     //返回条目个数
@@ -90,6 +91,7 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
             mContentImage = (ImageView) itemView.findViewById(R.id.item_content_image);
 
             itemView.setOnClickListener(new View.OnClickListener() {
+                int position;
                 @Override
                 public void onClick(View v) {
 
