@@ -58,16 +58,16 @@ public class ColdBootActivity extends AppCompatActivity {
 
     private void setButtonInfo()
     {
-        binding.checkBox1.setText(coldBootItemList.get(0).choiceName);
-        binding.checkBox1.setText(coldBootItemList.get(1).choiceName);
-        binding.checkBox1.setText(coldBootItemList.get(2).choiceName);
-        binding.checkBox1.setText(coldBootItemList.get(3).choiceName);
-        binding.checkBox1.setText(coldBootItemList.get(4).choiceName);
-        binding.checkBox1.setText(coldBootItemList.get(5).choiceName);
-        binding.checkBox1.setText(coldBootItemList.get(6).choiceName);
-        binding.checkBox1.setText(coldBootItemList.get(7).choiceName);
-        binding.checkBox1.setText(coldBootItemList.get(8).choiceName);
-        binding.checkBox1.setText(coldBootItemList.get(9).choiceName);
+        binding.checkBox1.setText(coldBootItemList.get(0).domainName);
+        binding.checkBox1.setText(coldBootItemList.get(1).domainName);
+        binding.checkBox1.setText(coldBootItemList.get(2).domainName);
+        binding.checkBox1.setText(coldBootItemList.get(3).domainName);
+        binding.checkBox1.setText(coldBootItemList.get(4).domainName);
+        binding.checkBox1.setText(coldBootItemList.get(5).domainName);
+        binding.checkBox1.setText(coldBootItemList.get(6).domainName);
+        binding.checkBox1.setText(coldBootItemList.get(7).domainName);
+        binding.checkBox1.setText(coldBootItemList.get(8).domainName);
+        binding.checkBox1.setText(coldBootItemList.get(9).domainName);
     }
 
     @Override
@@ -102,43 +102,43 @@ public class ColdBootActivity extends AppCompatActivity {
                 disabledAllButton();
                 if(binding.checkBox1.isChecked())
                 {
-                    choose.add(coldBootItemList.get(0).cid);
+                    choose.add(coldBootItemList.get(0).domainID);
                 }
                 if(binding.checkBox2.isChecked())
                 {
-                    choose.add(coldBootItemList.get(1).cid);
+                    choose.add(coldBootItemList.get(1).domainID);
                 }
                 if(binding.checkBox3.isChecked())
                 {
-                    choose.add(coldBootItemList.get(2).cid);
+                    choose.add(coldBootItemList.get(2).domainID);
                 }
                 if(binding.checkBox4.isChecked())
                 {
-                    choose.add(coldBootItemList.get(3).cid);
+                    choose.add(coldBootItemList.get(3).domainID);
                 }
                 if(binding.checkBox5.isChecked())
                 {
-                    choose.add(coldBootItemList.get(4).cid);
+                    choose.add(coldBootItemList.get(4).domainID);
                 }
                 if(binding.checkBox6.isChecked())
                 {
-                    choose.add(coldBootItemList.get(5).cid);
+                    choose.add(coldBootItemList.get(5).domainID);
                 }
                 if(binding.checkBox7.isChecked())
                 {
-                    choose.add(coldBootItemList.get(6).cid);
+                    choose.add(coldBootItemList.get(6).domainID);
                 }
                 if(binding.checkBox8.isChecked())
                 {
-                    choose.add(coldBootItemList.get(7).cid);
+                    choose.add(coldBootItemList.get(7).domainID);
                 }
                 if(binding.checkBox9.isChecked())
                 {
-                    choose.add(coldBootItemList.get(8).cid);
+                    choose.add(coldBootItemList.get(8).domainID);
                 }
                 if(binding.checkBox10.isChecked())
                 {
-                    choose.add(coldBootItemList.get(9).cid);
+                    choose.add(coldBootItemList.get(9).domainID);
                 }
                 new Thread(new Runnable() {
                     @Override
