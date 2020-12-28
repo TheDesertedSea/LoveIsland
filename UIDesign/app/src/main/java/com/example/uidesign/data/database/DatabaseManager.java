@@ -18,7 +18,7 @@ public class DatabaseManager {
     }
     public static void initialDatabase(Context context)
     {
-        appDatabase= Room.databaseBuilder(context, AppDatabase.class, "appdatabase").build();
+        appDatabase= Room.databaseBuilder(context, AppDatabase.class, "appdatabase").fallbackToDestructiveMigration().build();
         bInitial=true;
     }
 

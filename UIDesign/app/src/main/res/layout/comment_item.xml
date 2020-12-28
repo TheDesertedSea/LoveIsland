@@ -18,7 +18,7 @@
             android:id="@+id/writer_icon"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:src="@drawable/IMG_20201213_201642"
+            android:src="@drawable/lilimu"
             app:civ_border_color="#FF000000"
             app:civ_border_width="2dp"
             app:layout_constraintLeft_toLeftOf="parent"

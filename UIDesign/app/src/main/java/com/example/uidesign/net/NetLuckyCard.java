@@ -23,19 +23,20 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class NetLuckyCard {
-    private static final boolean DEBUG=true;
+    private static final boolean DEBUG=false;
 
     private static final String SCHEME="http";
     private static final String FORMAT_GET="host:30010/card/getcard/:uid";
     private static final String FORMAT_MATCH="host:30010/card/match/:uid/:cid";
-    private static final String HOST="";
+    private static final String HOST="192.168.1.100";
     private static final int PORT=30010;
     private static final String PATH_SEGMENTS_GET="card/getcard";
     private static final String PATH_SEGMENTS_MATCH="card/match";
 
     public class MatchResponseClass
     {
-        int uid;
+        public int user;
+        public String nickname;
     }
 
     public ArrayList<CardType> getLuckyCard(int uid)
@@ -63,7 +64,6 @@ public class NetLuckyCard {
 
         Request request = new Request.Builder()
                 .url(url)
-                .addHeader("token",LogginedUser.getInstance().getToken())
                 .build();
 
         try
@@ -89,16 +89,19 @@ public class NetLuckyCard {
         }
     }
 
-    public int matchCard(int cid,int uid)
+    public MatchResponseClass matchCard(int cid,int uid)
     {
         if(DEBUG) {
-            return uid;
+            MatchResponseClass matchResponseClass=new MatchResponseClass();
+            matchResponseClass.user=uid;
+            matchResponseClass.nickname="yahaha";
+            return matchResponseClass;
         }
 
         OkHttpClient client=new OkHttpClient();
 
         HttpUrl url = new HttpUrl.Builder().scheme("http").host(HOST).port(PORT).addPathSegments(
-                PATH_SEGMENTS_GET+"/"+uid+"/"+cid)
+                PATH_SEGMENTS_MATCH+"/"+uid+"/"+cid)
                 .build();
         Log.v("httpUrl",url.toString());
 
@@ -113,15 +116,16 @@ public class NetLuckyCard {
             ResponseBody responseBody=response.body();
             if(responseBody==null)
             {
-                return -1;
+                return null;
             }
             String responseJson=responseBody.string();
+            Log.v("json-user",responseJson);
             Gson gson=new Gson();
             MatchResponseClass matchResponseClass=gson.fromJson(responseJson,MatchResponseClass.class);
-            return matchResponseClass.uid;
+            return matchResponseClass;
         }catch (IOException e)
         {
-            return -1;
+            return null;
         }
     }
 }

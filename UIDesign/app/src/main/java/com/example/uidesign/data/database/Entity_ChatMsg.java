@@ -4,16 +4,23 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(primaryKeys = {"from", "to"})
+@Entity()
 public class Entity_ChatMsg {
 
+    @PrimaryKey(autoGenerate = true)
+    public int id;
+
+    @ColumnInfo(name = "from")
     public int from;
 
+    @ColumnInfo(name = "to")
     public int to;
+
+    @ColumnInfo(name = "date")
+    public long date;
 
     @ColumnInfo(name = "content")
     public String content;
 
-    @ColumnInfo(name = "date")
-    public long date;
+
 }

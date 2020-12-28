@@ -7,10 +7,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -32,7 +35,7 @@ import java.util.List;
 
 public class ChatActivity extends AppCompatActivity {
 
-    private static boolean DEBUG=true;
+    private static boolean DEBUG=false;
 
     private ActivityChatBinding binding;
     private Context thisContext=this;
@@ -42,9 +45,12 @@ public class ChatActivity extends AppCompatActivity {
     private ChatActivityHandler chatActivityHandler=new ChatActivityHandler();
 
     private int otherUid;
+    private String otherNickName;
 
-    private String HOST="";
-    private String baseIconUrl="http://"+HOST+":30010/user/userPortrait/";
+
+
+    private List<Entity_ChatMsg> entity_chatMsgs;
+
 
     public class ChatActivityHandler extends Handler
     {
@@ -54,10 +60,30 @@ public class ChatActivity extends AppCompatActivity {
             switch (msg.what)
             {
                 case 100:
+                    Log.v("recieve","reciveve");
                     ChatMsg chatMsg=(ChatMsg)msg.obj;
-                    msgList.add(chatMsg);
-                    adapter.notifyItemInserted(msgList.size()-1);
-                    binding.messageRecyclerView.scrollToPosition(msgList.size()-1);
+                    Log.v("recieve",chatMsg.getContent());
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            msgList.add(chatMsg);
+                            adapter.notifyItemInserted(msgList.size()-1);
+                            binding.messageRecyclerView.scrollToPosition(msgList.size()-1);
+                        }
+                    });
+
+                case 200:
+                    msgList=new ArrayList<ChatMsg>();
+                    for(Entity_ChatMsg e:entity_chatMsgs)
+                    {
+                        ChatMsg chatMsg1=new ChatMsg(e.from,e.to,e.content,new Date(e.date));
+                        msgList.add(chatMsg1);
+                    }
+
+                    adapter=new ChatMsgAdapter(msgList,LogginedUser.getInstance().getNickName(),
+                            otherNickName,thisContext);
+                    binding.messageRecyclerView.setAdapter(adapter);
+                    binding.chatTitle.setText(otherNickName);
             }
         }
 
@@ -73,59 +99,68 @@ public class ChatActivity extends AppCompatActivity {
         if(!DEBUG)
         {
             Intent intent=getIntent();
-            otherUid=intent.getIntExtra("otherUid",0);
+            otherUid=intent.getIntExtra("user",0);
+            otherNickName=intent.getStringExtra("nickname");
+
         }else
         {
             otherUid=LogginedUser.getInstance().getUid();
+            otherNickName="yahaha";
         }
         UserSocketManager.getInstance().chatActivityHandler=chatActivityHandler;
         UserSocketManager.getInstance().bInChat=true;
         UserSocketManager.getInstance().currentChatWith=otherUid;
 
-
         LinearLayoutManager layoutManager = new LinearLayoutManager(thisContext);
         binding.messageRecyclerView.setLayoutManager(layoutManager);
 
-        List<Entity_ChatMsg> entity_chatMsgs= DatabaseManager.getAppDatabase().dao_chatMsg().getChatMsgLog(LogginedUser.getInstance().getUid(),otherUid);
-        msgList=new ArrayList<ChatMsg>();
-        for(Entity_ChatMsg e:entity_chatMsgs)
-        {
-            ChatMsg chatMsg=new ChatMsg(e.from,e.to,e.content,new Date(e.date));
-            msgList.add(chatMsg);
-        }
-
-        NetPersonalCenter netPersonalCenter=new NetPersonalCenter();
         new Thread(new Runnable() {
             @Override
             public void run() {
-                UserInfo otherUserInfo=netPersonalCenter.getUserInfo(otherUid);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ImageView temp1=new ImageView(thisContext);
-                        ImageView temp2=new ImageView(thisContext);
-                        Glide.with(thisContext).load(baseIconUrl+LogginedUser.getInstance().getUid()+".jpg").into(temp1);
-                        Glide.with(thisContext).load(baseIconUrl+otherUid+".jpg").into(temp2);
-                        adapter=new ChatMsgAdapter(msgList,temp2.getDrawingCache(),temp1.getDrawingCache(),LogginedUser.getInstance().getNickName(),
-                                otherUserInfo.nickName);
-                        binding.messageRecyclerView.setAdapter(adapter);
-                        binding.chatTitle.setText(otherUserInfo.nickName);
-                    }
-                });
+                entity_chatMsgs= DatabaseManager.getAppDatabase().dao_chatMsg().getChatMsgLog(LogginedUser.getInstance().getUid(),otherUid);
+                Message message=chatActivityHandler.obtainMessage();
+                message.what=200;
+                chatActivityHandler.sendMessage(message);
             }
         }).start();
+
+
+        binding.messageInput.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        binding.messageInput.setInputType(EditorInfo.TYPE_CLASS_TEXT);
 
         binding.sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 SocketMsg temp=new SocketMsg();
+                temp.type="sendMsg";
                 temp.from=LogginedUser.getInstance().getUid();
                 temp.fromName=LogginedUser.getInstance().getNickName();
                 temp.to=otherUid;
                 temp.nowDate=System.currentTimeMillis();
+                temp.msg=binding.messageInput.getText().toString();
+                binding.messageInput.setText("");
                 Gson gson=new Gson();
                 String sendString=gson.toJson(temp);
+
+                ChatMsg chatMsg=new ChatMsg(temp.from,temp.to,temp.msg,new Date(temp.nowDate));
+                msgList.add(chatMsg);
+                adapter.notifyItemInserted(msgList.size()-1);
+                binding.messageRecyclerView.scrollToPosition(msgList.size()-1);
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Entity_ChatMsg entity_chatMsg=new Entity_ChatMsg();
+                        entity_chatMsg.from=temp.from;
+                        entity_chatMsg.to=temp.to;
+                        entity_chatMsg.content=temp.msg;
+                        entity_chatMsg.date=temp.nowDate;
+                        assert DatabaseManager.getAppDatabase() != null;
+                        DatabaseManager.getAppDatabase().dao_chatMsg().insertAll(entity_chatMsg);
+                    }
+                }).start();
+
 
                 new Thread(new Runnable() {
                     @Override

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +39,7 @@ public class PersonalCenterFragment extends Fragment {
 
     private UserInfo userInfo;
     private NetPersonalCenter netPersonalCenter;
-    private PersonalCenterFragmentHandler personalCenterFragmentHandler;
+    private PersonalCenterFragmentHandler personalCenterFragmentHandler=new PersonalCenterFragmentHandler();
 
     private View root;
     private ImageView iconView;
@@ -46,7 +47,7 @@ public class PersonalCenterFragment extends Fragment {
     private TextView sexAndSchoolText;
     private TextView introductionText;
 
-    private final String HOST="";
+    private static String HOST="192.168.1.100";
     private final String baseIconUrl="http://"+HOST+":30010/user/userPortrait/";
 
 
@@ -55,12 +56,14 @@ public class PersonalCenterFragment extends Fragment {
         @Override
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
+            Log.v("?","?"+msg.what);
             switch(msg.what)
             {
                 case 100:
-
-                    nickNameText.setText(userInfo.nickName);
+                    Log.v("?","?"+msg.what);
+                    nickNameText.setText(userInfo.nickname);
                     String sexAndSchool=", "+userInfo.school;
+
                     if(userInfo.sex)
                     {
                         sexAndSchool="男生"+sexAndSchool;
@@ -71,6 +74,7 @@ public class PersonalCenterFragment extends Fragment {
 
                     sexAndSchoolText.setText(sexAndSchool);
                     introductionText.setText(userInfo.introduction);
+                    break;
 
             }
 
@@ -88,13 +92,20 @@ public class PersonalCenterFragment extends Fragment {
         introductionText=root.findViewById(R.id.intro_personal_center);
 
         netPersonalCenter=new NetPersonalCenter();
-        personalCenterFragmentHandler=new PersonalCenterFragmentHandler();
-        Glide.with(thisFragment).load(baseIconUrl+LogginedUser.getInstance().getUid()+".jpg")
+        Glide.with(thisFragment).load(baseIconUrl+LogginedUser.getInstance().getUid())
                 .into(iconView);
         new Thread(new Runnable() {
             @Override
             public void run() {
                 userInfo=netPersonalCenter.getUserInfo(LogginedUser.getInstance().getUid());
+                if(userInfo==null)
+                {
+                    userInfo=new UserInfo();
+                    userInfo.sex=true;
+                    userInfo.introduction="";
+                    userInfo.nickname="";
+                    userInfo.school="";
+                }
                 Message message=personalCenterFragmentHandler.obtainMessage();
                 message.what=100;
                 personalCenterFragmentHandler.sendMessage(message);
@@ -110,7 +121,7 @@ public class PersonalCenterFragment extends Fragment {
                 Bitmap bitmap=drawableToBitmap(iconDrawable);
                 byte[] bytes = bitmap2Bytes(bitmap);
                 intent.putExtra("icon",bytes);
-                intent.putExtra("nickName",userInfo.nickName);
+                intent.putExtra("nickName",userInfo.nickname);
                 intent.putExtra("school",userInfo.school);
                 intent.putExtra("introduction",userInfo.introduction);
                 startActivity(intent);

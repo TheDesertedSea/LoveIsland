@@ -29,7 +29,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.Date;
-
+import java.util.List;
 
 
 public class UserSocketManager {
@@ -86,6 +86,8 @@ public class UserSocketManager {
                             receive=userSocketManager.dataInputStream.readUTF();
                             Gson gson1=new Gson();
                             SocketMsg socketMsg1=gson1.fromJson(receive,SocketMsg.class);
+                            Log.v("socketMsg",receive);
+                            Log.v("chat",String.valueOf(currentChatWith));
                             switch (socketMsg1.type)
                             {
                                 case "receiveMsg":
@@ -99,8 +101,9 @@ public class UserSocketManager {
                                     {
                                         return;
                                     }
-                                    if(bInChat&& (currentChatWith==to ||currentChatWith==from))
+                                    if(bInChat&& (currentChatWith==from))
                                     {
+                                        Log.v("here","here");
                                         ChatMsg chatMsg=new ChatMsg(from,to,content, new Date(nowDate));
                                         Message message=chatActivityHandler.obtainMessage();
                                         message.what=100;
@@ -113,7 +116,6 @@ public class UserSocketManager {
                                     entity_chatMsg.to=to;
                                     entity_chatMsg.content=content;
                                     entity_chatMsg.date=nowDate;
-                                    assert DatabaseManager.getAppDatabase() != null;
                                     appDatabase.dao_chatMsg().insertAll(entity_chatMsg);
                                     int otherUid=(LogginedUser.getInstance().getUid() == to ? from : to);
                                     if(bInNotifications)
@@ -123,15 +125,18 @@ public class UserSocketManager {
                                         contact.latestMsg=content;
                                         contact.nickName=fromName;
                                         contact.date=new Date(nowDate);
-                                        Message message=chatActivityHandler.obtainMessage();
+                                        Message message=notificationsFragmentHandler.obtainMessage();
                                         message.what=100;
                                         message.obj=contact;
                                     }
-                                    if(appDatabase.dao_contact().
+                                    List<Entity_Contact> temp=appDatabase.dao_contact().
                                             isContactExisted(LogginedUser.getInstance().getUid()
-                                        , otherUid) == 1)
+                                                    , otherUid);
+                                    Log.v("here","here");
+                                    if(temp.size() == 1)
                                     {
                                         Entity_Contact entity_contact=new Entity_Contact();
+                                        entity_contact.id=temp.get(0).id;
                                         entity_contact.user_uid=LogginedUser.getInstance().getUid();
                                         entity_contact.other_uid=otherUid;
                                         entity_contact.other_nick_name=fromName;

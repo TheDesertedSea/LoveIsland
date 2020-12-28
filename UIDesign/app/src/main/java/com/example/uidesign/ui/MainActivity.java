@@ -31,7 +31,7 @@ public class MainActivity extends BaseActivity {
         NavController navController = Navigation.findNavController(this,R.id.nav_host_fragment);
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
-        UserSocketManager.getInstance().connect("successContent.host",43,(BaseApplication) getApplication());
+
 
     }
 

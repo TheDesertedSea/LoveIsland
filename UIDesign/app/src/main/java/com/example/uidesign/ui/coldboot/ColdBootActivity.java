@@ -16,6 +16,7 @@ import com.example.uidesign.databinding.ActivityColdBootBinding;
 import com.example.uidesign.net.NetColdBoot;
 import com.example.uidesign.ui.MainActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ColdBootActivity extends AppCompatActivity {
@@ -24,7 +25,7 @@ public class ColdBootActivity extends AppCompatActivity {
     private Context thisContext=this;
     private Activity thisActivity=this;
     private List<ColdBootItem> coldBootItemList;
-    private List<Integer> choose;
+    private List<Integer> choose=new ArrayList<Integer>();
 
     private void enabledAllButton()
     {
@@ -59,15 +60,15 @@ public class ColdBootActivity extends AppCompatActivity {
     private void setButtonInfo()
     {
         binding.checkBox1.setText(coldBootItemList.get(0).domainName);
-        binding.checkBox1.setText(coldBootItemList.get(1).domainName);
-        binding.checkBox1.setText(coldBootItemList.get(2).domainName);
-        binding.checkBox1.setText(coldBootItemList.get(3).domainName);
-        binding.checkBox1.setText(coldBootItemList.get(4).domainName);
-        binding.checkBox1.setText(coldBootItemList.get(5).domainName);
-        binding.checkBox1.setText(coldBootItemList.get(6).domainName);
-        binding.checkBox1.setText(coldBootItemList.get(7).domainName);
-        binding.checkBox1.setText(coldBootItemList.get(8).domainName);
-        binding.checkBox1.setText(coldBootItemList.get(9).domainName);
+        binding.checkBox2.setText(coldBootItemList.get(1).domainName);
+        binding.checkBox3.setText(coldBootItemList.get(2).domainName);
+        binding.checkBox4.setText(coldBootItemList.get(3).domainName);
+        binding.checkBox5.setText(coldBootItemList.get(4).domainName);
+        binding.checkBox6.setText(coldBootItemList.get(5).domainName);
+        binding.checkBox7.setText(coldBootItemList.get(6).domainName);
+        binding.checkBox8.setText(coldBootItemList.get(7).domainName);
+        binding.checkBox9.setText(coldBootItemList.get(8).domainName);
+        binding.checkBox10.setText(coldBootItemList.get(9).domainName);
     }
 
     @Override
@@ -83,6 +84,7 @@ public class ColdBootActivity extends AppCompatActivity {
             @Override
             public void run() {
                 coldBootItemList=netColdBoot.getColdBootItem(LogginedUser.getInstance().getUid());
+                Log.v("coldBoot",String.valueOf(coldBootItemList.size()));
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
