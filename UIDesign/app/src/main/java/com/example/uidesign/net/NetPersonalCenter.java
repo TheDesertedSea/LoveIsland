@@ -20,7 +20,7 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class NetPersonalCenter {
-    private static final boolean DEBUG=true;
+    private static final boolean DEBUG=false;
 
     private static final String SCHEME="http";
     private static final String FORMAT_ICON_EDIT="host:30010/user/setPortrait/:uid";

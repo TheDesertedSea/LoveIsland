@@ -1,6 +1,6 @@
 package com.example.uidesign.data;
 
 public class ColdBootItem {
-    public int cid;
-    public String choiceName;
+    public int domainID;
+    public String domainName;
 }

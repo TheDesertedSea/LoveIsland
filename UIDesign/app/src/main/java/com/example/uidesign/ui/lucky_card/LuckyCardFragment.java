@@ -103,7 +103,7 @@ public class LuckyCardFragment extends Fragment {
             @Override
             public void run() {
                 int targetUid=netLuckyCard.matchCard(cid,LogginedUser.getInstance().getUid());
-                if(targetUid!=-1)
+                if(targetUid!=0)
                 {
                     //去聊天室
                     Message message=new Message();
