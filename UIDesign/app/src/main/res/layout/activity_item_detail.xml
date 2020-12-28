@@ -1,147 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/tool_header"
+    <FrameLayout
+        android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#00FF00DD"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:background="@color/theme_color">
 
         <ImageButton
-            android:id="@+id/back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_arrow_back_black_24dp" />
+            android:src="@drawable/ic_arrow_back_white_24dp"
+            android:background="@color/theme_color"
+            android:padding="5dp"
+            android:layout_gravity="center_vertical"/>
 
         <TextView
-            android:id="@+id/my_confession_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="帖子详情"
-            android:textSize="20dp"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:textSize="20sp"
+            android:layout_gravity="center"/>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/header"
+    </FrameLayout>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#CDF9EB"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tool_header">
+        android:padding="5dp">
 
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/writer_icon"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:src="@drawable/lilimu"
-            app:civ_border_color="#FF000000"
-            app:civ_border_width="2dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/nick_name"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/body"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="余沐寒"
-            android:textSize="24dp"
-            app:layout_constraintLeft_toRightOf="@id/writer_icon"
-            app:layout_constraintTop_toTopOf="@id/writer_icon" />
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/avatar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/ic_default_avatar_24dp" />
+
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@id/item_title_avatar"
+                    android:padding="10dp"
+                    android:text="用户名"
+                    android:textSize="15sp"
+                    android:textColor="@color/black"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="这是测试这是测试这是测试这是测试这是测试这是测试这是测试这是测试这是测试这是测试这是测试这是测试这是测试这是测试这是测试这是测试这是测试这是测试这是测试这是测试这是测试这是测试这是测试这是测试这是测试这是测试这是测试这是测试这是测试这是测试这是测试"
+                android:textSize="15sp"
+                android:textColor="@color/black"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp">
+
+                <ImageView
+                    android:id="@+id/share"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_share_24dp"
+                    android:background="@color/white"
+                    android:padding="5dp"/>
+
+                <ImageView
+                    android:id="@+id/comment"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_comment_24dp"
+                    android:background="@color/white"
+                    android:padding="5dp"/>
+
+                <ImageView
+                    android:id="@+id/like"
+                    android:layout_width="fill_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_like_non_24dp"
+                    android:background="@color/white"
+                    android:padding="5dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp">
 
         <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="15dp"
+            android:text="评论列表"
+            android:textSize="10sp"
+            android:textColor="#747474"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/comment_list"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="2020-11-30 18:12"
-            android:textSize="24dp"
-            app:layout_constraintBottom_toBottomOf="@id/writer_icon"
-            app:layout_constraintLeft_toRightOf="@id/writer_icon" />
+            android:padding="5dp"/>
+
+    </LinearLayout>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/content"
+    <LinearLayout
+        android:id="@+id/foot"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:text="如果我一定要有颜色。 那会是什么颜色？ 黑色？ 红色？ 还是blue？ 都不是，是风的颜色。  从深渊中复活，刺破黑色的迷雾！ bluemist. 将其用风之🗡斩断！是选择创造世界，还是探索世界？ 可没有什么我全都要哦 创造世界等于无限。 但是我现在对于无限感到有些厌倦了。 我真正在乎的，是探索这个我正在进行中的游戏吧。"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header" />
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        android:padding="5dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/footer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#2C00FFA6"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/content">
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-        <ImageButton
-            android:id="@+id/comment_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#00FFFFFF"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.25"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_comment_black_24dp" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <ImageButton
-            android:id="@+id/thumb_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#00FFFFFF"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.75"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_thumb_up_black_24dp" />
+                <EditText
+                    android:id="@+id/edit_comment"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toLeftOf="@id/send_comment"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:hint="发表你的评论"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <Button
+                    android:id="@+id/send_comment"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:background="@color/theme_color"
+                    android:hint="发表"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:layout_marginRight="10dp"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/comment"
-        android:layout_width="match_parent"
-        android:layout_height="517dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/footer" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="50dp"
-        android:layout_marginBottom="100dp"
-        android:layout_weight="1"
-        android:clickable="true"
-        android:src="@drawable/ic_add_circle_black_24dp"
-        app:backgroundTint="#BE00AEFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+
+</LinearLayout>

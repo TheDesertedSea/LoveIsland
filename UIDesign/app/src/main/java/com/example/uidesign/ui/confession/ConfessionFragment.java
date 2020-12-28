@@ -1,8 +1,6 @@
 package com.example.uidesign.ui.confession;
 
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,8 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -23,27 +19,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.bumptech.glide.Glide;
 import com.example.uidesign.R;
 import com.example.uidesign.adapter.ConfessionListAdapter;
 import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.data.UserInfo;
-import com.example.uidesign.databinding.FragmentConfessionBinding;
 import com.example.uidesign.net.NetGetConfession;
 import com.example.uidesign.net.NetPersonalCenter;
-import com.example.uidesign.net.NetSendConfession;
 import com.example.uidesign.ui.item_detail.ItemDetailActivity;
 import com.example.uidesign.ui.item_edit.ItemEditActivity;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.scwang.smart.refresh.footer.ClassicsFooter;
-import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
-import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
-import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ConfessionFragment extends Fragment {
 
@@ -52,8 +39,6 @@ public class ConfessionFragment extends Fragment {
     private LogginedUser Me = LogginedUser.getInstance();
 
     private Button EditItemButton;
-    private Button LikeButton;
-    private Button CommentButton;
 
     private RecyclerView confessionList;
     private ArrayList<ConfessionItem> listData;
@@ -89,7 +74,6 @@ public class ConfessionFragment extends Fragment {
             }
         });
 
-        //点击点赞按钮点赞
 
         //下拉刷新
         //找到控件

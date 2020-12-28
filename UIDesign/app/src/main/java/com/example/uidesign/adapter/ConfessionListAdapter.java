@@ -1,9 +1,9 @@
 package com.example.uidesign.adapter;
 
-import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,17 +12,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.uidesign.R;
+import com.example.uidesign.data.LogginedUser;
+import com.example.uidesign.net.SocketMsg;
+import com.example.uidesign.net.UserSocketManager;
 import com.example.uidesign.ui.confession.ConfessionFragment;
 import com.example.uidesign.ui.confession.ConfessionItem;
+import com.example.uidesign.ui.item_detail.ItemDetailActivity;
+import com.google.gson.Gson;
+
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAdapter.InnerHolder> {
     private ArrayList<ConfessionItem> mData;
     private OnItemClickListener mOnItemClickListener;
-
-//    private ItemInnerLikeListener mItemInnerLikeListener;
-//    private ItemInnerCommentListener mItemInnerCommentListener;
 
     private ConfessionFragment thisContext;
     private final String HOST="";
@@ -48,6 +51,59 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
     //用于绑定Holder，一般用来设置数据
     @Override
     public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mOnItemClickListener != null) {
+                    mOnItemClickListener.onItemClick(holder.mPosition);
+                }
+            }
+        });
+
+        holder.mLikeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //播放动画
+
+                //告诉服务器端点赞
+                SocketMsg temp=new SocketMsg();
+                temp.type = "sendConfLike";
+                temp.from = LogginedUser.getInstance().getUid();
+                temp.fromName = LogginedUser.getInstance().getNickName();
+                //帖子主人的id
+                temp.to = mData.get(position).uid;
+                temp.nowDate = System.currentTimeMillis();
+                Gson gson = new Gson();
+                String sendString = gson.toJson(temp);
+
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            UserSocketManager.getInstance().getDataOutputStream().writeUTF(sendString);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+            }
+        });
+
+        holder.mCommentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转到详情页面
+                Intent intent = new Intent(thisContext.getActivity(), ItemDetailActivity.class);
+                //发送帖子id
+                intent.putExtra("type","confession");
+                intent.putExtra("postID", mData.get(position).confessionID);
+                intent.putExtra("uid", mData.get(position).uid);
+                intent.putExtra("content", mData.get(position).content_text);
+                thisContext.getActivity().startActivity(intent);
+            }
+        });
+
         //在这里设置数据
         holder.setData(mData.get(position), position);
     }
@@ -89,6 +145,8 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
         private TextView mUsername;
         private TextView mContentText;
         private ImageView mContentImage;
+        private ImageButton mLikeButton;
+        private ImageButton mCommentButton;
         private int mPosition;
 
         public InnerHolder(@NonNull View itemView) {
@@ -99,17 +157,8 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
             mUsername = (TextView) itemView.findViewById(R.id.item_title_username);
             mContentText = (TextView) itemView.findViewById(R.id.item_content_text);
             mContentImage = (ImageView) itemView.findViewById(R.id.item_content_image);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    if (mOnItemClickListener != null) {
-                        mOnItemClickListener.onItemClick(mPosition);
-                    }
-                }
-            });
-
+            mLikeButton = (ImageButton) itemView.findViewById(R.id.item_like);
+            mCommentButton = (ImageButton) itemView.findViewById(R.id.item_comment);
         }
 
         //用于设置数据
