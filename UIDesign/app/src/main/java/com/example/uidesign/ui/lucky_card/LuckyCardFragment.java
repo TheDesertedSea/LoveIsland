@@ -53,9 +53,9 @@ public class LuckyCardFragment extends Fragment {
                     EnabledAllButtons();
                     break;
                 case 200:
-                    Intent intent=new Intent(getContext(), ChatActivity.class);
-                    intent.putExtra("otherUid",msg.arg1);
-                    startActivity(intent);
+//                    Intent intent=new Intent(getContext(), ChatActivity.class);
+//                    intent.putExtra("otherUid",msg.arg1);
+//                    startActivity(intent);
                 case 300:
                     EnabledAllButtons();
                     Toast.makeText(getContext(),"匹配失败",Toast.LENGTH_SHORT);
@@ -102,14 +102,14 @@ public class LuckyCardFragment extends Fragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                int targetUid=netLuckyCard.matchCard(cid,LogginedUser.getInstance().getUid());
-                if(targetUid!=0)
+                NetLuckyCard.MatchResponseClass matchResponseClass=netLuckyCard.matchCard(cid,LogginedUser.getInstance().getUid());
+                if(matchResponseClass.user!=0)
                 {
                     //去聊天室
-                    Message message=new Message();
-                    message.what=200;
-                    message.arg1=targetUid;
-                    luckyCardFragmentHandler.sendMessage(message);
+                    Intent intent=new Intent(getContext(),ChatActivity.class);
+                    intent.putExtra("user",matchResponseClass.user);
+                    intent.putExtra("nickname",matchResponseClass.nickname);
+                    startActivity(intent);
                 }else
                 {
                     Message message=new Message();
@@ -148,6 +148,7 @@ public class LuckyCardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DisabledAllButtons();
+                refreshButton.setEnabled(true);
                 doNet(result.get(0).cid);
             }
         });
@@ -155,6 +156,7 @@ public class LuckyCardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DisabledAllButtons();
+                refreshButton.setEnabled(true);
                 doNet(result.get(1).cid);
             }
         });
@@ -162,6 +164,7 @@ public class LuckyCardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DisabledAllButtons();
+                refreshButton.setEnabled(true);
                 doNet(result.get(2).cid);
             }
         });
@@ -169,6 +172,7 @@ public class LuckyCardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DisabledAllButtons();
+                refreshButton.setEnabled(true);
                 doNet(result.get(3).cid);
             }
         });
@@ -176,6 +180,7 @@ public class LuckyCardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DisabledAllButtons();
+                refreshButton.setEnabled(true);
                 doNet(result.get(4).cid);
             }
         });
@@ -183,6 +188,7 @@ public class LuckyCardFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 DisabledAllButtons();
+                refreshButton.setEnabled(true);
                 doNet(result.get(5).cid);
             }
         });

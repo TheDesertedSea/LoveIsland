@@ -26,7 +26,7 @@ public class NetPersonalCenter {
     private static final String FORMAT_ICON_EDIT="host:30010/user/setPortrait/:uid";
     private static final String FORMAT_INFO_GET="host:30010/user/userInfo/:uid";
     private static final String FORMAT_INFO_EDIT="host:30010/user/setInfo";
-    private static final String HOST="";
+    private static final String HOST="192.168.1.100";
     private static final int PORT=30010;
     private static final String PATH_SEGMENTS_ICON_EDIT="user/setPortrait";
     private static final String PATH_SEGMENTS_INFO_GET="user/userInfo";
@@ -44,13 +44,13 @@ public class NetPersonalCenter {
     public class UserInfoResponse
     {
         public int isUser;
-        public Object content;
+        public UserInfo Obj;
     }
 
     public class UserInfoEditRequest
     {
         public int uid;
-        public String nickName;
+        public String nickname;
         public String school;
         public String introduction;
 
@@ -71,7 +71,7 @@ public class NetPersonalCenter {
         if(DEBUG)
         {
             UserInfo userInfo=new UserInfo();
-            userInfo.nickName="荒海";
+            userInfo.nickname="荒海";
             userInfo.sex=true;
             userInfo.school="电子科技大学";
             userInfo.introduction="荒海，遥远天边的旅人。周游四海，只为寻求那传说中的冰山宝石？冰山何在，绿林存乎？";
@@ -80,6 +80,7 @@ public class NetPersonalCenter {
 
         OkHttpClient client=new OkHttpClient();
 
+        Log.v("personal-center",String.valueOf(LogginedUser.getInstance().getUid()));
         HttpUrl url = new HttpUrl.Builder().scheme("http").host(HOST).port(PORT).addPathSegments(
                 PATH_SEGMENTS_INFO_GET+"/"+uid)
                 .build();
@@ -99,11 +100,13 @@ public class NetPersonalCenter {
             }
 
             String responseJson=responseBody.string();
+            Log.v("json-userInfo",responseJson);
             Gson gson=new Gson();
             UserInfoResponse userInfoResponse=gson.fromJson(responseJson,UserInfoResponse.class);
             if(userInfoResponse.isUser==1)
             {
-                return (UserInfo)userInfoResponse.content;
+                Log.v("json-userInfo","yes");
+                return userInfoResponse.Obj;
             }else
             {
                 return null;
@@ -133,7 +136,7 @@ public class NetPersonalCenter {
 
         UserInfoEditRequest userInfoEditRequest=new UserInfoEditRequest();
         userInfoEditRequest.uid=uid;
-        userInfoEditRequest.nickName=nickName;
+        userInfoEditRequest.nickname=nickName;
         userInfoEditRequest.school=school;
         userInfoEditRequest.introduction=introduction;
 

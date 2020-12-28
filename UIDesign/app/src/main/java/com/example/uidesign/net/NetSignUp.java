@@ -20,7 +20,7 @@ public class NetSignUp {
 
     private static final String SCHEME="http";
     private static final String FORMAT="host:30010/login/register";
-    private static final String HOST="192.168.1.108";
+    private static final String HOST="192.168.1.100";
     private static final int PORT=30010;
     private static final String PATH_SEGMENTS="login/register";
 

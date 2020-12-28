@@ -27,7 +27,7 @@ public class NetColdBoot {
     private static final boolean DEBUG=false;
 
     private static final String GET_FORMAT="HOST:30010/card/domain";
-    private static final String HOST="";
+    private static final String HOST="192.168.1.100";
     private static final int PORT=30010;
     private static final String GET_PATH_SEGMENTS="card/domain";
 
@@ -73,10 +73,13 @@ public class NetColdBoot {
                 return null;
             }
             String responseJson=responseBody.string();
+            Log.v("json",responseJson);
             JsonArray jsonElements= JsonParser.parseString(responseJson).getAsJsonArray();
+            Log.v("json",String.valueOf(jsonElements.size()));
             Gson gson=new Gson();
             for(JsonElement e:jsonElements)
             {
+                Log.v("json",e.toString());
                 ColdBootItem temp=gson.fromJson(e,ColdBootItem.class);
                 result.add(temp);
             }

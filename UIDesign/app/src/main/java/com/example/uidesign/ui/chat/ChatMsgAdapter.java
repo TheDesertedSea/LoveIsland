@@ -1,5 +1,6 @@
 package com.example.uidesign.ui.chat;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.uidesign.R;
 import com.example.uidesign.data.ChatMsg;
 
@@ -21,10 +23,12 @@ import com.example.uidesign.data.LogginedUser;
 public class ChatMsgAdapter extends RecyclerView.Adapter<ChatMsgAdapter.ViewHolder>{
 
     private List<ChatMsg> chatMsgList;
-    private Bitmap otherImage;
-    private Bitmap myImage;
     private String myName;
     private String otherName;
+    private Context context;
+
+    private static String HOST="192.168.1.100";
+    private String baseIconUrl="http://"+HOST+":30010/user/userPortrait/";
 
     static class ViewHolder extends RecyclerView.ViewHolder{
         ConstraintLayout leftLayout;
@@ -53,12 +57,11 @@ public class ChatMsgAdapter extends RecyclerView.Adapter<ChatMsgAdapter.ViewHold
         }
     }
 
-    public ChatMsgAdapter (List<ChatMsg> msgList, Bitmap otherImage, Bitmap myImage, String myName, String otherName){
+    public ChatMsgAdapter (List<ChatMsg> msgList, String myName, String otherName,Context context){
         chatMsgList = msgList;
-        this.otherImage=otherImage;
-        this.myImage=myImage;
         this.myName=myName;
         this.otherName=otherName;
+        this.context=context;
     }
 
     @NonNull
@@ -77,14 +80,14 @@ public class ChatMsgAdapter extends RecyclerView.Adapter<ChatMsgAdapter.ViewHold
         if(chatMsg.getTo()==LogginedUser.getInstance().getUid())
         {
             holder.rightLayout.setVisibility(View.GONE);
-            holder.leftIcon.setImageBitmap(otherImage);
+            Glide.with(context).load(baseIconUrl+chatMsg.getFrom()).into(holder.leftIcon);
             holder.leftName.setText(otherName);
             holder.leftDate.setText(chatMsg.getDate().toString());
             holder.leftContent.setText(chatMsg.getContent());
         }else
         {
             holder.leftLayout.setVisibility(View.GONE);
-            holder.rightIcon.setImageBitmap(myImage);
+            Glide.with(context).load(baseIconUrl+chatMsg.getFrom()).into(holder.rightIcon);
             holder.rightName.setText(myName);
             holder.rightDate.setText(chatMsg.getDate().toString());
             holder.rightContent.setText(chatMsg.getContent());

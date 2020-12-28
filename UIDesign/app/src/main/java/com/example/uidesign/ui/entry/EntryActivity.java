@@ -61,8 +61,14 @@ public class EntryActivity extends BaseActivity {
                             "");
                     intent = new Intent(thisContext, LoginActivity.class);
                 }
-                startActivity(intent);
-                thisActivity.finish();
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(intent);
+                        thisActivity.finish();
+                    }
+                });
+
             }
         }).start();
 

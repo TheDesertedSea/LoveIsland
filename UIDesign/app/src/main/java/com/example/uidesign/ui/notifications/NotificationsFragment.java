@@ -44,11 +44,13 @@ public class NotificationsFragment extends Fragment {
             {
                 case 100:
                     Contact contact=(Contact) msg.obj;
-                    for(Contact e:contactList)
+                    for(int i=0;i<contactList.size();++i)
                     {
-                        if(e.uid==contact.uid)
+                        if(contactList.get(i).uid==contact.uid)
                         {
-                            e.latestMsg=contact.latestMsg;
+                            contactList.get(i).latestMsg=contact.latestMsg;
+                            contactAdapter.notifyItemChanged(i);
+                            recyclerView.scrollToPosition(i);
                             return;
                         }
                     }
@@ -96,6 +98,7 @@ public class NotificationsFragment extends Fragment {
         recyclerView=root.findViewById(R.id.contact_recyclerView);
         LinearLayoutManager layoutManager = new LinearLayoutManager(thisContext);
         recyclerView.setLayoutManager(layoutManager);
+        UserSocketManager.getInstance().notificationsFragmentHandler=notificationsFragmentHandler;
 
         new Thread(new Runnable() {
             @Override
@@ -103,6 +106,7 @@ public class NotificationsFragment extends Fragment {
                 entity_contacts=DatabaseManager.getAppDatabase().dao_contact().getContacts(LogginedUser.getInstance().getUid());
                 Message message=notificationsFragmentHandler.obtainMessage();
                 message.what=200;
+                notificationsFragmentHandler.sendMessage(message);
             }
         }).start();
 

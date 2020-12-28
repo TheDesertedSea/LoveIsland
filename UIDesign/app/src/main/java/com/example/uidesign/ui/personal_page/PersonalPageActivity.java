@@ -48,7 +48,7 @@ public class PersonalPageActivity extends BaseActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        binding.nickNamePersonalPage.setText(userInfo.nickName);
+                        binding.nickNamePersonalPage.setText(userInfo.nickname);
                         String sexAndSchool= "";
                         if(userInfo.sex)
                         {

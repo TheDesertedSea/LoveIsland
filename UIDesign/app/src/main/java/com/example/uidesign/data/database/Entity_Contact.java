@@ -4,10 +4,16 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(primaryKeys = {"user_uid","other_uid"})
+@Entity()
 public class Entity_Contact {
+
+    @PrimaryKey(autoGenerate = true)
+    public int id;
+
+    @ColumnInfo(name="user_uid")
     public int user_uid;
 
+    @ColumnInfo(name="other_uid")
     public int other_uid;
 
     @ColumnInfo(name="other_nick_name")

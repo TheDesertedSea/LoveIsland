@@ -16,8 +16,8 @@ public interface Dao_Contact {
     @Query("SELECT * FROM Entity_Contact WHERE user_uid LIKE:queryUid")
     List<Entity_Contact> getContacts(int queryUid);
 
-    @Query("SELECT COUNT(*) FROM Entity_Contact WHERE user_uid LIKE:queryUid AND other_uid LIKE:otherUid")
-    int isContactExisted(int queryUid,int otherUid);
+    @Query("SELECT * FROM Entity_Contact WHERE user_uid LIKE:queryUid AND other_uid LIKE:otherUid")
+    List<Entity_Contact> isContactExisted(int queryUid,int otherUid);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
     void setLatestContent(Entity_Contact... entity_contacts);

@@ -7,7 +7,7 @@ import androidx.room.InvalidationTracker;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteOpenHelper;
 
-@Database(entities = {Entity_ChatMsg.class,Entity_Comment.class,Entity_Like.class,Entity_Contact.class}, version = 1, exportSchema = false)
+@Database(entities = {Entity_ChatMsg.class,Entity_Comment.class,Entity_Like.class,Entity_Contact.class}, version = 4, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract Dao_ChatMsg dao_chatMsg();
     public abstract Dao_Comment dao_comment();
