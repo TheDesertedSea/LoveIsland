@@ -30,7 +30,7 @@ public class MyDiscussionAdapter extends RecyclerView.Adapter<MyDiscussionAdapte
     private MyDiscussionAdapter.OnItemClickListener mOnItemClickListener;
 
     private MyDiscussionActivity thisContext;
-    private final String HOST="";
+    private final String HOST="192.168.1.105";
     private final String baseIconUrl="http://"+HOST+":30010/user/userPortrait/";
 
     //构造方法
@@ -138,7 +138,7 @@ public class MyDiscussionAdapter extends RecyclerView.Adapter<MyDiscussionAdapte
         private ImageView mAvatar;
         private TextView mUsername;
         private TextView mContentText;
-        private ImageView mContentImage;
+//        private ImageView mContentImage;
         private ImageButton mLikeButton;
         private ImageButton mCommentButton;
         private int mPosition;
@@ -150,7 +150,7 @@ public class MyDiscussionAdapter extends RecyclerView.Adapter<MyDiscussionAdapte
             mAvatar = (ImageView) itemView.findViewById(R.id.item_title_avatar);
             mUsername = (TextView) itemView.findViewById(R.id.item_title_username);
             mContentText = (TextView) itemView.findViewById(R.id.item_content_text);
-            mContentImage = (ImageView) itemView.findViewById(R.id.item_content_image);
+//            mContentImage = (ImageView) itemView.findViewById(R.id.item_content_image);
             mLikeButton = (ImageButton) itemView.findViewById(R.id.item_like);
             mCommentButton = (ImageButton) itemView.findViewById(R.id.item_comment);
         }
@@ -163,7 +163,7 @@ public class MyDiscussionAdapter extends RecyclerView.Adapter<MyDiscussionAdapte
             Glide.with(thisContext).load(baseIconUrl + discussionItem.uid).into(mAvatar);
             mUsername.setText(discussionItem.title_username);
             mContentText.setText(discussionItem.content_text);
-            mContentImage.setImageResource(discussionItem.content_imageId);
+//            mContentImage.setImageResource(discussionItem.content_imageId);
         }
     }
 }

@@ -19,7 +19,7 @@ public class NetSendConfession {
 
     private static final String SCHEME = "http";
     private static final String FORMAT = "host:30010/forum/push";
-    private static final String HOST = "192.168.1.100";
+    private static final String HOST = "192.168.1.105";
     private static final int PORT = 30010;
     private static final String PATH_SEGMENTS = "forum/push";
 
@@ -36,14 +36,15 @@ public class NetSendConfession {
         public int uid;
         //这里的String以后可以改成类，类里面放入文本和图片
         public String confcont;
+        public long nowDate;
     }
 
     public static class ResponseClass
     {
-        public String result_code;
+        public int success;
     }
 
-    public String sendConfession(int uid, String content_text) {
+    public String sendConfession(int uid, String content_text, long date) {
 
         OkHttpClient client = new OkHttpClient();
 
@@ -54,6 +55,7 @@ public class NetSendConfession {
         NetSendConfession.RequestClass requestClass = new NetSendConfession.RequestClass();
         requestClass.uid = uid;
         requestClass.confcont = content_text;
+        requestClass.nowDate = date;
 
         Gson gson = new Gson();
         String requestJson = gson.toJson(requestClass);
@@ -70,23 +72,18 @@ public class NetSendConfession {
         {
             Response response = client.newCall(request).execute();
             ResponseBody responseBody = response.body();
-            if(responseBody == null)
-            {
+            if(responseBody == null) {
                 return FAIL;
             }
             String responseJson = responseBody.string();
             NetSendConfession.ResponseClass responseClass = gson.fromJson(responseJson, NetSendConfession.ResponseClass.class);
-            if(responseClass.result_code == "success")
-            {
+            if(responseClass.success == 1) {
                 return SUCCESS;
             }
-            if(responseClass.result_code == "fail")
-            {
+            else{
                 return FAIL;
             }
-            return FAIL;
-        }catch (IOException e)
-        {
+        }catch (IOException e) {
             return FAIL;
         }
 

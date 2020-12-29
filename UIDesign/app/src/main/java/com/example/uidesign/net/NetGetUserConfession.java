@@ -23,7 +23,7 @@ import okhttp3.ResponseBody;
 public class NetGetUserConfession {
     private static final String SCHEME = "http";
     private static final String FORMAT = "host:30010/forum/pull_userconf";
-    private static final String HOST = "";
+    private static final String HOST = "192.168.1.105";
     private static final int PORT = 30010;
     private static final String PATH_SEGMENTS = "forum/pull_userconf";
 
@@ -45,7 +45,7 @@ public class NetGetUserConfession {
         public int uid;
         public String confCont;
         public int confLikes;
-        public Date confTime;
+        public long confTime;
     }
     //返回的所有信息
     public static class ResponseClass

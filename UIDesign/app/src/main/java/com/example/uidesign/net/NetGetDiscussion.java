@@ -23,7 +23,7 @@ import okhttp3.ResponseBody;
 public class NetGetDiscussion {
     private static final String SCHEME = "http";
     private static final String FORMAT = "host:30010/discuss/pull";
-    private static final String HOST = "";
+    private static final String HOST = "192.168.1.105";
     private static final int PORT = 30010;
     private static final String PATH_SEGMENTS = "discuss/pull";
 
@@ -46,7 +46,7 @@ public class NetGetDiscussion {
         public int uid;
         public String disCont;
         public int disLikes;
-        public Date disTime;
+        public long disTime;
     }
     //返回的所有信息
     public static class ResponseClass

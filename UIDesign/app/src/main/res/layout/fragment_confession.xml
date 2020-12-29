@@ -9,8 +9,9 @@
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="411dp">
+        android:layout_height="679dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        >
 
         <com.scwang.smart.refresh.header.ClassicsHeader
             android:layout_width="match_parent"

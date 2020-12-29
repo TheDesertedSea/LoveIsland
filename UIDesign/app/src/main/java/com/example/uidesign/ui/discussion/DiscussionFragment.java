@@ -26,6 +26,7 @@ import com.example.uidesign.net.NetGetDiscussion;
 import com.example.uidesign.net.NetPersonalCenter;
 import com.example.uidesign.ui.item_detail.ItemDetailActivity;
 import com.example.uidesign.ui.item_edit.ItemEditActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
@@ -36,7 +37,7 @@ public class DiscussionFragment extends Fragment {
     private final DiscussionFragment thisContext = this;
     private LogginedUser Me = LogginedUser.getInstance();
 
-    private Button EditItemButton;
+    private FloatingActionButton EditItemButton;
 
     private RecyclerView discussionList;
     private ArrayList<DiscussionItem> listData;

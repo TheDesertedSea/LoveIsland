@@ -15,10 +15,12 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
+import static android.content.ContentValues.TAG;
+
 public class NetSendDiscussion {
     private static final String SCHEME = "http";
     private static final String FORMAT = "host:30010/discuss/push";
-    private static final String HOST = "";
+    private static final String HOST = "192.168.1.105";
     private static final int PORT = 30010;
     private static final String PATH_SEGMENTS = "discuss/push";
 
@@ -35,14 +37,15 @@ public class NetSendDiscussion {
         public int uid;
         //这里的String以后可以改成类，类里面放入文本和图片
         public String discont;
+        public long nowDate;
     }
 
     public static class ResponseClass
     {
-        public String result_code;
+        public int success;
     }
 
-    public String sendDiscussion(int uid, String content_text) {
+    public String sendDiscussion(int uid, String content_text, long date) {
 
         OkHttpClient client = new OkHttpClient();
 
@@ -53,6 +56,7 @@ public class NetSendDiscussion {
         NetSendDiscussion.RequestClass requestClass = new RequestClass();
         requestClass.uid = uid;
         requestClass.discont = content_text;
+        requestClass.nowDate = date;
 
         Gson gson = new Gson();
         String requestJson = gson.toJson(requestClass);
@@ -75,15 +79,14 @@ public class NetSendDiscussion {
             }
             String responseJson = responseBody.string();
             NetSendDiscussion.ResponseClass responseClass = gson.fromJson(responseJson, NetSendDiscussion.ResponseClass.class);
-            if(responseClass.result_code == "success")
+            if(responseClass.success == 1)
             {
                 return SUCCESS;
             }
-            if(responseClass.result_code == "fail")
+            else
             {
                 return FAIL;
             }
-            return FAIL;
         }catch (IOException e)
         {
             return FAIL;

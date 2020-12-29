@@ -1,6 +1,7 @@
 package com.example.uidesign.ui.personal_center;
 
-import android.app.Fragment;
+
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -30,6 +31,7 @@ import com.example.uidesign.ui.my_discussion.MyDiscussionActivity;
 import com.example.uidesign.ui.personal_info_edit.PersonalInfoEditActivity;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import java.io.ByteArrayOutputStream;
 

@@ -1,8 +1,11 @@
 package com.example.uidesign.ui.item_detail;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +29,7 @@ import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ItemDetailActivity extends BaseActivity {
 
@@ -33,6 +37,8 @@ public class ItemDetailActivity extends BaseActivity {
     private String identifyString;
     private int postID;
     private ArrayList<Comment> comments;
+
+    private final String TAG = "ItemDetailActivity";
 
     private int uidOfPost;
     private UserInfo UserInfoOfPost;
@@ -52,14 +58,35 @@ public class ItemDetailActivity extends BaseActivity {
 
         Intent intent = getIntent();
         identifyString = intent.getStringExtra("type");
+//        Log.v(TAG, "type" + identifyString);
         postID = intent.getIntExtra("postID", -1);
+//        Log.v(TAG, "postid" + postID);
 
         //得到帖子详细信息，并展示
         uidOfPost = intent.getIntExtra("uid", -1);
-        NetPersonalCenter netPersonalCenter1 = new NetPersonalCenter();
-        UserInfoOfPost = netPersonalCenter1.getUserInfo(uidOfPost);
+        Log.v(TAG, "uid" + uidOfPost);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Log.v(TAG, "进新进程");
+                NetPersonalCenter netPersonalCenter1 = new NetPersonalCenter();
+                Log.v(TAG, "new了一个");
+                UserInfoOfPost = netPersonalCenter1.getUserInfo(uidOfPost);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        binding.username.setText(UserInfoOfPost.nickname);
+                    }
+                });
+
+//                Log.v(TAG, UserInfoOfPost.nickname);
+                Log.v(TAG, UserInfoOfPost.sex + "xingbie");
+                Log.v(TAG, "得到了返回结果");
+            }
+        }).start();
+
         ContextOfPost = intent.getStringExtra("content");
-        binding.username.setText(UserInfoOfPost.nickname);
+
         Glide.with(this).load(baseIconUrl + uidOfPost).into(binding.avatar);
         binding.content.setText(ContextOfPost);
 
@@ -80,7 +107,7 @@ public class ItemDetailActivity extends BaseActivity {
                     ownerOfComment = netPersonalCenter.getUserInfo(i.uid);
                     temp.fromName = ownerOfComment.nickname;
                     temp.com = i.ccCont;
-                    temp.nowDate = i.ccTime;
+                    temp.nowDate = new Date(i.ccTime);
                     comments.add(temp);
                 }
             }
@@ -100,12 +127,13 @@ public class ItemDetailActivity extends BaseActivity {
                     ownerOfComment = netPersonalCenter.getUserInfo(i.uid);
                     temp.fromName = ownerOfComment.nickname;
                     temp.com = i.dcCont;
-                    temp.nowDate = i.dcTime;
+                    temp.nowDate = new Date(i.dcTime);
                     comments.add(temp);
                 }
             }
         }
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        commentList = binding.commentList;
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true);
         commentList.setLayoutManager(layoutManager);
         commentList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mAdapter = new CommentListAdapter(this, comments);
@@ -115,9 +143,11 @@ public class ItemDetailActivity extends BaseActivity {
         binding.sendComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (identifyString == "confession") {
+//                Log.v(TAG, "fabiao comment");
+                Log.v(TAG, identifyString);
+                if (identifyString.equals("confession")) {
                     SocketMsg temp = new SocketMsg();
-                    temp.type = "shielding";
+                    temp.type = "sendConfCom";
                     temp.from = LogginedUser.getInstance().getUid();
                     temp.fromName = LogginedUser.getInstance().getNickName();
                     //被评论帖子的id
@@ -137,7 +167,14 @@ public class ItemDetailActivity extends BaseActivity {
                             }
                         }
                     }).start();
-                } else if (identifyString == "discussion") {
+                    //把键盘收下
+                    binding.editComment.setText("");
+                    binding.editComment.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) ItemDetailActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(ItemDetailActivity.this.getWindow().getDecorView().getWindowToken(), 0);
+                    //刷新评论列表
+                    
+                } else if (identifyString.equals("discussion")) {
                     SocketMsg temp = new SocketMsg();
                     temp.type = "sendDisCom";
                     temp.from = LogginedUser.getInstance().getUid();
@@ -159,6 +196,12 @@ public class ItemDetailActivity extends BaseActivity {
                             }
                         }
                     }).start();
+                    //把键盘收下
+                    binding.editComment.setText("");
+                    binding.editComment.clearFocus();
+                    InputMethodManager imm = (InputMethodManager) ItemDetailActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(ItemDetailActivity.this.getWindow().getDecorView().getWindowToken(), 0);
+                    //刷新评论列表
                 }
             }
         });

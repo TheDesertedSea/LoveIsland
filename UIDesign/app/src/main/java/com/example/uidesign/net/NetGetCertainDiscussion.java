@@ -42,7 +42,7 @@ public class NetGetCertainDiscussion {
         public int discussID;//没用
         public int uid;
         public String dcCont;
-        public Date dcTime;
+        public long dcTime;
     }
     //返回的所有信息
     public static class ResponseClass

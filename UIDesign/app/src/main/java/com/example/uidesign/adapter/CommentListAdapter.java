@@ -19,7 +19,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
     private ArrayList<Comment> mData;
 
     private ItemDetailActivity thisContext;
-    private final String HOST="";
+    private final String HOST="192.168.1.105";
     private final String baseIconUrl="http://"+HOST+":30010/user/userPortrait/";
 
     //构造方法

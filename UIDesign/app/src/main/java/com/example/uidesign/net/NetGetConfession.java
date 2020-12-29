@@ -20,11 +20,13 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
+import static android.content.ContentValues.TAG;
+
 public class NetGetConfession {
 
     private static final String SCHEME = "http";
     private static final String FORMAT = "host:30010/forum/pull";
-    private static final String HOST = "192.168.1.100";
+    private static final String HOST = "192.168.1.105";
     private static final int PORT = 30010;
     private static final String PATH_SEGMENTS = "forum/pull";
 
@@ -47,7 +49,7 @@ public class NetGetConfession {
         public int uid;
         public String confCont;
         public int confLikes;
-        public Date confTime;
+        public long confTime;
     }
     //返回的所有信息
     public static class ResponseClass
@@ -101,6 +103,8 @@ public class NetGetConfession {
                 if(responseClass.maxID < temp.confessionID) {
                     responseClass.maxID = temp.confessionID;
                 }
+                Log.v(TAG,"内容"+temp.confCont);
+                Log.v(TAG,"帖子id"+temp.confessionID);
             }
             return responseClass;
         }catch (IOException e)

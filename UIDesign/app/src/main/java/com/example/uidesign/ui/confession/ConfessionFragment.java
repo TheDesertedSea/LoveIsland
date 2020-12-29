@@ -4,6 +4,7 @@ package com.example.uidesign.ui.confession;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +28,13 @@ import com.example.uidesign.net.NetGetConfession;
 import com.example.uidesign.net.NetPersonalCenter;
 import com.example.uidesign.ui.item_detail.ItemDetailActivity;
 import com.example.uidesign.ui.item_edit.ItemEditActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
+
+import static android.content.ContentValues.TAG;
 
 public class ConfessionFragment extends Fragment {
 
@@ -38,7 +42,7 @@ public class ConfessionFragment extends Fragment {
     private final ConfessionFragment thisContext = this;
     private LogginedUser Me = LogginedUser.getInstance();
 
-    private Button EditItemButton;
+    private FloatingActionButton EditItemButton;
 
     private RecyclerView confessionList;
     private ArrayList<ConfessionItem> listData;
@@ -102,9 +106,11 @@ public class ConfessionFragment extends Fragment {
                             Me.setConfession_MaxID(mResponseClass.maxID);
                             //把取得的数据更新到数据集中
                             ArrayList<NetGetConfession.ResponseItem> mResponseItemList = mResponseClass.confessionArray;
-                            ConfessionItem addingItem = new ConfessionItem();
 
                             for (NetGetConfession.ResponseItem i : mResponseItemList) {
+                                ConfessionItem addingItem = new ConfessionItem();
+                                addingItem.confessionID = i.confessionID;
+                                addingItem.uid = i.uid;
                                 addingItem.content_text = i.confCont;
                                 //通过获得的uid去取得用户名
                                 new Thread(new Runnable() {
@@ -112,9 +118,10 @@ public class ConfessionFragment extends Fragment {
                                     public void run() {
                                         NetPersonalCenter mNetPersonalCenter = new NetPersonalCenter();
                                         addUserInfo = mNetPersonalCenter.getUserInfo(i.uid);
+                                        addingItem.title_username = addUserInfo.nickname;
                                     }
                                 }).start();
-                                addingItem.title_username = addUserInfo.nickname;
+
 
                                 listData.add(addingItem);
                             }
@@ -144,9 +151,14 @@ public class ConfessionFragment extends Fragment {
         mAdapter.setOnItemClickListener(new ConfessionListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
+                Log.v(TAG, "点击item");
                 //处理点击item的事件，跳转到item详情页
                 Intent intent = new Intent(getActivity(), ItemDetailActivity.class);
-                intent.setAction("confessionItemDetail");   //这个intent的action叫做"confessionItemDetail"
+                //发送帖子id
+                intent.putExtra("type","confession");
+                intent.putExtra("postID", listData.get(position).confessionID);
+                intent.putExtra("uid", listData.get(position).uid);
+                intent.putExtra("content", listData.get(position).content_text);
                 getActivity().startActivity(intent);
             }
         });
@@ -161,7 +173,7 @@ public class ConfessionFragment extends Fragment {
         refreshLayout.autoRefresh();
 
         //Recyclerview设置样式/布局管理器
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true);
         confessionList.setLayoutManager(layoutManager);
         //设置item的分割线
         confessionList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));

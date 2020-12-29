@@ -42,7 +42,7 @@ public class NetGetCertainConfession {
         public int confessionID;//没用
         public int uid;
         public String ccCont;
-        public Date ccTime;
+        public long ccTime;
     }
     //返回的所有信息
     public static class ResponseClass

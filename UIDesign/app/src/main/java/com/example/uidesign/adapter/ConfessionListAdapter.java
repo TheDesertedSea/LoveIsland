@@ -28,7 +28,7 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
     private OnItemClickListener mOnItemClickListener;
 
     private ConfessionFragment thisContext;
-    private final String HOST="";
+    private final String HOST="192.168.1.105";
     private final String baseIconUrl="http://"+HOST+":30010/user/userPortrait/";
 
     //构造方法
@@ -71,8 +71,7 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
                 temp.type = "sendConfLike";
                 temp.from = LogginedUser.getInstance().getUid();
                 temp.fromName = LogginedUser.getInstance().getNickName();
-                //帖子主人的id
-                temp.to = mData.get(position).uid;
+                temp.postID = mData.get(position).confessionID;
                 temp.nowDate = System.currentTimeMillis();
                 Gson gson = new Gson();
                 String sendString = gson.toJson(temp);
@@ -145,7 +144,7 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
         private ImageView mAvatar;
         private TextView mUsername;
         private TextView mContentText;
-        private ImageView mContentImage;
+//        private ImageView mContentImage;
         private ImageButton mLikeButton;
         private ImageButton mCommentButton;
         private int mPosition;
@@ -157,7 +156,7 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
             mAvatar = (ImageView) itemView.findViewById(R.id.item_title_avatar);
             mUsername = (TextView) itemView.findViewById(R.id.item_title_username);
             mContentText = (TextView) itemView.findViewById(R.id.item_content_text);
-            mContentImage = (ImageView) itemView.findViewById(R.id.item_content_image);
+//            mContentImage = (ImageView) itemView.findViewById(R.id.item_content_image);
             mLikeButton = (ImageButton) itemView.findViewById(R.id.item_like);
             mCommentButton = (ImageButton) itemView.findViewById(R.id.item_comment);
         }
@@ -170,7 +169,7 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
             Glide.with(thisContext).load(baseIconUrl + confessionItem.uid).into(mAvatar);
             mUsername.setText(confessionItem.title_username);
             mContentText.setText(confessionItem.content_text);
-            mContentImage.setImageResource(confessionItem.content_imageId);
+//            mContentImage.setImageResource(confessionItem.content_imageId);
         }
     }
 }

@@ -26,7 +26,7 @@ public class NetPersonalCenter {
     private static final String FORMAT_ICON_EDIT="host:30010/user/setPortrait/:uid";
     private static final String FORMAT_INFO_GET="host:30010/user/userInfo/:uid";
     private static final String FORMAT_INFO_EDIT="host:30010/user/setInfo";
-    private static final String HOST="192.168.1.100";
+    private static final String HOST="192.168.1.105";
     private static final int PORT=30010;
     private static final String PATH_SEGMENTS_ICON_EDIT="user/setPortrait";
     private static final String PATH_SEGMENTS_INFO_GET="user/userInfo";
