@@ -111,7 +111,7 @@ public class DiscussionFragment extends Fragment {
                                         addUserInfo = mNetPersonalCenter.getUserInfo(i.uid);
                                     }
                                 }).start();
-                                addingItem.title_username = addUserInfo.nickName;
+                                addingItem.title_username = addUserInfo.nickname;
 
                                 listData.add(addingItem);
                             }
