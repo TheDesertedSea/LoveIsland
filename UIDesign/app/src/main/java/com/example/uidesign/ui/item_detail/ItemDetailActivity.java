@@ -59,7 +59,7 @@ public class ItemDetailActivity extends BaseActivity {
         NetPersonalCenter netPersonalCenter1 = new NetPersonalCenter();
         UserInfoOfPost = netPersonalCenter1.getUserInfo(uidOfPost);
         ContextOfPost = intent.getStringExtra("content");
-        binding.username.setText(UserInfoOfPost.nickName);
+        binding.username.setText(UserInfoOfPost.nickname);
         Glide.with(this).load(baseIconUrl + uidOfPost).into(binding.avatar);
         binding.content.setText(ContextOfPost);
 
@@ -78,7 +78,7 @@ public class ItemDetailActivity extends BaseActivity {
                     //通过uid获得用户名
                     NetPersonalCenter netPersonalCenter = new NetPersonalCenter();
                     ownerOfComment = netPersonalCenter.getUserInfo(i.uid);
-                    temp.fromName = ownerOfComment.nickName;
+                    temp.fromName = ownerOfComment.nickname;
                     temp.com = i.ccCont;
                     temp.nowDate = i.ccTime;
                     comments.add(temp);
@@ -98,7 +98,7 @@ public class ItemDetailActivity extends BaseActivity {
                     //通过uid获得用户名
                     NetPersonalCenter netPersonalCenter = new NetPersonalCenter();
                     ownerOfComment = netPersonalCenter.getUserInfo(i.uid);
-                    temp.fromName = ownerOfComment.nickName;
+                    temp.fromName = ownerOfComment.nickname;
                     temp.com = i.dcCont;
                     temp.nowDate = i.dcTime;
                     comments.add(temp);
