@@ -91,7 +91,8 @@ public class PersonalPageActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(thisContext, ChatActivity.class);
-                intent.putExtra("otherUid",uid);
+                intent.putExtra("user",uid);
+                intent.putExtra("nickname",userInfo.nickname);
                 startActivity(intent);
             }
         });

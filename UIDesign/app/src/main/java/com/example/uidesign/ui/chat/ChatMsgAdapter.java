@@ -2,6 +2,7 @@ package com.example.uidesign.ui.chat;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +27,9 @@ public class ChatMsgAdapter extends RecyclerView.Adapter<ChatMsgAdapter.ViewHold
     private String myName;
     private String otherName;
     private Context context;
+    private ChatActivity.ChatActivityHandler handler;
 
-    private static String HOST="192.168.1.100";
+    private static String HOST="192.168.1.105";
     private String baseIconUrl="http://"+HOST+":30010/user/userPortrait/";
 
     static class ViewHolder extends RecyclerView.ViewHolder{
@@ -57,11 +59,12 @@ public class ChatMsgAdapter extends RecyclerView.Adapter<ChatMsgAdapter.ViewHold
         }
     }
 
-    public ChatMsgAdapter (List<ChatMsg> msgList, String myName, String otherName,Context context){
+    public ChatMsgAdapter (List<ChatMsg> msgList, String myName, String otherName, Context context, ChatActivity.ChatActivityHandler handler){
         chatMsgList = msgList;
         this.myName=myName;
         this.otherName=otherName;
         this.context=context;
+        this.handler=handler;
     }
 
     @NonNull
@@ -81,6 +84,15 @@ public class ChatMsgAdapter extends RecyclerView.Adapter<ChatMsgAdapter.ViewHold
         {
             holder.rightLayout.setVisibility(View.GONE);
             Glide.with(context).load(baseIconUrl+chatMsg.getFrom()).into(holder.leftIcon);
+            holder.leftIcon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Message message=handler.obtainMessage();
+                    message.what=300;
+                    message.arg1=chatMsg.getFrom();
+                    handler.sendMessage(message);
+                }
+            });
             holder.leftName.setText(otherName);
             holder.leftDate.setText(chatMsg.getDate().toString());
             holder.leftContent.setText(chatMsg.getContent());

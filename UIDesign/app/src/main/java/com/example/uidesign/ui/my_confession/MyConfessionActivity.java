@@ -1,7 +1,9 @@
 package com.example.uidesign.ui.my_confession;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.uidesign.ui.BaseActivity;
 import com.example.uidesign.databinding.ActivityMyConfessionBinding;
@@ -9,6 +11,7 @@ import com.example.uidesign.databinding.ActivityMyConfessionBinding;
 public class MyConfessionActivity extends BaseActivity {
 
     private ActivityMyConfessionBinding binding;
+    private Activity thisActivity=this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,12 @@ public class MyConfessionActivity extends BaseActivity {
 
         }
 
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                thisActivity.finish();
+            }
+        });
 
     }
 }

@@ -20,7 +20,7 @@ public class NetSignUp {
 
     private static final String SCHEME="http";
     private static final String FORMAT="host:30010/login/register";
-    private static final String HOST="192.168.1.100";
+    private static final String HOST="192.168.1.105";
     private static final int PORT=30010;
     private static final String PATH_SEGMENTS="login/register";
 
@@ -38,7 +38,7 @@ public class NetSignUp {
     {
         public String mailbox;
         public String password;
-        public String nickName;
+        public String nickname;
         public boolean sex;
         public String school;
     }
@@ -64,18 +64,18 @@ public class NetSignUp {
         RequestClass requestClass=new RequestClass();
         requestClass.mailbox=username;
         requestClass.password=password;
-        requestClass.nickName=nickName;
+        requestClass.nickname=nickName;
         requestClass.sex=sex;
         requestClass.school=school;
 
         Gson gson=new Gson();
         String requestJson=gson.toJson(requestClass);
+        Log.v("nickname",requestJson);
 
         RequestBody requestBody=RequestBody.create(requestJson, MediaType.get("application/json"));
 
         Request request = new Request.Builder()
                 .url(url)
-                .addHeader("token",LogginedUser.getInstance().getToken())
                 .post(requestBody)
                 .build();
 

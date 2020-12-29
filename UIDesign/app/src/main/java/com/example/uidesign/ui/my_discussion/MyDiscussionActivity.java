@@ -1,7 +1,9 @@
 package com.example.uidesign.ui.my_discussion;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.uidesign.ui.BaseActivity;
 import com.example.uidesign.databinding.ActivityMyDiscussionBinding;
@@ -9,6 +11,7 @@ import com.example.uidesign.databinding.ActivityMyDiscussionBinding;
 public class MyDiscussionActivity extends BaseActivity {
 
     private ActivityMyDiscussionBinding binding;
+    private Activity thisActivity=this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,5 +35,12 @@ public class MyDiscussionActivity extends BaseActivity {
             }
 
         }
+
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                thisActivity.finish();
+            }
+        });
     }
 }

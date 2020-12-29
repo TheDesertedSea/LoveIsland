@@ -1,17 +1,21 @@
 package com.example.uidesign.ui.notifications;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.uidesign.data.database.Contact;
 import com.example.uidesign.R;
+import com.example.uidesign.ui.chat.ChatActivity;
 
 import java.util.List;
 
@@ -20,8 +24,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder>{
     private List<Contact> contactList;
     private Context context;
+    private NotificationsFragment.NotificationsFragmentHandler handler;
 
-    private String HOST="";
+    private String HOST="192.168.1.105";
     private String baseIconUrl="http://"+HOST+":30010/user/userPortrait/";
 
     @NonNull
@@ -33,16 +38,31 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         return new ContactAdapter.ViewHolder(view);
     }
 
+
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Contact contact=contactList.get(position);
         Glide.with(context)
-                .load(baseIconUrl+contact.uid+".jpg")
+                .load(baseIconUrl+contact.uid)
                 .into(holder.icon);
         holder.nickName.setText(contact.nickName);
         holder.date.setText(contact.date.toString());
         holder.content.setText(contact.latestMsg);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Message message=handler.obtainMessage();
+                message.what=300;
+                message.arg1=contact.uid;
+                message.obj=contact.nickName;
+                handler.sendMessage(message);
+
+            }
+        });
     }
+
+
 
     @Override
     public int getItemCount() {
@@ -63,10 +83,11 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         }
     }
 
-    public ContactAdapter(List<Contact> contacts,Context context)
+    public ContactAdapter(List<Contact> contacts, Context context, NotificationsFragment.NotificationsFragmentHandler handler)
     {
         contactList=contacts;
         this.context=context;
+        this.handler=handler;
     }
 
 

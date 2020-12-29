@@ -26,6 +26,7 @@ import com.example.uidesign.data.database.Contact;
 import com.example.uidesign.data.database.DatabaseManager;
 import com.example.uidesign.data.database.Entity_Contact;
 import com.example.uidesign.net.UserSocketManager;
+import com.example.uidesign.ui.chat.ChatActivity;
 import com.example.uidesign.ui.comment_to_me.CommentToMeActivity;
 import com.example.uidesign.ui.thumb_to_me.ThumbToMeActivity;
 
@@ -48,7 +49,7 @@ public class NotificationsFragment extends Fragment {
                     {
                         if(contactList.get(i).uid==contact.uid)
                         {
-                            contactList.get(i).latestMsg=contact.latestMsg;
+                            contactList.set(i,contact);
                             contactAdapter.notifyItemChanged(i);
                             recyclerView.scrollToPosition(i);
                             return;
@@ -69,9 +70,16 @@ public class NotificationsFragment extends Fragment {
                         contact2.date=new Date(e.date);
                         contactList.add(contact2);
                     }
-                    contactAdapter=new ContactAdapter(contactList,thisContext);
+                    contactAdapter=new ContactAdapter(contactList,thisContext,notificationsFragmentHandler);
                     recyclerView.setAdapter(contactAdapter);
                     UserSocketManager.getInstance().bInNotifications=true;
+                    break;
+                case 300:
+                    Intent intent=new Intent(thisContext, ChatActivity.class);
+                    intent.putExtra("user",msg.arg1);
+                    intent.putExtra("nickname",(String)msg.obj);
+                    startActivity(intent);
+                    break;
             }
         }
 
