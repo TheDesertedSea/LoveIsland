@@ -32,17 +32,17 @@ public class NetGetCertainConfession {
 
     public static class RequestClass
     {
-        public int postID;   //帖子的id
+        public int confessionID;   //帖子的id
         public int uid; //账号的id
     }
 
     //返回的一个评论的信息
     public class ResponseItem {
-        public int commentID;
+        public int confession_commentID;
         public int confessionID;//没用
         public int uid;
-        public String content;
-        public Date time;
+        public String ccCont;
+        public Date ccTime;
     }
     //返回的所有信息
     public static class ResponseClass
@@ -62,7 +62,7 @@ public class NetGetCertainConfession {
         Log.v("httpUrl",url.toString());
 
         NetGetCertainConfession.RequestClass requestClass = new NetGetCertainConfession.RequestClass();
-        requestClass.postID = postID;
+        requestClass.confessionID = postID;
         requestClass.uid = uid;
 
         Gson gson_pull = new Gson();

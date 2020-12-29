@@ -10,6 +10,7 @@ import com.google.gson.JsonParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
@@ -35,29 +36,27 @@ public class NetGetUserConfession {
 
     public static class RequestClass
     {
-        public int get_uid;   //请求的账号id
-        public int local_uid; //本地账号的id
+        public int uid;
     }
 
     //返回的一个帖子的信息
     public class ResponseItem {
-        public int commentID;
+        public int confessionID;
         public int uid;
-        public String content;
-        public int likes;
+        public String confCont;
+        public int confLikes;
+        public Date confTime;
     }
     //返回的所有信息
     public static class ResponseClass
     {
-        public int maxID;
         public ArrayList<NetGetConfession.ResponseItem> confessionArray;
     }
 
-    public NetGetConfession.ResponseClass getConfession(int commentID, int uid) {
+    public NetGetConfession.ResponseClass getConfession(int uid) {
 
         NetGetConfession.ResponseClass responseClass = new NetGetConfession.ResponseClass();
         responseClass.confessionArray = new ArrayList<NetGetConfession.ResponseItem>();
-        responseClass.maxID = 0;
 
         OkHttpClient client = new OkHttpClient();
 
@@ -66,7 +65,6 @@ public class NetGetUserConfession {
         Log.v("httpUrl",url.toString());
 
         NetGetConfession.RequestClass requestClass=new NetGetConfession.RequestClass();
-        requestClass.commentID = commentID;
         requestClass.uid = uid;
 
         Gson gson_pull = new Gson();

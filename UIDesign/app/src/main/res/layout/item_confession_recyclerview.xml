@@ -52,16 +52,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="15sp"
-                    android:text="表白内容"
+                    android:text="表白内容表白内容表白内容表白内容表白内容表白内容表白内容表白内容表白内容表白内容表白内容表白内容表白内容表白内容表白内容表白内容表白内容表白内容表白内容表白内容表白内容表白内容表白内容"
                     android:paddingLeft="10dp"/>
 
-                <ImageView
-                    android:id="@+id/item_content_image"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_below="@id/item_content_text"
-                    android:src="@drawable/ic_default_image_50dp"
-                    android:paddingLeft="10dp"/>
+<!--                <ImageView-->
+<!--                    android:id="@+id/item_content_image"-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="100dp"-->
+<!--                    android:layout_below="@id/item_content_text"-->
+<!--                    android:src="@drawable/ic_default_image_50dp"-->
+<!--                    android:paddingLeft="10dp"/>-->
 
             </RelativeLayout>
 

@@ -10,6 +10,7 @@ import com.google.gson.JsonParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
@@ -35,16 +36,17 @@ public class NetGetDiscussion {
 
     public static class RequestClass
     {
-        public int commentID;   //目前客户端已有的最大表白帖号
+        public int discussID;   //目前客户端已有的最大表白帖号
         public int uid; //账号的id
     }
 
     //返回的一个帖子的信息
     public class ResponseItem {
-        public int commentID;
+        public int discussID;
         public int uid;
-        public String content;
-        public int likes;
+        public String disCont;
+        public int disLikes;
+        public Date disTime;
     }
     //返回的所有信息
     public static class ResponseClass
@@ -53,7 +55,7 @@ public class NetGetDiscussion {
         public ArrayList<NetGetDiscussion.ResponseItem> discussionArray;
     }
 
-    public NetGetDiscussion.ResponseClass getDiscussion(int commentID, int uid) {
+    public NetGetDiscussion.ResponseClass getDiscussion(int discussID, int uid) {
 
         NetGetDiscussion.ResponseClass responseClass = new NetGetDiscussion.ResponseClass();
         responseClass.discussionArray = new ArrayList<NetGetDiscussion.ResponseItem>();
@@ -66,7 +68,7 @@ public class NetGetDiscussion {
         Log.v("httpUrl",url.toString());
 
         NetGetDiscussion.RequestClass requestClass=new NetGetDiscussion.RequestClass();
-        requestClass.commentID = commentID;
+        requestClass.discussID = discussID;
         requestClass.uid = uid;
 
         Gson gson_pull = new Gson();
@@ -95,8 +97,8 @@ public class NetGetDiscussion {
             {
                 NetGetDiscussion.ResponseItem temp = gson_get.fromJson(e, NetGetDiscussion.ResponseItem.class);
                 responseClass.discussionArray.add(temp);
-                if(responseClass.maxID < temp.commentID) {
-                    responseClass.maxID = temp.commentID;
+                if(responseClass.maxID < temp.discussID) {
+                    responseClass.maxID = temp.discussID;
                 }
             }
             return responseClass;

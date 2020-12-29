@@ -10,6 +10,7 @@ import com.google.gson.JsonParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
@@ -36,16 +37,17 @@ public class NetGetConfession {
 
     public static class RequestClass
     {
-        public int commentID;   //目前客户端已有的最大表白帖号
+        public int confessionID;   //目前客户端已有的最大表白帖号
         public int uid; //账号的id
     }
 
     //返回的一个帖子的信息
     public class ResponseItem {
-        public int commentID;
+        public int confessionID;
         public int uid;
-        public String content;
-        public int likes;
+        public String confCont;
+        public int confLikes;
+        public Date confTime;
     }
     //返回的所有信息
     public static class ResponseClass
@@ -54,7 +56,7 @@ public class NetGetConfession {
         public ArrayList<ResponseItem> confessionArray;
     }
 
-    public ResponseClass getConfession(int commentID, int uid) {
+    public ResponseClass getConfession(int confessionID, int uid) {
 
         ResponseClass responseClass = new ResponseClass();
         responseClass.confessionArray = new ArrayList<ResponseItem>();
@@ -67,7 +69,7 @@ public class NetGetConfession {
         Log.v("httpUrl",url.toString());
 
         NetGetConfession.RequestClass requestClass=new NetGetConfession.RequestClass();
-        requestClass.commentID = commentID;
+        requestClass.confessionID = confessionID;
         requestClass.uid = uid;
 
         Gson gson_pull = new Gson();
@@ -96,8 +98,8 @@ public class NetGetConfession {
             {
                 NetGetConfession.ResponseItem temp = gson_get.fromJson(e, NetGetConfession.ResponseItem.class);
                 responseClass.confessionArray.add(temp);
-                if(responseClass.maxID < temp.commentID) {
-                    responseClass.maxID = temp.commentID;
+                if(responseClass.maxID < temp.confessionID) {
+                    responseClass.maxID = temp.confessionID;
                 }
             }
             return responseClass;

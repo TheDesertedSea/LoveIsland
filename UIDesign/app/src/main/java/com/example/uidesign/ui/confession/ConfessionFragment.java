@@ -105,7 +105,7 @@ public class ConfessionFragment extends Fragment {
                             ConfessionItem addingItem = new ConfessionItem();
 
                             for (NetGetConfession.ResponseItem i : mResponseItemList) {
-                                addingItem.content_text = i.content;
+                                addingItem.content_text = i.confCont;
                                 //通过获得的uid去取得用户名
                                 new Thread(new Runnable() {
                                     @Override

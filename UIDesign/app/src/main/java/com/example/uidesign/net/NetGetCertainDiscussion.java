@@ -32,17 +32,17 @@ public class NetGetCertainDiscussion {
 
     public static class RequestClass
     {
-        public int postID;   //帖子的id
+        public int discussID;   //帖子的id
         public int uid; //账号的id
     }
 
     //返回的一个评论的信息
     public class ResponseItem {
-        public int commentID;
-        public int discussionID;//没用
+        public int discuss_commentID;
+        public int discussID;//没用
         public int uid;
-        public String content;
-        public Date time;
+        public String dcCont;
+        public Date dcTime;
     }
     //返回的所有信息
     public static class ResponseClass
@@ -62,7 +62,7 @@ public class NetGetCertainDiscussion {
         Log.v("httpUrl",url.toString());
 
         NetGetCertainDiscussion.RequestClass requestClass = new NetGetCertainDiscussion.RequestClass();
-        requestClass.postID = postID;
+        requestClass.discussID = postID;
         requestClass.uid = uid;
 
         Gson gson_pull = new Gson();

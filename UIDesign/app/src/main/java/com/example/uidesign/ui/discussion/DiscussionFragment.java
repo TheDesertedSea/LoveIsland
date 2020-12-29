@@ -102,7 +102,7 @@ public class DiscussionFragment extends Fragment {
                             DiscussionItem addingItem = new DiscussionItem();
 
                             for (NetGetDiscussion.ResponseItem i : mResponseItemList) {
-                                addingItem.content_text = i.content;
+                                addingItem.content_text = i.disCont;
                                 //通过获得的uid去取得用户名
                                 new Thread(new Runnable() {
                                     @Override

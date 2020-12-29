@@ -73,14 +73,14 @@ public class ItemDetailActivity extends BaseActivity {
                 Comment temp = new Comment();
                 UserInfo ownerOfComment = new UserInfo();
                 for (NetGetCertainConfession.ResponseItem i : mResponseClass.commentArray) {
-                    temp.commentID = i.commentID;
+                    temp.commentID = i.confession_commentID;
                     temp.from = i.uid;
                     //通过uid获得用户名
                     NetPersonalCenter netPersonalCenter = new NetPersonalCenter();
                     ownerOfComment = netPersonalCenter.getUserInfo(i.uid);
                     temp.fromName = ownerOfComment.nickName;
-                    temp.com = i.content;
-                    temp.nowDate = i.time;
+                    temp.com = i.ccCont;
+                    temp.nowDate = i.ccTime;
                     comments.add(temp);
                 }
             }
@@ -93,14 +93,14 @@ public class ItemDetailActivity extends BaseActivity {
                 Comment temp = new Comment();
                 UserInfo ownerOfComment = new UserInfo();
                 for (NetGetCertainDiscussion.ResponseItem i : mResponseClass.commentArray) {
-                    temp.commentID = i.commentID;
+                    temp.commentID = i.discuss_commentID;
                     temp.from = i.uid;
                     //通过uid获得用户名
                     NetPersonalCenter netPersonalCenter = new NetPersonalCenter();
                     ownerOfComment = netPersonalCenter.getUserInfo(i.uid);
                     temp.fromName = ownerOfComment.nickName;
-                    temp.com = i.content;
-                    temp.nowDate = i.time;
+                    temp.com = i.dcCont;
+                    temp.nowDate = i.dcTime;
                     comments.add(temp);
                 }
             }
