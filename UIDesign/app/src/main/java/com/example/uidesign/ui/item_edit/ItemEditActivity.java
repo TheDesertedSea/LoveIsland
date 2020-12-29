@@ -53,6 +53,7 @@ public class ItemEditActivity extends BaseActivity {
                                     {
                                         case NetSendConfession.SUCCESS:
                                             Toast.makeText(thisContext, NetSendConfession.SUCCESS_INFO, Toast.LENGTH_SHORT).show();
+                                            ItemEditActivity.this.finish();
                                             break;
                                         case NetSendConfession.FAIL:
                                             Toast.makeText(thisContext, NetSendConfession.FAIL_INFO, Toast.LENGTH_SHORT).show();
@@ -76,6 +77,7 @@ public class ItemEditActivity extends BaseActivity {
                                     {
                                         case NetSendDiscussion.SUCCESS:
                                             Toast.makeText(thisContext, NetSendDiscussion.SUCCESS_INFO, Toast.LENGTH_SHORT).show();
+                                            ItemEditActivity.this.finish();
                                             break;
                                         case NetSendDiscussion.FAIL:
                                             Toast.makeText(thisContext, NetSendDiscussion.FAIL_INFO, Toast.LENGTH_SHORT).show();
