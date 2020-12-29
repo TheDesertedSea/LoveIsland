@@ -67,7 +67,7 @@ public class MyDiscussionAdapter extends RecyclerView.Adapter<MyDiscussionAdapte
             @Override
             public void onClick(View v) {
                 //播放动画
-
+                ((ImageButton)v).setImageResource(R.drawable.ic_liked_24dp);
                 //告诉服务器端点赞
                 SocketMsg temp=new SocketMsg();
                 temp.type = "sendDisLike";
