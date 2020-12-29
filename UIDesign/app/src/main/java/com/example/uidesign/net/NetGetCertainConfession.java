@@ -20,47 +20,40 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class NetGetConfession {
-
+public class NetGetCertainConfession {
     private static final String SCHEME = "http";
-    private static final String FORMAT = "host:30010/forum/pull";
-    private static final String HOST = "192.168.1.100";
+    private static final String FORMAT = "host:30010/forum/pull_discuss&likes";
+    private static final String HOST = "192.168.1.105";
     private static final int PORT = 30010;
-    private static final String PATH_SEGMENTS = "forum/pull";
+    private static final String PATH_SEGMENTS = "forum/pull_discuss&likes";
 
     //返回结果
-    public static final ResponseClass FAIL = null;
-
-    //结果信息
-    public static final String SUCCESS_INFO = "刷新成功";
-    public static final String FAIL_INFO = "刷新失败";
+    public static final NetGetCertainConfession.ResponseClass FAIL = null;
 
     public static class RequestClass
     {
-        public int confessionID;   //目前客户端已有的最大表白帖号
+        public int confessionID;   //帖子的id
         public int uid; //账号的id
     }
 
-    //返回的一个帖子的信息
+    //返回的一个评论的信息
     public class ResponseItem {
-        public int confessionID;
+        public int confession_commentID;
+        public int confessionID;//没用
         public int uid;
-        public String confCont;
-        public int confLikes;
-        public Date confTime;
+        public String ccCont;
+        public Date ccTime;
     }
     //返回的所有信息
     public static class ResponseClass
     {
-        public int maxID;
-        public ArrayList<ResponseItem> confessionArray;
+        public ArrayList<NetGetCertainConfession.ResponseItem> commentArray;
     }
 
-    public ResponseClass getConfession(int confessionID, int uid) {
+    public NetGetCertainConfession.ResponseClass getComment(int postID, int uid) {
 
-        ResponseClass responseClass = new ResponseClass();
-        responseClass.confessionArray = new ArrayList<ResponseItem>();
-        responseClass.maxID = 0;
+        NetGetCertainConfession.ResponseClass responseClass = new NetGetCertainConfession.ResponseClass();
+        responseClass.commentArray = new ArrayList<NetGetCertainConfession.ResponseItem>();
 
         OkHttpClient client = new OkHttpClient();
 
@@ -68,8 +61,8 @@ public class NetGetConfession {
                 .build();
         Log.v("httpUrl",url.toString());
 
-        NetGetConfession.RequestClass requestClass=new NetGetConfession.RequestClass();
-        requestClass.confessionID = confessionID;
+        NetGetCertainConfession.RequestClass requestClass = new NetGetCertainConfession.RequestClass();
+        requestClass.confessionID = postID;
         requestClass.uid = uid;
 
         Gson gson_pull = new Gson();
@@ -96,11 +89,8 @@ public class NetGetConfession {
             Gson gson_get = new Gson();
             for(JsonElement e:jsonElements)
             {
-                NetGetConfession.ResponseItem temp = gson_get.fromJson(e, NetGetConfession.ResponseItem.class);
-                responseClass.confessionArray.add(temp);
-                if(responseClass.maxID < temp.confessionID) {
-                    responseClass.maxID = temp.confessionID;
-                }
+                NetGetCertainConfession.ResponseItem temp = gson_get.fromJson(e, NetGetCertainConfession.ResponseItem.class);
+                responseClass.commentArray.add(temp);
             }
             return responseClass;
         }catch (IOException e)

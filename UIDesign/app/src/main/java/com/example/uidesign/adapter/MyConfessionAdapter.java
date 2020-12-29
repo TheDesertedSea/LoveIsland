@@ -18,21 +18,22 @@ import com.example.uidesign.net.UserSocketManager;
 import com.example.uidesign.ui.confession.ConfessionFragment;
 import com.example.uidesign.ui.confession.ConfessionItem;
 import com.example.uidesign.ui.item_detail.ItemDetailActivity;
+import com.example.uidesign.ui.my_confession.MyConfessionActivity;
 import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAdapter.InnerHolder> {
+public class MyConfessionAdapter extends RecyclerView.Adapter<MyConfessionAdapter.InnerHolder>{
     private ArrayList<ConfessionItem> mData;
-    private OnItemClickListener mOnItemClickListener;
+    private MyConfessionAdapter.OnItemClickListener mOnItemClickListener;
 
-    private ConfessionFragment thisContext;
+    private MyConfessionActivity thisContext;
     private final String HOST="";
     private final String baseIconUrl="http://"+HOST+":30010/user/userPortrait/";
 
     //构造方法
-    public ConfessionListAdapter(ConfessionFragment context, ArrayList<ConfessionItem> data) {
+    public MyConfessionAdapter(MyConfessionActivity context, ArrayList<ConfessionItem> data) {
         this.thisContext = context;
         this.mData = data;
     }
@@ -40,7 +41,7 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
     //用来创建条目View
     @NonNull
     @Override
-    public InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyConfessionAdapter.InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //传进去的View是条目的界面
         //拿到view
         //创建内部holder
@@ -50,7 +51,7 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
 
     //用于绑定Holder，一般用来设置数据
     @Override
-    public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyConfessionAdapter.InnerHolder holder, int position) {
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,19 +95,18 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
             @Override
             public void onClick(View v) {
                 //跳转到详情页面
-                Intent intent = new Intent(thisContext.getActivity(), ItemDetailActivity.class);
+                Intent intent = new Intent(thisContext, ItemDetailActivity.class);
                 //发送帖子id
                 intent.putExtra("type","confession");
                 intent.putExtra("postID", mData.get(position).confessionID);
                 intent.putExtra("uid", mData.get(position).uid);
                 intent.putExtra("content", mData.get(position).content_text);
-                thisContext.getActivity().startActivity(intent);
+                thisContext.startActivity(intent);
             }
         });
 
         //在这里设置数据
         holder.setData(mData.get(position), position);
-
     }
 
     //返回条目个数
@@ -123,18 +123,10 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
      * 2.定义接口内部方法
      * 3.提供设置接口的方法（外部实现）
      * 4.接口方法的调用*/
-    public void setOnItemClickListener(OnItemClickListener listener) {
+    public void setOnItemClickListener(MyConfessionAdapter.OnItemClickListener listener) {
         //设置监听（就是一个回调的接口）
         this.mOnItemClickListener = listener;
     }
-
-//    public void setOnItemLikeClickListener(ItemInnerLikeListener mItemInnerLikeListener) {
-//        this.mItemInnerLikeListener = mItemInnerLikeListener;
-//    }
-//
-//    public void setOnItemCommentClickListener(ItemInnerCommentListener mItemInnerCommentListener) {
-//        this.mItemInnerCommentListener = mItemInnerCommentListener;
-//    }
 
     public interface OnItemClickListener{
         void onItemClick(int position);

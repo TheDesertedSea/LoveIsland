@@ -15,24 +15,26 @@ import com.example.uidesign.R;
 import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.net.SocketMsg;
 import com.example.uidesign.net.UserSocketManager;
-import com.example.uidesign.ui.confession.ConfessionFragment;
 import com.example.uidesign.ui.confession.ConfessionItem;
+import com.example.uidesign.ui.discussion.DiscussionItem;
 import com.example.uidesign.ui.item_detail.ItemDetailActivity;
+import com.example.uidesign.ui.my_confession.MyConfessionActivity;
+import com.example.uidesign.ui.my_discussion.MyDiscussionActivity;
 import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAdapter.InnerHolder> {
-    private ArrayList<ConfessionItem> mData;
-    private OnItemClickListener mOnItemClickListener;
+public class MyDiscussionAdapter extends RecyclerView.Adapter<MyDiscussionAdapter.InnerHolder>{
+    private ArrayList<DiscussionItem> mData;
+    private MyDiscussionAdapter.OnItemClickListener mOnItemClickListener;
 
-    private ConfessionFragment thisContext;
+    private MyDiscussionActivity thisContext;
     private final String HOST="";
     private final String baseIconUrl="http://"+HOST+":30010/user/userPortrait/";
 
     //构造方法
-    public ConfessionListAdapter(ConfessionFragment context, ArrayList<ConfessionItem> data) {
+    public MyDiscussionAdapter(MyDiscussionActivity context, ArrayList<DiscussionItem> data) {
         this.thisContext = context;
         this.mData = data;
     }
@@ -40,17 +42,17 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
     //用来创建条目View
     @NonNull
     @Override
-    public InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyDiscussionAdapter.InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //传进去的View是条目的界面
         //拿到view
         //创建内部holder
-        View view = View.inflate(parent.getContext(), R.layout.item_confession_recyclerview, null);
-        return new InnerHolder(view);
+        View view = View.inflate(parent.getContext(), R.layout.item_discussion_recyclerview, null);
+        return new MyDiscussionAdapter.InnerHolder(view);
     }
 
     //用于绑定Holder，一般用来设置数据
     @Override
-    public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyDiscussionAdapter.InnerHolder holder, int position) {
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,7 +70,7 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
 
                 //告诉服务器端点赞
                 SocketMsg temp=new SocketMsg();
-                temp.type = "sendConfLike";
+                temp.type = "sendDisLike";
                 temp.from = LogginedUser.getInstance().getUid();
                 temp.fromName = LogginedUser.getInstance().getNickName();
                 //帖子主人的id
@@ -94,19 +96,18 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
             @Override
             public void onClick(View v) {
                 //跳转到详情页面
-                Intent intent = new Intent(thisContext.getActivity(), ItemDetailActivity.class);
+                Intent intent = new Intent(thisContext, ItemDetailActivity.class);
                 //发送帖子id
-                intent.putExtra("type","confession");
-                intent.putExtra("postID", mData.get(position).confessionID);
+                intent.putExtra("type","discussion");
+                intent.putExtra("postID", mData.get(position).discussionID);
                 intent.putExtra("uid", mData.get(position).uid);
                 intent.putExtra("content", mData.get(position).content_text);
-                thisContext.getActivity().startActivity(intent);
+                thisContext.startActivity(intent);
             }
         });
 
         //在这里设置数据
         holder.setData(mData.get(position), position);
-
     }
 
     //返回条目个数
@@ -123,18 +124,10 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
      * 2.定义接口内部方法
      * 3.提供设置接口的方法（外部实现）
      * 4.接口方法的调用*/
-    public void setOnItemClickListener(OnItemClickListener listener) {
+    public void setOnItemClickListener(MyDiscussionAdapter.OnItemClickListener listener) {
         //设置监听（就是一个回调的接口）
         this.mOnItemClickListener = listener;
     }
-
-//    public void setOnItemLikeClickListener(ItemInnerLikeListener mItemInnerLikeListener) {
-//        this.mItemInnerLikeListener = mItemInnerLikeListener;
-//    }
-//
-//    public void setOnItemCommentClickListener(ItemInnerCommentListener mItemInnerCommentListener) {
-//        this.mItemInnerCommentListener = mItemInnerCommentListener;
-//    }
 
     public interface OnItemClickListener{
         void onItemClick(int position);
@@ -163,14 +156,14 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
         }
 
         //用于设置数据
-        public void setData(ConfessionItem confessionItem, int position) {
+        public void setData(DiscussionItem discussionItem, int position) {
 
             this.mPosition = position;
             //开始设置数据
-            Glide.with(thisContext).load(baseIconUrl + confessionItem.uid).into(mAvatar);
-            mUsername.setText(confessionItem.title_username);
-            mContentText.setText(confessionItem.content_text);
-            mContentImage.setImageResource(confessionItem.content_imageId);
+            Glide.with(thisContext).load(baseIconUrl + discussionItem.uid).into(mAvatar);
+            mUsername.setText(discussionItem.title_username);
+            mContentText.setText(discussionItem.content_text);
+            mContentImage.setImageResource(discussionItem.content_imageId);
         }
     }
 }

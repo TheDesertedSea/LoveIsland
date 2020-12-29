@@ -19,22 +19,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.uidesign.R;
-import com.example.uidesign.adapter.ConfessionListAdapter;
 import com.example.uidesign.adapter.DiscussionListAdapter;
 import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.data.UserInfo;
-import com.example.uidesign.databinding.FragmentDiscussionBinding;
-import com.example.uidesign.net.NetGetConfession;
 import com.example.uidesign.net.NetGetDiscussion;
 import com.example.uidesign.net.NetPersonalCenter;
-import com.example.uidesign.ui.confession.ConfessionFragment;
-import com.example.uidesign.ui.confession.ConfessionItem;
 import com.example.uidesign.ui.item_detail.ItemDetailActivity;
 import com.example.uidesign.ui.item_edit.ItemEditActivity;
-import com.scwang.smart.refresh.footer.ClassicsFooter;
-import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
-import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
@@ -45,8 +37,6 @@ public class DiscussionFragment extends Fragment {
     private LogginedUser Me = LogginedUser.getInstance();
 
     private Button EditItemButton;
-    private Button LikeButton;
-    private Button CommentButton;
 
     private RecyclerView discussionList;
     private ArrayList<DiscussionItem> listData;
@@ -112,7 +102,7 @@ public class DiscussionFragment extends Fragment {
                             DiscussionItem addingItem = new DiscussionItem();
 
                             for (NetGetDiscussion.ResponseItem i : mResponseItemList) {
-                                addingItem.content_text = i.content;
+                                addingItem.content_text = i.disCont;
                                 //通过获得的uid去取得用户名
                                 new Thread(new Runnable() {
                                     @Override
