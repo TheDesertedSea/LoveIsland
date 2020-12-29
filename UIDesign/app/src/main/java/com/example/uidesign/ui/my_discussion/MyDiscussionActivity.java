@@ -1,7 +1,9 @@
 package com.example.uidesign.ui.my_discussion;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -22,6 +24,7 @@ import java.util.ArrayList;
 public class MyDiscussionActivity extends BaseActivity {
 
     private ActivityMyDiscussionBinding binding;
+    private Activity thisActivity=this;
 
     private LogginedUser Me = LogginedUser.getInstance();
 
@@ -88,5 +91,11 @@ public class MyDiscussionActivity extends BaseActivity {
         mAdapter = new MyDiscussionAdapter(MyDiscussionActivity.this, listData);
         //适配器设置到Recyclerview里面去
         discussionList.setAdapter(mAdapter);
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                thisActivity.finish();
+            }
+        });
     }
 }

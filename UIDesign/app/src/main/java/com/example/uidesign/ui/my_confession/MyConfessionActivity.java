@@ -1,7 +1,9 @@
 package com.example.uidesign.ui.my_confession;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,6 +25,7 @@ import java.util.ArrayList;
 public class MyConfessionActivity extends BaseActivity {
 
     private ActivityMyConfessionBinding binding;
+    private Activity thisActivity=this;
 
 //    private final MyConfessionActivity thisContext = this;
     private LogginedUser Me = LogginedUser.getInstance();
@@ -82,6 +85,12 @@ public class MyConfessionActivity extends BaseActivity {
 //
 //        //自动刷新，从服务器请求表白帖数据初始化
 //        refreshLayout.autoRefresh();
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                thisActivity.finish();
+            }
+        });
 
         //Recyclerview设置样式/布局管理器
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);

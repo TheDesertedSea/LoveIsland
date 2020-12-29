@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.uidesign.R;
+import com.example.uidesign.data.CachedLoginData;
 import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.data.UserInfo;
 import com.example.uidesign.net.NetPersonalCenter;
@@ -48,8 +49,9 @@ public class PersonalCenterFragment extends Fragment {
     private TextView nickNameText;
     private TextView sexAndSchoolText;
     private TextView introductionText;
+    private Button logOutButton;
 
-    private static String HOST="192.168.1.100";
+    private static String HOST="192.168.1.105";
     private final String baseIconUrl="http://"+HOST+":30010/user/userPortrait/";
 
 
@@ -92,6 +94,7 @@ public class PersonalCenterFragment extends Fragment {
         nickNameText=root.findViewById(R.id.nick_name_personal_center);
         sexAndSchoolText=root.findViewById(R.id.sex_school_center);
         introductionText=root.findViewById(R.id.intro_personal_center);
+        logOutButton=root.findViewById(R.id.logout_button);
 
         netPersonalCenter=new NetPersonalCenter();
         Glide.with(thisFragment).load(baseIconUrl+LogginedUser.getInstance().getUid())
@@ -153,8 +156,23 @@ public class PersonalCenterFragment extends Fragment {
             }
         });
 
+        logOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CachedLoginData cachedLoginData=new CachedLoginData(getContext());
+                cachedLoginData.saveCachedLoginData("",
+                        "");
+                Intent intent = getContext().getPackageManager().getLaunchIntentForPackage(getContext().getPackageName());
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//与正常页面跳转一样可传递序列化数据,在Launch页面内获得
+                intent.putExtra("REBOOT","reboot");
+                startActivity(intent);
+            }
+        });
+
         return root;
     }
+
+
 
     private Bitmap drawableToBitmap(Drawable drawable) {
         if(drawable==null)

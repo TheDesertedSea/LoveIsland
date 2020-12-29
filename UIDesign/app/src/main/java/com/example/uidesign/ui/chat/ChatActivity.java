@@ -26,6 +26,7 @@ import com.example.uidesign.data.database.DatabaseManager;
 import com.example.uidesign.data.database.Entity_ChatMsg;
 import com.example.uidesign.databinding.ActivityChatBinding;
 import com.example.uidesign.net.NetPersonalCenter;
+import com.example.uidesign.ui.personal_page.PersonalPageActivity;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -71,7 +72,7 @@ public class ChatActivity extends AppCompatActivity {
                             binding.messageRecyclerView.scrollToPosition(msgList.size()-1);
                         }
                     });
-
+                    break;
                 case 200:
                     msgList=new ArrayList<ChatMsg>();
                     for(Entity_ChatMsg e:entity_chatMsgs)
@@ -81,9 +82,15 @@ public class ChatActivity extends AppCompatActivity {
                     }
 
                     adapter=new ChatMsgAdapter(msgList,LogginedUser.getInstance().getNickName(),
-                            otherNickName,thisContext);
+                            otherNickName,thisContext,chatActivityHandler);
                     binding.messageRecyclerView.setAdapter(adapter);
                     binding.chatTitle.setText(otherNickName);
+                    break;
+                case 300:
+                    Intent intent=new Intent(thisContext, PersonalPageActivity.class);
+                    intent.putExtra("uid",msg.arg1);
+                    startActivity(intent);
+                    break;
             }
         }
 
