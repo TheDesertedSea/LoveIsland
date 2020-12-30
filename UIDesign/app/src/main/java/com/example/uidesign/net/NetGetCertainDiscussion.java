@@ -23,8 +23,6 @@ import okhttp3.ResponseBody;
 public class NetGetCertainDiscussion {
     private static final String SCHEME = "http";
     private static final String FORMAT = "host:30010/discuss/pull_discuss&likes";
-    private static final String HOST = "192.168.1.105";
-    private static final int PORT = 30010;
     private static final String PATH_SEGMENTS = "discuss/pull_discuss&likes";
 
     //返回结果
@@ -57,7 +55,7 @@ public class NetGetCertainDiscussion {
 
         OkHttpClient client = new OkHttpClient();
 
-        HttpUrl url = new HttpUrl.Builder().scheme("http").host(HOST).port(PORT).addPathSegments(PATH_SEGMENTS)
+        HttpUrl url = new HttpUrl.Builder().scheme("http").host(NetSettings.HOST_1).port(NetSettings.PORT_1).addPathSegments(PATH_SEGMENTS)
                 .build();
         Log.v("httpUrl",url.toString());
 

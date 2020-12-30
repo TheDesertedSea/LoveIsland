@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.uidesign.R;
 import com.example.uidesign.data.Comment;
+import com.example.uidesign.net.NetSettings;
 
 import java.util.List;
 
@@ -21,8 +22,7 @@ public class CommentToMeAdapter extends RecyclerView.Adapter<CommentToMeAdapter.
     private List<Comment> commentList;
     private Context context;
 
-    private String HOST="";
-    private String baseIconUrl="http://"+HOST+":30010/user/userPortrait/";
+    private final String baseIconUrl="http://"+ NetSettings.HOST_1 +":"+NetSettings.PORT_1+"/user/userPortrait/";
 
     @NonNull
     @Override

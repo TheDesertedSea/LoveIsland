@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide;
 import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.data.UserInfo;
 import com.example.uidesign.net.NetPersonalCenter;
+import com.example.uidesign.net.NetSettings;
 import com.example.uidesign.ui.BaseActivity;
 import com.example.uidesign.databinding.ActivityPersonalPageBinding;
 import com.example.uidesign.ui.chat.ChatActivity;
@@ -24,8 +25,7 @@ public class PersonalPageActivity extends BaseActivity {
     private Context thisContext=this;
     private UserInfo userInfo;
 
-    private final String HOST="";
-    private final String baseIconUrl="http://"+HOST+":30010/user/userPortrait/";
+    private final String baseIconUrl="http://"+ NetSettings.HOST_1 +":"+NetSettings.PORT_1+"/user/userPortrait/";
 
 
     @Override

@@ -27,6 +27,7 @@ import com.example.uidesign.data.CachedLoginData;
 import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.data.UserInfo;
 import com.example.uidesign.net.NetPersonalCenter;
+import com.example.uidesign.net.NetSettings;
 import com.example.uidesign.ui.my_confession.MyConfessionActivity;
 import com.example.uidesign.ui.my_discussion.MyDiscussionActivity;
 import com.example.uidesign.ui.personal_info_edit.PersonalInfoEditActivity;
@@ -51,8 +52,7 @@ public class PersonalCenterFragment extends Fragment {
     private TextView introductionText;
     private Button logOutButton;
 
-    private static String HOST="192.168.1.105";
-    private final String baseIconUrl="http://"+HOST+":30010/user/userPortrait/";
+    private final String baseIconUrl="http://"+ NetSettings.HOST_1 +":"+NetSettings.PORT_1+"/user/userPortrait/";
 
 
     public class PersonalCenterFragmentHandler extends Handler

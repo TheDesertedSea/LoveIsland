@@ -28,8 +28,6 @@ public class NetLuckyCard {
     private static final String SCHEME="http";
     private static final String FORMAT_GET="host:30010/card/getcard/:uid";
     private static final String FORMAT_MATCH="host:30010/card/match/:uid/:cid";
-    private static final String HOST="192.168.1.105";
-    private static final int PORT=30010;
     private static final String PATH_SEGMENTS_GET="card/getcard";
     private static final String PATH_SEGMENTS_MATCH="card/match";
 
@@ -57,7 +55,7 @@ public class NetLuckyCard {
 
         OkHttpClient client=new OkHttpClient();
 
-        HttpUrl url = new HttpUrl.Builder().scheme("http").host(HOST).port(PORT).addPathSegments(
+        HttpUrl url = new HttpUrl.Builder().scheme("http").host(NetSettings.HOST_1).port(NetSettings.PORT_1).addPathSegments(
                 PATH_SEGMENTS_GET+"/"+uid)
                 .build();
         Log.v("httpUrl",url.toString());
@@ -100,7 +98,7 @@ public class NetLuckyCard {
 
         OkHttpClient client=new OkHttpClient();
 
-        HttpUrl url = new HttpUrl.Builder().scheme("http").host(HOST).port(PORT).addPathSegments(
+        HttpUrl url = new HttpUrl.Builder().scheme("http").host(NetSettings.HOST_1).port(NetSettings.PORT_1).addPathSegments(
                 PATH_SEGMENTS_MATCH+"/"+uid+"/"+cid)
                 .build();
         Log.v("httpUrl",url.toString());

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.uidesign.R;
 import com.example.uidesign.data.LogginedUser;
+import com.example.uidesign.net.NetSettings;
 import com.example.uidesign.net.SocketMsg;
 import com.example.uidesign.net.UserSocketManager;
 import com.example.uidesign.ui.confession.ConfessionFragment;
@@ -29,8 +30,7 @@ public class MyConfessionAdapter extends RecyclerView.Adapter<MyConfessionAdapte
     private MyConfessionAdapter.OnItemClickListener mOnItemClickListener;
 
     private MyConfessionActivity thisContext;
-    private final String HOST="192.168.1.105";
-    private final String baseIconUrl="http://"+HOST+":30010/user/userPortrait/";
+    private final String baseIconUrl="http://"+ NetSettings.HOST_1 +":"+NetSettings.PORT_1+"/user/userPortrait/";
 
     //构造方法
     public MyConfessionAdapter(MyConfessionActivity context, ArrayList<ConfessionItem> data) {

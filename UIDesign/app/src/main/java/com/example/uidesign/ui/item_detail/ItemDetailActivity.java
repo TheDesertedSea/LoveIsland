@@ -19,6 +19,7 @@ import com.example.uidesign.data.UserInfo;
 import com.example.uidesign.net.NetGetCertainConfession;
 import com.example.uidesign.net.NetGetCertainDiscussion;
 import com.example.uidesign.net.NetPersonalCenter;
+import com.example.uidesign.net.NetSettings;
 import com.example.uidesign.net.SocketMsg;
 import com.example.uidesign.net.UserSocketManager;
 import com.example.uidesign.ui.BaseActivity;
@@ -44,8 +45,7 @@ public class ItemDetailActivity extends BaseActivity {
     private UserInfo UserInfoOfPost;
     private String ContextOfPost;
 
-    private final String HOST="";
-    private final String baseIconUrl="http://"+HOST+":30010/user/userPortrait/";
+    private final String baseIconUrl="http://"+ NetSettings.HOST_1 +":"+NetSettings.PORT_1+"/user/userPortrait/";
 
     private RecyclerView commentList;
     private CommentListAdapter mAdapter;

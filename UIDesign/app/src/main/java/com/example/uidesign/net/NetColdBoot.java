@@ -27,8 +27,6 @@ public class NetColdBoot {
     private static final boolean DEBUG=false;
 
     private static final String GET_FORMAT="HOST:30010/card/domain";
-    private static final String HOST="192.168.1.105";
-    private static final int PORT=30010;
     private static final String GET_PATH_SEGMENTS="card/domain";
 
     private static final String SEND_FORMAT="HOST:30010/card/domainSelect/:uid";
@@ -55,7 +53,7 @@ public class NetColdBoot {
 
         OkHttpClient client=new OkHttpClient();
 
-        HttpUrl url = new HttpUrl.Builder().scheme("http").host(HOST).port(PORT).addPathSegments(GET_PATH_SEGMENTS)
+        HttpUrl url = new HttpUrl.Builder().scheme("http").host(NetSettings.HOST_1).port(NetSettings.PORT_1).addPathSegments(GET_PATH_SEGMENTS)
                 .build();
         Log.v("httpUrl",url.toString());
 
@@ -106,7 +104,7 @@ public class NetColdBoot {
 
         OkHttpClient client=new OkHttpClient();
 
-        HttpUrl url = new HttpUrl.Builder().scheme("http").host(HOST).port(PORT)
+        HttpUrl url = new HttpUrl.Builder().scheme("http").host(NetSettings.HOST_1).port(NetSettings.PORT_1)
                 .addPathSegments(SEND_PATH_SEGMENTS+"/"+ LogginedUser.getInstance().getUid())
                 .build();
         Log.v("httpUrl",url.toString());

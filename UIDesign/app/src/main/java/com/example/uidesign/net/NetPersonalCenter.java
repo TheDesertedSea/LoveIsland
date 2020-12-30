@@ -26,8 +26,6 @@ public class NetPersonalCenter {
     private static final String FORMAT_ICON_EDIT="host:30010/user/setPortrait/:uid";
     private static final String FORMAT_INFO_GET="host:30010/user/userInfo/:uid";
     private static final String FORMAT_INFO_EDIT="host:30010/user/setInfo";
-    private static final String HOST="192.168.1.105";
-    private static final int PORT=30010;
     private static final String PATH_SEGMENTS_ICON_EDIT="user/setPortrait";
     private static final String PATH_SEGMENTS_INFO_GET="user/userInfo";
     private static final String PATH_SEGMENTS_INFO_EDIT="user/setInfo";
@@ -81,7 +79,7 @@ public class NetPersonalCenter {
         OkHttpClient client=new OkHttpClient();
 
         Log.v("personal-center",String.valueOf(LogginedUser.getInstance().getUid()));
-        HttpUrl url = new HttpUrl.Builder().scheme("http").host(HOST).port(PORT).addPathSegments(
+        HttpUrl url = new HttpUrl.Builder().scheme("http").host(NetSettings.HOST_1).port(NetSettings.PORT_1).addPathSegments(
                 PATH_SEGMENTS_INFO_GET+"/"+uid)
                 .build();
         Log.v("httpUrl",url.toString());
@@ -126,7 +124,7 @@ public class NetPersonalCenter {
 
         OkHttpClient client=new OkHttpClient();
 
-        HttpUrl url = new HttpUrl.Builder().scheme("http").host(HOST).port(PORT).addPathSegments(
+        HttpUrl url = new HttpUrl.Builder().scheme("http").host(NetSettings.HOST_1).port(NetSettings.PORT_1).addPathSegments(
                 PATH_SEGMENTS_INFO_EDIT)
                 .build();
         Log.v("httpUrl",url.toString());
@@ -188,7 +186,7 @@ public class NetPersonalCenter {
 
         OkHttpClient client=new OkHttpClient();
 
-        HttpUrl url = new HttpUrl.Builder().scheme("http").host(HOST).port(PORT).addPathSegments(
+        HttpUrl url = new HttpUrl.Builder().scheme("http").host(NetSettings.HOST_1).port(NetSettings.PORT_1).addPathSegments(
                 PATH_SEGMENTS_ICON_EDIT+"/"+uid)
                 .build();
         Log.v("httpUrl",url.toString());

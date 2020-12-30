@@ -20,6 +20,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import com.example.uidesign.data.LogginedUser;
+import com.example.uidesign.net.NetSettings;
 
 public class ChatMsgAdapter extends RecyclerView.Adapter<ChatMsgAdapter.ViewHolder>{
 
@@ -29,8 +30,7 @@ public class ChatMsgAdapter extends RecyclerView.Adapter<ChatMsgAdapter.ViewHold
     private Context context;
     private ChatActivity.ChatActivityHandler handler;
 
-    private static String HOST="192.168.1.105";
-    private String baseIconUrl="http://"+HOST+":30010/user/userPortrait/";
+    private final String baseIconUrl="http://"+ NetSettings.HOST_1 +":"+NetSettings.PORT_1+"/user/userPortrait/";
 
     static class ViewHolder extends RecyclerView.ViewHolder{
         ConstraintLayout leftLayout;
