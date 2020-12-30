@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.uidesign.adapter.CommentListAdapter;
 import com.example.uidesign.data.Comment;
 import com.example.uidesign.data.LogginedUser;
@@ -87,7 +88,7 @@ public class ItemDetailActivity extends BaseActivity {
 
         ContextOfPost = intent.getStringExtra("content");
 
-        Glide.with(this).load(baseIconUrl + uidOfPost).into(binding.avatar);
+        Glide.with(this).load(baseIconUrl + uidOfPost).diskCacheStrategy(DiskCacheStrategy.NONE).into(binding.avatar);
         binding.content.setText(ContextOfPost);
 
         //通过帖子id获取帖子的评论列表，并展示
@@ -205,5 +206,6 @@ public class ItemDetailActivity extends BaseActivity {
                 }
             }
         });
+        
     }
 }

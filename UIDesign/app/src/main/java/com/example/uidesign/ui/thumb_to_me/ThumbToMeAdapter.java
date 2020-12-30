@@ -1,6 +1,8 @@
 package com.example.uidesign.ui.thumb_to_me;
 
 import android.content.Context;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +12,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.uidesign.R;
 import com.example.uidesign.data.Like;
+import com.example.uidesign.net.NetSettings;
 
 import java.util.List;
 
@@ -20,9 +24,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class ThumbToMeAdapter extends RecyclerView.Adapter<ThumbToMeAdapter.ViewHolder>{
     private List<Like> likeList;
     private Context context;
+    private ThumbToMeActivity.ThumbToMeActivityHandler thumbToMeActivityHandler;
 
-    private String HOST="";
-    private String baseIconUrl="http://"+HOST+":30010/user/userPortrait/";
+    private final String baseIconUrl="http://"+ NetSettings.HOST_1 +":"+NetSettings.PORT_1+"/user/userPortrait/";
 
     @NonNull
     @Override
@@ -37,11 +41,21 @@ public class ThumbToMeAdapter extends RecyclerView.Adapter<ThumbToMeAdapter.View
     public void onBindViewHolder(@NonNull ThumbToMeAdapter.ViewHolder holder, int position) {
         Like like=likeList.get(position);
         Glide.with(context)
-                .load(baseIconUrl+like.from+".jpg")
-                .into(holder.icon);
+                .load(baseIconUrl+like.from)
+                .diskCacheStrategy(DiskCacheStrategy.NONE).into(holder.icon);
         holder.nickName.setText(like.fromName);
         holder.date.setText(like.nowDate.toString());
         holder.content.setText("在你的帖子下赞了你");
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Message message=thumbToMeActivityHandler.obtainMessage();
+                message.what=200;
+                message.arg1=like.postID;
+                Log.v("adapter-id","id"+like.postID+" "+message.arg1);
+                thumbToMeActivityHandler.sendMessage(message);
+            }
+        });
     }
 
     @Override
@@ -63,9 +77,10 @@ public class ThumbToMeAdapter extends RecyclerView.Adapter<ThumbToMeAdapter.View
         }
     }
 
-    public ThumbToMeAdapter(List<Like> likes,Context context)
+    public ThumbToMeAdapter(List<Like> likes, Context context, ThumbToMeActivity.ThumbToMeActivityHandler thumbToMeActivityHandler)
     {
         likeList=likes;
         this.context=context;
+        this.thumbToMeActivityHandler=thumbToMeActivityHandler;
     }
 }

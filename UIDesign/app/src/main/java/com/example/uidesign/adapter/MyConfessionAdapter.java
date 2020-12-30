@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.uidesign.R;
 import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.net.NetSettings;
@@ -159,7 +160,7 @@ public class MyConfessionAdapter extends RecyclerView.Adapter<MyConfessionAdapte
 
             this.mPosition = position;
             //开始设置数据
-            Glide.with(thisContext).load(baseIconUrl + confessionItem.uid).into(mAvatar);
+            Glide.with(thisContext).load(baseIconUrl + confessionItem.uid).diskCacheStrategy(DiskCacheStrategy.NONE).into(mAvatar);
             mUsername.setText(confessionItem.title_username);
             mContentText.setText(confessionItem.content_text);
 //            mContentImage.setImageResource(confessionItem.content_imageId);

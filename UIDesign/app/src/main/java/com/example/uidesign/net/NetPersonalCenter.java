@@ -56,7 +56,7 @@ public class NetPersonalCenter {
 
     public class UserInfoEditResponse
     {
-        public int result_code;
+        public int success;
     }
 
     public class IconEditResponse
@@ -129,21 +129,20 @@ public class NetPersonalCenter {
                 .build();
         Log.v("httpUrl",url.toString());
 
-        Gson gson=new Gson();
+
 
         UserInfoEditRequest userInfoEditRequest=new UserInfoEditRequest();
         userInfoEditRequest.uid=uid;
         userInfoEditRequest.nickname=nickName;
         userInfoEditRequest.school=school;
         userInfoEditRequest.introduction=introduction;
-
+        Gson gson=new Gson();
         String requestJson=gson.toJson(userInfoEditRequest);
 
         RequestBody requestBody=RequestBody.create(requestJson, MediaType.get("application/json"));
 
         Request request = new Request.Builder()
                 .url(url)
-                .addHeader("token",LogginedUser.getInstance().getToken())
                 .post(requestBody)
                 .build();
 
@@ -156,8 +155,10 @@ public class NetPersonalCenter {
                 return PERSONAL_INFO_EDIT_OTHER_FAIL;
             }
             String responseJson=responseBody.string();
-            UserInfoEditResponse userInfoEditResponse=gson.fromJson(requestJson,UserInfoEditResponse.class);
-            if(userInfoEditResponse.result_code==1)
+            Log.v("edit_info_result",responseJson);
+            UserInfoEditResponse userInfoEditResponse=gson.fromJson(responseJson,UserInfoEditResponse.class);
+            Log.v("result","isUser"+userInfoEditResponse.success);
+            if(userInfoEditResponse.success==1)
             {
                 return PERSONAL_INFO_EDIT_SUCCESS;
             }else
@@ -205,6 +206,7 @@ public class NetPersonalCenter {
                 return false;
             }
             String responseJson=responseBody.string();
+            Log.v("icon",responseJson);
             Gson gson=new Gson();
             IconEditResponse iconEditResponse=gson.fromJson(responseJson,IconEditResponse.class);
             if(iconEditResponse.success==1)

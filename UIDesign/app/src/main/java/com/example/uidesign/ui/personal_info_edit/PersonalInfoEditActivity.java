@@ -17,6 +17,7 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
+import com.bumptech.glide.Glide;
 import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.net.NetPersonalCenter;
 import com.example.uidesign.ui.BaseActivity;
@@ -79,6 +81,7 @@ public class PersonalInfoEditActivity extends BaseActivity {
         binding.schoolInput.setText(school);
         binding.personalIntroInput.setText(introduction);
 
+
         binding.userIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,6 +111,7 @@ public class PersonalInfoEditActivity extends BaseActivity {
                                 binding.nickNameInput.getText().toString(),
                                 binding.schoolInput.getText().toString(),
                                 binding.personalIntroInput.getText().toString());
+                        Log.v("result",String.valueOf(result));
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -206,6 +210,7 @@ public class PersonalInfoEditActivity extends BaseActivity {
                                 public void run() {
                                     Toast.makeText(thisContext,"头像修改成功",Toast.LENGTH_SHORT).show();
                                     bEditingIcon=false;
+                                    Glide.get(thisContext).clearMemory();
                                 }
                             });
                         }else

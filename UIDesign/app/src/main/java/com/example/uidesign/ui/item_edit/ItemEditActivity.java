@@ -14,6 +14,7 @@ import com.example.uidesign.net.NetSendConfession;
 import com.example.uidesign.net.NetSendDiscussion;
 import com.example.uidesign.ui.BaseActivity;
 import com.example.uidesign.databinding.ActivityItemEditBinding;
+import com.example.uidesign.ui.item_detail.ItemDetailActivity;
 
 import java.util.Date;
 
@@ -103,6 +104,13 @@ public class ItemEditActivity extends BaseActivity {
                 } else {
                     Log.v(TAG, "shibai");
                 }
+            }
+        });
+
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ItemEditActivity.this.finish();
             }
         });
     }

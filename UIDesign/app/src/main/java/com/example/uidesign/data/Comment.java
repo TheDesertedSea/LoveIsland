@@ -11,4 +11,6 @@ public class Comment {
     //context
     public String com;
     public Date nowDate;
+
+    public int postID;
 }

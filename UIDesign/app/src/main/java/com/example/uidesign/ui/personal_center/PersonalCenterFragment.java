@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.uidesign.R;
 import com.example.uidesign.data.CachedLoginData;
 import com.example.uidesign.data.LogginedUser;
@@ -96,26 +97,9 @@ public class PersonalCenterFragment extends Fragment {
         introductionText=root.findViewById(R.id.intro_personal_center);
         logOutButton=root.findViewById(R.id.logout_button);
 
-        netPersonalCenter=new NetPersonalCenter();
-        Glide.with(thisFragment).load(baseIconUrl+LogginedUser.getInstance().getUid())
-                .into(iconView);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                userInfo=netPersonalCenter.getUserInfo(LogginedUser.getInstance().getUid());
-                if(userInfo==null)
-                {
-                    userInfo=new UserInfo();
-                    userInfo.sex=true;
-                    userInfo.introduction="";
-                    userInfo.nickname="";
-                    userInfo.school="";
-                }
-                Message message=personalCenterFragmentHandler.obtainMessage();
-                message.what=100;
-                personalCenterFragmentHandler.sendMessage(message);
-            }
-        }).start();
+        Log.v("iconUrl",baseIconUrl+LogginedUser.getInstance().getUid());
+
+
 
         ImageButton editButton=root.findViewById(R.id.button_edit_info);
         editButton.setOnClickListener(new View.OnClickListener() {
@@ -202,5 +186,33 @@ public class PersonalCenterFragment extends Fragment {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.PNG, 100, baos);
         return baos.toByteArray();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        netPersonalCenter=new NetPersonalCenter();
+        Glide.with(thisFragment).load(baseIconUrl+LogginedUser.getInstance().getUid())
+//                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .into(iconView);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                userInfo=netPersonalCenter.getUserInfo(LogginedUser.getInstance().getUid());
+                if(userInfo==null)
+                {
+                    userInfo=new UserInfo();
+                    userInfo.sex=true;
+                    userInfo.introduction="";
+                    userInfo.nickname="";
+                    userInfo.school="";
+                }
+                Message message=personalCenterFragmentHandler.obtainMessage();
+                message.what=100;
+                personalCenterFragmentHandler.sendMessage(message);
+            }
+        }).start();
     }
 }

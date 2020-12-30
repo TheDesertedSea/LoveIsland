@@ -24,4 +24,7 @@ public class Entity_Comment {
 
     @ColumnInfo(name = "date")
     public long date;
+
+    @ColumnInfo(name="postID")
+    public int postID;
 }

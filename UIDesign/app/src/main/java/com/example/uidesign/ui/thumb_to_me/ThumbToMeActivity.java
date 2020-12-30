@@ -2,9 +2,14 @@ package com.example.uidesign.ui.thumb_to_me;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.uidesign.data.Comment;
@@ -13,9 +18,11 @@ import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.data.database.DatabaseManager;
 import com.example.uidesign.data.database.Entity_Comment;
 import com.example.uidesign.data.database.Entity_Like;
+import com.example.uidesign.net.NetGetConfession;
 import com.example.uidesign.ui.BaseActivity;
 import com.example.uidesign.databinding.ActivityThumbToMeBinding;
 import com.example.uidesign.ui.comment_to_me.CommentToMeAdapter;
+import com.example.uidesign.ui.item_detail.ItemDetailActivity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,7 +35,63 @@ public class ThumbToMeActivity extends BaseActivity {
     private Activity thisActivity=this;
 
     private List<Like> likeList;
+    private List<Entity_Like> entity_likes;
     private ThumbToMeAdapter thumbToMeAdapter;
+    private ThumbToMeActivity.ThumbToMeActivityHandler thumbToMeActivityHandler=new ThumbToMeActivityHandler();
+
+    public class ThumbToMeActivityHandler extends Handler
+    {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            Log.v("msg-arg","msg-arg"+msg.arg1);
+            int arg1=msg.arg1;
+            switch (msg.what)
+            {
+                case 100:
+                    for(Entity_Like e:entity_likes)
+                    {
+                        Like like=new Like();
+                        like.from=e.from;
+                        like.fromName=e.fromName;
+                        like.nowDate=new Date(e.date);
+                        like.postID=e.postID;
+                        Log.v("id","id"+e.postID);
+                        likeList.add(like);
+                    }
+
+                    thumbToMeAdapter=new ThumbToMeAdapter(likeList,thisContext,thumbToMeActivityHandler);
+                    binding.likeRecyclerView.setAdapter(thumbToMeAdapter);
+                    break;
+                case 200:
+                    NetGetConfession netGetConfession=new NetGetConfession();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Log.v("msg-arg","msg-arg"+arg1);
+                            NetGetConfession.SingleGetResponse response=netGetConfession.getSingleConfession(arg1);
+                            Log.v("result",String.valueOf(response.success));
+                            if(response.success==1)
+                            {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Intent intent = new Intent(thisContext, ItemDetailActivity.class);
+                                        //发送帖子id
+                                        intent.putExtra("type","confession");
+                                        intent.putExtra("postID", response.Obj.confessionID);
+                                        intent.putExtra("uid", response.Obj.uid);
+                                        intent.putExtra("content", response.Obj.confCont);
+                                        startActivity(intent);
+                                    }
+                                });
+                            }
+
+                        }
+                    }).start();
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,19 +99,23 @@ public class ThumbToMeActivity extends BaseActivity {
         binding=ActivityThumbToMeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.likeRecyclerView.setLayoutManager(new LinearLayoutManager(thisContext));
         likeList=new ArrayList<Like>();
-        List<Entity_Like> entity_likes= DatabaseManager.getAppDatabase().dao_like().getLikes(LogginedUser.getInstance().getUid());
-        for(Entity_Like e:entity_likes)
-        {
-            Like like=new Like();
-            like.from=e.from;
-            like.fromName=e.fromName;
-            like.nowDate=new Date(e.date);
-        }
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(thisContext);
+        binding.likeRecyclerView.setLayoutManager(linearLayoutManager);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                entity_likes= DatabaseManager.getAppDatabase().dao_like().getLikes(LogginedUser.getInstance().getUid());
+                Log.v("like_list",String.valueOf(entity_likes.size()));
+                Message message=thumbToMeActivityHandler.obtainMessage();
+                message.what=100;
+                thumbToMeActivityHandler.sendMessage(message);
+            }
+        }).start();
 
-        thumbToMeAdapter=new ThumbToMeAdapter(likeList,thisContext);
-        binding.likeRecyclerView.setAdapter(thumbToMeAdapter);
+
+
+
 
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,5 +123,7 @@ public class ThumbToMeActivity extends BaseActivity {
                 thisActivity.finish();
             }
         });
+
+
     }
 }

@@ -22,4 +22,7 @@ public class Entity_Like {
     @ColumnInfo(name = "date")
     public long date;
 
+    @ColumnInfo(name = "postID")
+    public int postID;
+
 }

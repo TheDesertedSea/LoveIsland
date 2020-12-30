@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.uidesign.R;
 import com.example.uidesign.data.Comment;
 import com.example.uidesign.net.NetSettings;
@@ -64,7 +65,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
 
         public void setData(Comment comment, int position) {
             this.mPosition = position;
-            Glide.with(thisContext).load(baseIconUrl + comment.from).into(avatar);
+            Glide.with(thisContext).load(baseIconUrl + comment.from).diskCacheStrategy(DiskCacheStrategy.NONE).into(avatar);
             username.setText(comment.fromName);
             context.setText(comment.com);
         }

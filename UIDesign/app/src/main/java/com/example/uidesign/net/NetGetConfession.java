@@ -27,6 +27,7 @@ public class NetGetConfession {
     private static final String SCHEME = "http";
     private static final String FORMAT = "host:30010/forum/pull";
     private static final String PATH_SEGMENTS = "forum/pull";
+    private static final String PATH_SEGMENTS_SINGLE = "forum/pull_confid";
 
     //返回结果
     public static final ResponseClass FAIL = null;
@@ -79,7 +80,6 @@ public class NetGetConfession {
 
         Request request = new Request.Builder()
                 .url(url)
-                .addHeader("token", LogginedUser.getInstance().getToken())
                 .post(requestBody)
                 .build();
 
@@ -110,5 +110,58 @@ public class NetGetConfession {
             return null;
         }
 
+    }
+
+    public class SingleGetResponse
+    {
+        public int success;
+        public ResponseItem Obj;
+    }
+
+    public class SingleGetRequest
+    {
+        public int postID;
+    }
+
+
+    public SingleGetResponse getSingleConfession(int postID)
+    {
+        OkHttpClient client = new OkHttpClient();
+
+        HttpUrl url = new HttpUrl.Builder().scheme("http").host(NetSettings.HOST_1).port(NetSettings.PORT_1)
+                .addPathSegments(PATH_SEGMENTS_SINGLE)
+                .build();
+        Log.v("httpUrl",url.toString());
+
+        SingleGetRequest singleGetRequest=new SingleGetRequest();
+        singleGetRequest.postID=postID;
+        Gson gson=new Gson();
+        String requestJson=gson.toJson(singleGetRequest);
+        Log.v("requestJson",requestJson);
+
+        RequestBody requestBody=RequestBody.create(requestJson,MediaType.get("application/json"));
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            ResponseBody responseBody = response.body();
+            if (responseBody == null) {
+                SingleGetResponse singleGetResponse=new SingleGetResponse();
+                singleGetResponse.success=0;
+                return singleGetResponse;
+            }
+            String responseJson=responseBody.string();
+            return gson.fromJson(responseJson,SingleGetResponse.class);
+
+        }catch (IOException e)
+        {
+            SingleGetResponse singleGetResponse=new SingleGetResponse();
+            singleGetResponse.success=0;
+            return singleGetResponse;
+        }
     }
 }

@@ -1,6 +1,8 @@
 package com.example.uidesign.ui.comment_to_me;
 
 import android.content.Context;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.uidesign.R;
 import com.example.uidesign.data.Comment;
 import com.example.uidesign.net.NetSettings;
@@ -21,6 +24,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class CommentToMeAdapter extends RecyclerView.Adapter<CommentToMeAdapter.ViewHolder>{
     private List<Comment> commentList;
     private Context context;
+    private CommentToMeActivity.CommentToMeActivityHandler handler;
 
     private final String baseIconUrl="http://"+ NetSettings.HOST_1 +":"+NetSettings.PORT_1+"/user/userPortrait/";
 
@@ -37,11 +41,21 @@ public class CommentToMeAdapter extends RecyclerView.Adapter<CommentToMeAdapter.
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Comment comment=commentList.get(position);
         Glide.with(context)
-                .load(baseIconUrl+comment.from+".jpg")
-                .into(holder.icon);
+                .load(baseIconUrl+comment.from)
+                .diskCacheStrategy(DiskCacheStrategy.NONE).into(holder.icon);
         holder.nickName.setText(comment.fromName);
         holder.date.setText(comment.nowDate.toString());
         holder.content.setText("评论了你： "+comment.com);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Message message=handler.obtainMessage();
+                message.what=200;
+                message.arg1=comment.postID;
+                Log.v("adapter-id","id"+comment.postID);
+                handler.sendMessage(message);
+            }
+        });
     }
 
     @Override
@@ -63,9 +77,10 @@ public class CommentToMeAdapter extends RecyclerView.Adapter<CommentToMeAdapter.
         }
     }
 
-    public CommentToMeAdapter(List<Comment> comments,Context context)
+    public CommentToMeAdapter(List<Comment> comments, Context context, CommentToMeActivity.CommentToMeActivityHandler handler)
     {
         commentList=comments;
         this.context=context;
+        this.handler=handler;
     }
 }

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.data.UserInfo;
 import com.example.uidesign.net.NetPersonalCenter;
@@ -40,7 +41,7 @@ public class PersonalPageActivity extends BaseActivity {
         NetPersonalCenter netPersonalCenter=new NetPersonalCenter();
         Glide.with(thisContext)
                 .load(baseIconUrl+uid)
-                .into(binding.userIcon);
+                .diskCacheStrategy(DiskCacheStrategy.NONE).into(binding.userIcon);
         new Thread(new Runnable() {
             @Override
             public void run() {

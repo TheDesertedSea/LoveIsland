@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.uidesign.R;
 import com.example.uidesign.data.ChatMsg;
 
@@ -99,7 +100,7 @@ public class ChatMsgAdapter extends RecyclerView.Adapter<ChatMsgAdapter.ViewHold
         }else
         {
             holder.leftLayout.setVisibility(View.GONE);
-            Glide.with(context).load(baseIconUrl+chatMsg.getFrom()).into(holder.rightIcon);
+            Glide.with(context).load(baseIconUrl+chatMsg.getFrom()).diskCacheStrategy(DiskCacheStrategy.NONE).into(holder.rightIcon);
             holder.rightName.setText(myName);
             holder.rightDate.setText(chatMsg.getDate().toString());
             holder.rightContent.setText(chatMsg.getContent());

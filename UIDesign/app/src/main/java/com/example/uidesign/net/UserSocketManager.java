@@ -159,11 +159,14 @@ public class UserSocketManager {
                                     int from1=socketMsg1.from;
                                     String fromName1=socketMsg1.fromName;
                                     long nowDate1=socketMsg1.nowDate;
+                                    int postID=socketMsg1.postID;
                                     Entity_Like entity_like=new Entity_Like();
                                     entity_like.from=from1;
                                     entity_like.fromName=fromName1;
                                     entity_like.to=LogginedUser.getInstance().getUid();
                                     entity_like.date=nowDate1;
+                                    entity_like.postID=postID;
+                                    Log.v("like_fromName",entity_like.fromName);
                                     DatabaseManager.getAppDatabase().dao_like().insertAll(entity_like);
                                     break;
                                 case "receiveConfCom":
@@ -172,12 +175,14 @@ public class UserSocketManager {
                                     String fromName2=socketMsg1.fromName;
                                     String com=socketMsg1.msg;
                                     long nowDate2=socketMsg1.nowDate;
+                                    int postID1=socketMsg1.postID;
                                     Entity_Comment entity_comment=new Entity_Comment();
                                     entity_comment.from=from2;
                                     entity_comment.to=LogginedUser.getInstance().getUid();
                                     entity_comment.fromName=fromName2;
                                     entity_comment.content=com;
                                     entity_comment.date=nowDate2;
+                                    entity_comment.postID=postID1;
                                     DatabaseManager.getAppDatabase().dao_comment().insertAll(entity_comment);
                                     break;
                             }
