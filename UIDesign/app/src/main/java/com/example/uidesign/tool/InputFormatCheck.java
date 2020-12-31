@@ -22,7 +22,7 @@ public class InputFormatCheck {
         {
             return PWD_OVER_LENGTH;
         }
-        if(pwd.length()<=PWD_MIN_LENGTH)
+        if(pwd.length()<PWD_MIN_LENGTH)
         {
             return PWD_BELOW_LENGTH;
         }
