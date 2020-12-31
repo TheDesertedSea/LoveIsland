@@ -163,6 +163,9 @@ public class MyConfessionAdapter extends RecyclerView.Adapter<MyConfessionAdapte
             Glide.with(thisContext).load(baseIconUrl + confessionItem.uid).diskCacheStrategy(DiskCacheStrategy.NONE).into(mAvatar);
             mUsername.setText(confessionItem.title_username);
             mContentText.setText(confessionItem.content_text);
+            if(confessionItem.like_or_not == 1) {
+                mLikeButton.setImageResource(R.drawable.ic_liked_24dp);
+            }
 //            mContentImage.setImageResource(confessionItem.content_imageId);
         }
     }

@@ -41,20 +41,22 @@ public class NetGetUserConfession {
     public class ResponseItem {
         public int confessionID;
         public int uid;
+//        public String nickname;
         public String confCont;
         public int confLikes;
         public long confTime;
+        public int bool_like;
     }
     //返回的所有信息
     public static class ResponseClass
     {
-        public ArrayList<NetGetConfession.ResponseItem> confessionArray;
+        public ArrayList<NetGetUserConfession.ResponseItem> confessionArray;
     }
 
-    public NetGetConfession.ResponseClass getConfession(int uid) {
+    public NetGetUserConfession.ResponseClass getConfession(int uid) {
 
-        NetGetConfession.ResponseClass responseClass = new NetGetConfession.ResponseClass();
-        responseClass.confessionArray = new ArrayList<NetGetConfession.ResponseItem>();
+        NetGetUserConfession.ResponseClass responseClass = new NetGetUserConfession.ResponseClass();
+        responseClass.confessionArray = new ArrayList<NetGetUserConfession.ResponseItem>();
 
         OkHttpClient client = new OkHttpClient();
 
@@ -62,7 +64,7 @@ public class NetGetUserConfession {
                 .build();
         Log.v("httpUrl",url.toString());
 
-        NetGetConfession.RequestClass requestClass=new NetGetConfession.RequestClass();
+        NetGetUserConfession.RequestClass requestClass=new NetGetUserConfession.RequestClass();
         requestClass.uid = uid;
 
         Gson gson_pull = new Gson();
@@ -89,7 +91,7 @@ public class NetGetUserConfession {
             Gson gson_get = new Gson();
             for(JsonElement e:jsonElements)
             {
-                NetGetConfession.ResponseItem temp = gson_get.fromJson(e, NetGetConfession.ResponseItem.class);
+                NetGetUserConfession.ResponseItem temp = gson_get.fromJson(e, NetGetUserConfession.ResponseItem.class);
                 responseClass.confessionArray.add(temp);
 
             }

@@ -1,5 +1,6 @@
 package com.example.uidesign.adapter;
 
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -38,6 +39,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
+        Log.v("CommentListAdapter", "进入bind view");
         holder.setData(mData.get(position), position);
     }
 
@@ -64,6 +66,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
         }
 
         public void setData(Comment comment, int position) {
+            Log.v("CommentListAdapter", "进入setdata");
             this.mPosition = position;
             Glide.with(thisContext).load(baseIconUrl + comment.from).diskCacheStrategy(DiskCacheStrategy.NONE).into(avatar);
             username.setText(comment.fromName);

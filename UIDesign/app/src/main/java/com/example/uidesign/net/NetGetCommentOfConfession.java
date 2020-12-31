@@ -2,7 +2,6 @@ package com.example.uidesign.net;
 
 import android.util.Log;
 
-import com.example.uidesign.data.LogginedUser;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -10,7 +9,6 @@ import com.google.gson.JsonParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
@@ -20,13 +18,13 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class NetGetCertainConfession {
+public class NetGetCommentOfConfession {
     private static final String SCHEME = "http";
-    private static final String FORMAT = "host:30010/forum/pull_discuss&likes";
-    private static final String PATH_SEGMENTS = "forum/pull_discuss&likes";
+    private static final String FORMAT = "host:30010/forum/pull_comment";
+    private static final String PATH_SEGMENTS = "forum/pull_comment";
 
     //返回结果
-    public static final NetGetCertainConfession.ResponseClass FAIL = null;
+    public static final NetGetCommentOfConfession.ResponseClass FAIL = null;
 
     public static class RequestClass
     {
@@ -39,19 +37,20 @@ public class NetGetCertainConfession {
         public int confession_commentID;
         public int confessionID;//没用
         public int uid;
+        public String nickname;
         public String ccCont;
         public long ccTime;
     }
     //返回的所有信息
     public static class ResponseClass
     {
-        public ArrayList<NetGetCertainConfession.ResponseItem> commentArray;
+        public ArrayList<NetGetCommentOfConfession.ResponseItem> commentArray;
     }
 
-    public NetGetCertainConfession.ResponseClass getComment(int postID, int uid) {
+    public NetGetCommentOfConfession.ResponseClass getComment(int postID, int uid) {
 
-        NetGetCertainConfession.ResponseClass responseClass = new NetGetCertainConfession.ResponseClass();
-        responseClass.commentArray = new ArrayList<NetGetCertainConfession.ResponseItem>();
+        NetGetCommentOfConfession.ResponseClass responseClass = new NetGetCommentOfConfession.ResponseClass();
+        responseClass.commentArray = new ArrayList<NetGetCommentOfConfession.ResponseItem>();
 
         OkHttpClient client = new OkHttpClient();
 
@@ -59,7 +58,7 @@ public class NetGetCertainConfession {
                 .build();
         Log.v("httpUrl",url.toString());
 
-        NetGetCertainConfession.RequestClass requestClass = new NetGetCertainConfession.RequestClass();
+        NetGetCommentOfConfession.RequestClass requestClass = new NetGetCommentOfConfession.RequestClass();
         requestClass.confessionID = postID;
         requestClass.uid = uid;
 
@@ -70,7 +69,6 @@ public class NetGetCertainConfession {
 
         Request request = new Request.Builder()
                 .url(url)
-                .addHeader("token", LogginedUser.getInstance().getToken())
                 .post(requestBody)
                 .build();
 
@@ -83,11 +81,12 @@ public class NetGetCertainConfession {
                 return null;
             }
             String responseJson = responseBody.string();
+            Log.v("TAG", "json"+responseJson);
             JsonArray jsonElements = JsonParser.parseString(responseJson).getAsJsonArray();
             Gson gson_get = new Gson();
             for(JsonElement e:jsonElements)
             {
-                NetGetCertainConfession.ResponseItem temp = gson_get.fromJson(e, NetGetCertainConfession.ResponseItem.class);
+                NetGetCommentOfConfession.ResponseItem temp = gson_get.fromJson(e, NetGetCommentOfConfession.ResponseItem.class);
                 responseClass.commentArray.add(temp);
             }
             return responseClass;

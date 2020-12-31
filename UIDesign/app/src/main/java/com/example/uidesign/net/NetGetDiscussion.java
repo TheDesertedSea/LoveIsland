@@ -43,9 +43,11 @@ public class NetGetDiscussion {
     public class ResponseItem {
         public int discussID;
         public int uid;
+        public String nickname;
         public String disCont;
         public int disLikes;
         public long disTime;
+        public int bool_like;
     }
     //返回的所有信息
     public static class ResponseClass
@@ -77,7 +79,6 @@ public class NetGetDiscussion {
 
         Request request = new Request.Builder()
                 .url(url)
-                .addHeader("token", LogginedUser.getInstance().getToken())
                 .post(requestBody)
                 .build();
 

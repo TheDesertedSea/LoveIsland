@@ -2,7 +2,6 @@ package com.example.uidesign.net;
 
 import android.util.Log;
 
-import com.example.uidesign.data.LogginedUser;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -10,7 +9,6 @@ import com.google.gson.JsonParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
@@ -20,13 +18,13 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class NetGetCertainDiscussion {
+public class NetGetCommentOfDiscussion {
     private static final String SCHEME = "http";
     private static final String FORMAT = "host:30010/discuss/pull_discuss&likes";
     private static final String PATH_SEGMENTS = "discuss/pull_discuss&likes";
 
     //返回结果
-    public static final NetGetCertainDiscussion.ResponseClass FAIL = null;
+    public static final NetGetCommentOfDiscussion.ResponseClass FAIL = null;
 
     public static class RequestClass
     {
@@ -39,18 +37,19 @@ public class NetGetCertainDiscussion {
         public int discuss_commentID;
         public int discussID;//没用
         public int uid;
+        public String nickname;
         public String dcCont;
         public long dcTime;
     }
     //返回的所有信息
     public static class ResponseClass
     {
-        public ArrayList<NetGetCertainDiscussion.ResponseItem> commentArray;
+        public ArrayList<NetGetCommentOfDiscussion.ResponseItem> commentArray;
     }
 
-    public NetGetCertainDiscussion.ResponseClass getComment(int postID, int uid) {
+    public NetGetCommentOfDiscussion.ResponseClass getComment(int postID, int uid) {
 
-        NetGetCertainDiscussion.ResponseClass responseClass = new NetGetCertainDiscussion.ResponseClass();
+        NetGetCommentOfDiscussion.ResponseClass responseClass = new NetGetCommentOfDiscussion.ResponseClass();
         responseClass.commentArray = new ArrayList<ResponseItem>();
 
         OkHttpClient client = new OkHttpClient();
@@ -59,7 +58,7 @@ public class NetGetCertainDiscussion {
                 .build();
         Log.v("httpUrl",url.toString());
 
-        NetGetCertainDiscussion.RequestClass requestClass = new NetGetCertainDiscussion.RequestClass();
+        NetGetCommentOfDiscussion.RequestClass requestClass = new NetGetCommentOfDiscussion.RequestClass();
         requestClass.discussID = postID;
         requestClass.uid = uid;
 
@@ -70,7 +69,6 @@ public class NetGetCertainDiscussion {
 
         Request request = new Request.Builder()
                 .url(url)
-                .addHeader("token", LogginedUser.getInstance().getToken())
                 .post(requestBody)
                 .build();
 
@@ -87,7 +85,7 @@ public class NetGetCertainDiscussion {
             Gson gson_get = new Gson();
             for(JsonElement e:jsonElements)
             {
-                NetGetCertainDiscussion.ResponseItem temp = gson_get.fromJson(e, NetGetCertainDiscussion.ResponseItem.class);
+                NetGetCommentOfDiscussion.ResponseItem temp = gson_get.fromJson(e, NetGetCommentOfDiscussion.ResponseItem.class);
                 responseClass.commentArray.add(temp);
             }
             return responseClass;
