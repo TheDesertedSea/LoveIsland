@@ -124,10 +124,11 @@ public class NetGetConfession {
     public class SingleGetRequest
     {
         public int postID;
+        public int uid; //账号的id
     }
 
 
-    public SingleGetResponse getSingleConfession(int postID)
+    public SingleGetResponse getSingleConfession(int postID,int uid)
     {
         OkHttpClient client = new OkHttpClient();
 

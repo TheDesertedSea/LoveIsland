@@ -73,7 +73,8 @@ public class CommentToMeActivity extends BaseActivity {
                             @Override
                             public void run() {
                                 Log.v("msg-arg","msg-arg"+arg1);
-                                NetGetConfession.SingleGetResponse response=netGetConfession.getSingleConfession(arg1);
+                                NetGetConfession.SingleGetResponse response=netGetConfession
+                                        .getSingleConfession(arg1,LogginedUser.getInstance().getUid());
                                 Log.v("result",String.valueOf(response.success));
                                 if(response.success==1)
                                 {

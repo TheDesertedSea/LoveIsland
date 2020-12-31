@@ -34,7 +34,8 @@ public class NetGetUserConfession {
 
     public static class RequestClass
     {
-        public int uid;
+        public int ouid;
+        public int suid;
     }
 
     //返回的一个帖子的信息
@@ -53,7 +54,7 @@ public class NetGetUserConfession {
         public ArrayList<NetGetUserConfession.ResponseItem> confessionArray;
     }
 
-    public NetGetUserConfession.ResponseClass getConfession(int uid) {
+    public NetGetUserConfession.ResponseClass getConfession(int ouid,int suid) {
 
         NetGetUserConfession.ResponseClass responseClass = new NetGetUserConfession.ResponseClass();
         responseClass.confessionArray = new ArrayList<NetGetUserConfession.ResponseItem>();
@@ -65,7 +66,8 @@ public class NetGetUserConfession {
         Log.v("httpUrl",url.toString());
 
         NetGetUserConfession.RequestClass requestClass=new NetGetUserConfession.RequestClass();
-        requestClass.uid = uid;
+        requestClass.ouid = ouid;
+        requestClass.suid = suid;
 
         Gson gson_pull = new Gson();
         String requestJson = gson_pull.toJson(requestClass);
