@@ -91,20 +91,16 @@ public class UserSocketManager {
                             switch (socketMsg1.type)
                             {
                                 case "receiveMsg":
-                                    int from=socketMsg1.from;
-                                    int to=socketMsg1.to;
-                                    String fromName=socketMsg1.fromName;
-                                    String content=socketMsg1.msg;
-                                    long nowDate=socketMsg1.nowDate;
                                     AppDatabase appDatabase=DatabaseManager.getAppDatabase();
                                     if(appDatabase==null)
                                     {
                                         return;
                                     }
-                                    if(bInChat&& (currentChatWith==from))
+                                    if(bInChat&& (currentChatWith==socketMsg1.from))
                                     {
                                         Log.v("here","here");
-                                        ChatMsg chatMsg=new ChatMsg(from,to,content, new Date(nowDate));
+                                        ChatMsg chatMsg=new ChatMsg(socketMsg1.from,socketMsg1.to,
+                                                socketMsg1.msg, new Date(socketMsg1.nowDate));
                                         Message message=chatActivityHandler.obtainMessage();
                                         message.what=100;
                                         message.obj=chatMsg;
@@ -112,19 +108,20 @@ public class UserSocketManager {
                                     }
 
                                     Entity_ChatMsg entity_chatMsg=new Entity_ChatMsg();
-                                    entity_chatMsg.from=from;
-                                    entity_chatMsg.to=to;
-                                    entity_chatMsg.content=content;
-                                    entity_chatMsg.date=nowDate;
+                                    entity_chatMsg.from=socketMsg1.from;
+                                    entity_chatMsg.to=socketMsg1.to;
+                                    entity_chatMsg.content=socketMsg1.msg;
+                                    entity_chatMsg.date=socketMsg1.nowDate;
                                     appDatabase.dao_chatMsg().insertAll(entity_chatMsg);
-                                    int otherUid=(LogginedUser.getInstance().getUid() == to ? from : to);
+                                    int otherUid=(LogginedUser.getInstance().getUid() == socketMsg1.to
+                                            ? socketMsg1.from : socketMsg1.to);
                                     if(bInNotifications)
                                     {
                                         Contact contact=new Contact();
                                         contact.uid=otherUid;
-                                        contact.latestMsg=content;
-                                        contact.nickName=fromName;
-                                        contact.date=new Date(nowDate);
+                                        contact.latestMsg=socketMsg1.msg;
+                                        contact.nickName=socketMsg1.fromName;
+                                        contact.date=new Date(socketMsg1.nowDate);
                                         Message message=notificationsFragmentHandler.obtainMessage();
                                         message.what=100;
                                         message.obj=contact;
@@ -139,50 +136,43 @@ public class UserSocketManager {
                                         entity_contact.id=temp.get(0).id;
                                         entity_contact.user_uid=LogginedUser.getInstance().getUid();
                                         entity_contact.other_uid=otherUid;
-                                        entity_contact.other_nick_name=fromName;
-                                        entity_contact.latest_content=content;
-                                        entity_contact.date=nowDate;
+                                        entity_contact.other_nick_name=socketMsg1.fromName;
+                                        entity_contact.latest_content=socketMsg1.msg;
+                                        entity_contact.date=socketMsg1.nowDate;
                                         appDatabase.dao_contact().setLatestContent(entity_contact);
                                     }else
                                     {
                                         Entity_Contact entity_contact=new Entity_Contact();
                                         entity_contact.user_uid=LogginedUser.getInstance().getUid();
                                         entity_contact.other_uid=otherUid;
-                                        entity_contact.other_nick_name=fromName;
-                                        entity_contact.latest_content=content;
-                                        entity_contact.date=nowDate;
+                                        entity_contact.other_nick_name=socketMsg1.fromName;
+                                        entity_contact.latest_content=socketMsg1.msg;
+                                        entity_contact.date=socketMsg1.nowDate;
                                         appDatabase.dao_contact().insertAll(entity_contact);
                                     }
                                     break;
                                 case "receiveConfLike":
                                 case "receiveDisLike":
-                                    int from1=socketMsg1.from;
-                                    String fromName1=socketMsg1.fromName;
-                                    long nowDate1=socketMsg1.nowDate;
-                                    int postID=socketMsg1.postID;
                                     Entity_Like entity_like=new Entity_Like();
-                                    entity_like.from=from1;
-                                    entity_like.fromName=fromName1;
+                                    entity_like.from=socketMsg1.from;
+                                    entity_like.fromName=socketMsg1.fromName;
                                     entity_like.to=LogginedUser.getInstance().getUid();
-                                    entity_like.date=nowDate1;
-                                    entity_like.postID=postID;
+                                    entity_like.date=socketMsg1.nowDate;
+                                    entity_like.postID=socketMsg1.postID;
+                                    entity_like.type=socketMsg1.type;
                                     Log.v("like_fromName",entity_like.fromName);
                                     DatabaseManager.getAppDatabase().dao_like().insertAll(entity_like);
                                     break;
                                 case "receiveConfCom":
                                 case "receiveDisCom":
-                                    int from2=socketMsg1.from;
-                                    String fromName2=socketMsg1.fromName;
-                                    String com=socketMsg1.msg;
-                                    long nowDate2=socketMsg1.nowDate;
-                                    int postID1=socketMsg1.postID;
                                     Entity_Comment entity_comment=new Entity_Comment();
-                                    entity_comment.from=from2;
+                                    entity_comment.from=socketMsg1.from;
                                     entity_comment.to=LogginedUser.getInstance().getUid();
-                                    entity_comment.fromName=fromName2;
-                                    entity_comment.content=com;
-                                    entity_comment.date=nowDate2;
-                                    entity_comment.postID=postID1;
+                                    entity_comment.fromName=socketMsg1.fromName;
+                                    entity_comment.content=socketMsg1.msg;
+                                    entity_comment.date=socketMsg1.nowDate;
+                                    entity_comment.postID=socketMsg1.postID;
+                                    entity_comment.type=socketMsg1.type;
                                     DatabaseManager.getAppDatabase().dao_comment().insertAll(entity_comment);
                                     break;
                             }
@@ -196,139 +186,9 @@ public class UserSocketManager {
         {
             e.printStackTrace();
         }
-//            Log.v("socket-connect",String.valueOf(socket.connected()));
-//            socket.on("receiveMsg", new Emitter.Listener() {
-//                @Override
-//                public void call(Object... args) {
-//                    JSONObject obj = (JSONObject)args[0];
-//                    try {
-//                        int from=obj.getInt("from");
-//                        int to=obj.getInt("to");
-//                        String fromName=obj.getString("fromName");
-//                        String content=obj.getString("msg");
-//                        long nowDate=obj.getLong("nowDate");
-//                        AppDatabase appDatabase=DatabaseManager.getAppDatabase();
-//                        if(appDatabase==null)
-//                        {
-//                            return;
-//                        }
-//                        if(bInChat&&
-//                                (currentChatWith==to
-//                                        ||currentChatWith==from
-//                                )
-//                        )
-//                        {
-//                            ChatMsg chatMsg=new ChatMsg(from,to,content, new Date(nowDate));
-//                            Message message=chatActivityHandler.obtainMessage();
-//                            message.what=100;
-//                            message.obj=chatMsg;
-//                            chatActivityHandler.sendMessage(message);
-//                        }
-//
-//                        Entity_ChatMsg entity_chatMsg=new Entity_ChatMsg();
-//                        entity_chatMsg.from=from;
-//                        entity_chatMsg.to=to;
-//                        entity_chatMsg.content=content;
-//                        entity_chatMsg.date=nowDate;
-//                        assert DatabaseManager.getAppDatabase() != null;
-//                        appDatabase.dao_chatMsg().insertAll(entity_chatMsg);
-//                        int otherUid=(LogginedUser.getInstance().getUid() == to ? from : to);
-//                        if(bInNotifications)
-//                        {
-//                            Contact contact=new Contact();
-//                            contact.uid=otherUid;
-//                            contact.latestMsg=content;
-//                            contact.nickName=fromName;
-//                            contact.date=new Date(nowDate);
-//                            Message message=chatActivityHandler.obtainMessage();
-//                            message.what=100;
-//                            message.obj=contact;
-//                        }
-//                        if(appDatabase.dao_contact().isContactExisted(LogginedUser.getInstance().getUid()
-//                                , otherUid) == 1)
-//                        {
-//
-//                            Entity_Contact entity_contact=new Entity_Contact();
-//                            entity_contact.user_uid=LogginedUser.getInstance().getUid();
-//                            entity_contact.other_uid=otherUid;
-//                            entity_contact.other_nick_name=fromName;
-//                            entity_contact.latest_content=content;
-//                            entity_contact.date=nowDate;
-//                            appDatabase.dao_contact().setLatestContent(entity_contact);
-//
-//                        }else
-//                        {
-//                            Entity_Contact entity_contact=new Entity_Contact();
-//                            entity_contact.user_uid=LogginedUser.getInstance().getUid();
-//                            entity_contact.other_uid=otherUid;
-//                            entity_contact.other_nick_name=fromName;
-//                            entity_contact.latest_content=content;
-//                            entity_contact.date=nowDate;
-//                            appDatabase.dao_contact().insertAll(entity_contact);
-//                        }
-//
-//                    } catch (JSONException e) {
-//                        e.printStackTrace();
-//                    }
-//
-//                }
-//            }).on("receiveConfLike", likeListener)
-//                    .on("receiveDisLike", likeListener)
-//                    .on("receiveConfCom",commentListener)
-//                    .on("receiveDisCom",commentListener);
-//
-//            socket.connect();
-//        }catch(Exception e)
-//        {
-//            e.printStackTrace();
-//        }
+
     }
 
-//    public class LikeListener implements Emitter.Listener{
-//
-//        @Override
-//        public void call(Object... args) {
-//            JSONObject obj = (JSONObject)args[0];
-//            try{
-//                int from=obj.getInt("from");
-//                String fromName=obj.getString("fromName");
-//                long nowDate=obj.getLong("nowDate");
-//                Entity_Like entity_like=new Entity_Like();
-//                entity_like.from=from;
-//                entity_like.fromName=fromName;
-//                entity_like.to=LogginedUser.getInstance().getUid();
-//                entity_like.date=nowDate;
-//                DatabaseManager.getAppDatabase().dao_like().insertAll(entity_like);
-//            }catch (JSONException e)
-//            {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
-
-//    public class CommentListener implements Emitter.Listener{
-//
-//        @Override
-//        public void call(Object... args) {
-//            JSONObject obj = (JSONObject)args[0];
-//            try{
-//                int from=obj.getInt("from");
-//                String fromName=obj.getString("fromName");
-//                String com=obj.getString("com");
-//                long nowDate=obj.getLong("nowDate");
-//                Entity_Comment entity_comment=new Entity_Comment();
-//                entity_comment.from=from;
-//                entity_comment.to=LogginedUser.getInstance().getUid();
-//                entity_comment.fromName=fromName;
-//                entity_comment.content=com;
-//                entity_comment.date=nowDate;
-//                DatabaseManager.getAppDatabase().dao_comment().insertAll(entity_comment);
-//            }catch (JSONException e)
-//            {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
 
     public Socket getSocket(){return socket;}
 

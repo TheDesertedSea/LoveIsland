@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 
 
@@ -61,29 +62,60 @@ public class CommentToMeActivity extends BaseActivity {
                     binding.commentRecyclerView.setAdapter(commentToMeAdapter);
                     break;
                 case 200:
-                    NetGetDiscussion netGetDiscussion=new NetGetDiscussion();
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            NetGetDiscussion.SingleGetResponse response=netGetDiscussion.getSingleDiscussion(arg1);
-                            if(response.success==1)
-                            {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Intent intent = new Intent(thisContext, ItemDetailActivity.class);
-                                        //发送帖子id
-                                        intent.putExtra("type","confession");
-                                        intent.putExtra("postID", response.Obj.discussID);
-                                        intent.putExtra("uid", response.Obj.uid);
-                                        intent.putExtra("content", response.Obj.disCont);
-                                        startActivity(intent);
-                                    }
-                                });
-                            }
+                    if(msg.obj.equals("receiveConfCom"))
+                    {
+                        NetGetConfession netGetConfession=new NetGetConfession();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.v("msg-arg","msg-arg"+arg1);
+                                NetGetConfession.SingleGetResponse response=netGetConfession.getSingleConfession(arg1);
+                                Log.v("result",String.valueOf(response.success));
+                                if(response.success==1)
+                                {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Intent intent = new Intent(thisContext, ItemDetailActivity.class);
+                                            //发送帖子id
+                                            intent.putExtra("type","confession");
+                                            intent.putExtra("postID", response.Obj.confessionID);
+                                            intent.putExtra("uid", response.Obj.uid);
+                                            intent.putExtra("content", response.Obj.confCont);
+                                            startActivity(intent);
+                                        }
+                                    });
+                                }
 
-                        }
-                    }).start();
+                            }
+                        }).start();
+                    }else
+                    {
+                        NetGetDiscussion netGetDiscussion=new NetGetDiscussion();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                NetGetDiscussion.SingleGetResponse response=netGetDiscussion.getSingleDiscussion(arg1);
+                                if(response.success==1)
+                                {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Intent intent = new Intent(thisContext, ItemDetailActivity.class);
+                                            //发送帖子id
+                                            intent.putExtra("type","confession");
+                                            intent.putExtra("postID", response.Obj.discussID);
+                                            intent.putExtra("uid", response.Obj.uid);
+                                            intent.putExtra("content", response.Obj.disCont);
+                                            startActivity(intent);
+                                        }
+                                    });
+                                }
+
+                            }
+                        }).start();
+                    }
+
             }
         }
     }

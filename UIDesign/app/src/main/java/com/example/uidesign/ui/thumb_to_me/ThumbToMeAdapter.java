@@ -52,6 +52,7 @@ public class ThumbToMeAdapter extends RecyclerView.Adapter<ThumbToMeAdapter.View
                 Message message=thumbToMeActivityHandler.obtainMessage();
                 message.what=200;
                 message.arg1=like.postID;
+                message.obj=like.type;
                 Log.v("adapter-id","id"+like.postID+" "+message.arg1);
                 thumbToMeActivityHandler.sendMessage(message);
             }

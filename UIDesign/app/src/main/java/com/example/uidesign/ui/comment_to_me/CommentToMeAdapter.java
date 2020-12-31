@@ -52,6 +52,7 @@ public class CommentToMeAdapter extends RecyclerView.Adapter<CommentToMeAdapter.
                 Message message=handler.obtainMessage();
                 message.what=200;
                 message.arg1=comment.postID;
+                message.obj=comment.type;
                 Log.v("adapter-id","id"+comment.postID);
                 handler.sendMessage(message);
             }

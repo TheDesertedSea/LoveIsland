@@ -7,4 +7,5 @@ public class Like {
     public String fromName;
     public Date nowDate;
     public int postID;
+    public String type;
 }
