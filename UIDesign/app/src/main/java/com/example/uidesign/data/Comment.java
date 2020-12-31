@@ -13,4 +13,5 @@ public class Comment {
     public Date nowDate;
 
     public int postID;
+    public String type;
 }

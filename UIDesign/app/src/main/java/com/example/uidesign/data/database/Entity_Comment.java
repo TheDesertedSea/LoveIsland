@@ -27,4 +27,7 @@ public class Entity_Comment {
 
     @ColumnInfo(name="postID")
     public int postID;
+
+    @ColumnInfo(name="type")
+    public String type;
 }

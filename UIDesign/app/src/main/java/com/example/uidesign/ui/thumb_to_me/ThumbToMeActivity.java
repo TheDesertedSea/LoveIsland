@@ -19,6 +19,7 @@ import com.example.uidesign.data.database.DatabaseManager;
 import com.example.uidesign.data.database.Entity_Comment;
 import com.example.uidesign.data.database.Entity_Like;
 import com.example.uidesign.net.NetGetConfession;
+import com.example.uidesign.net.NetGetDiscussion;
 import com.example.uidesign.ui.BaseActivity;
 import com.example.uidesign.databinding.ActivityThumbToMeBinding;
 import com.example.uidesign.ui.comment_to_me.CommentToMeAdapter;
@@ -64,31 +65,60 @@ public class ThumbToMeActivity extends BaseActivity {
                     binding.likeRecyclerView.setAdapter(thumbToMeAdapter);
                     break;
                 case 200:
-                    NetGetConfession netGetConfession=new NetGetConfession();
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Log.v("msg-arg","msg-arg"+arg1);
-                            NetGetConfession.SingleGetResponse response=netGetConfession.getSingleConfession(arg1);
-                            Log.v("result",String.valueOf(response.success));
-                            if(response.success==1)
-                            {
-                                runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        Intent intent = new Intent(thisContext, ItemDetailActivity.class);
-                                        //发送帖子id
-                                        intent.putExtra("type","confession");
-                                        intent.putExtra("postID", response.Obj.confessionID);
-                                        intent.putExtra("uid", response.Obj.uid);
-                                        intent.putExtra("content", response.Obj.confCont);
-                                        startActivity(intent);
-                                    }
-                                });
-                            }
+                    if(msg.obj.equals("receiveConfLike"))
+                    {
+                        NetGetConfession netGetConfession=new NetGetConfession();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Log.v("msg-arg","msg-arg"+arg1);
+                                NetGetConfession.SingleGetResponse response=netGetConfession.getSingleConfession(arg1);
+                                Log.v("result",String.valueOf(response.success));
+                                if(response.success==1)
+                                {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Intent intent = new Intent(thisContext, ItemDetailActivity.class);
+                                            //发送帖子id
+                                            intent.putExtra("type","confession");
+                                            intent.putExtra("postID", response.Obj.confessionID);
+                                            intent.putExtra("uid", response.Obj.uid);
+                                            intent.putExtra("content", response.Obj.confCont);
+                                            startActivity(intent);
+                                        }
+                                    });
+                                }
 
-                        }
-                    }).start();
+                            }
+                        }).start();
+                    }else
+                    {
+                        NetGetDiscussion netGetDiscussion=new NetGetDiscussion();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                NetGetDiscussion.SingleGetResponse response=netGetDiscussion.getSingleDiscussion(arg1);
+                                if(response.success==1)
+                                {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Intent intent = new Intent(thisContext, ItemDetailActivity.class);
+                                            //发送帖子id
+                                            intent.putExtra("type","confession");
+                                            intent.putExtra("postID", response.Obj.discussID);
+                                            intent.putExtra("uid", response.Obj.uid);
+                                            intent.putExtra("content", response.Obj.disCont);
+                                            startActivity(intent);
+                                        }
+                                    });
+                                }
+
+                            }
+                        }).start();
+                    }
+
             }
         }
     }

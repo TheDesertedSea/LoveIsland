@@ -25,4 +25,7 @@ public class Entity_Like {
     @ColumnInfo(name = "postID")
     public int postID;
 
+
+    @ColumnInfo(name="type")
+    public String type;
 }
