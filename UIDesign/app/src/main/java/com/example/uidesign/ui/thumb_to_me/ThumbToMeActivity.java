@@ -20,6 +20,7 @@ import com.example.uidesign.data.database.Entity_Comment;
 import com.example.uidesign.data.database.Entity_Like;
 import com.example.uidesign.net.NetGetConfession;
 import com.example.uidesign.net.NetGetDiscussion;
+import com.example.uidesign.tool.CommentAndLikeAdapterSend;
 import com.example.uidesign.ui.BaseActivity;
 import com.example.uidesign.databinding.ActivityThumbToMeBinding;
 import com.example.uidesign.ui.comment_to_me.CommentToMeAdapter;
@@ -47,6 +48,7 @@ public class ThumbToMeActivity extends BaseActivity {
             super.handleMessage(msg);
             Log.v("msg-arg","msg-arg"+msg.arg1);
             int arg1=msg.arg1;
+            CommentAndLikeAdapterSend obj=(CommentAndLikeAdapterSend)msg.obj;
             switch (msg.what)
             {
                 case 100:
@@ -58,6 +60,7 @@ public class ThumbToMeActivity extends BaseActivity {
                         like.nowDate=new Date(e.date);
                         like.postID=e.postID;
                         Log.v("id","id"+e.postID);
+                        like.type=e.type;
                         likeList.add(like);
                     }
 
@@ -65,7 +68,7 @@ public class ThumbToMeActivity extends BaseActivity {
                     binding.likeRecyclerView.setAdapter(thumbToMeAdapter);
                     break;
                 case 200:
-                    if(msg.obj.equals("receiveConfLike"))
+                    if(obj.type.equals("receiveConfLike"))
                     {
                         NetGetConfession netGetConfession=new NetGetConfession();
                         new Thread(new Runnable() {
@@ -85,6 +88,8 @@ public class ThumbToMeActivity extends BaseActivity {
                                             intent.putExtra("postID", response.Obj.confessionID);
                                             intent.putExtra("uid", response.Obj.uid);
                                             intent.putExtra("content", response.Obj.confCont);
+                                            intent.putExtra("nickname",obj.nickname);
+                                            intent.putExtra("likeOrNot",response.Obj.bool_like);
                                             startActivity(intent);
                                         }
                                     });

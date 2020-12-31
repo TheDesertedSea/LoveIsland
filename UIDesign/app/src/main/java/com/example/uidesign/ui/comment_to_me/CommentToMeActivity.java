@@ -20,6 +20,7 @@ import com.example.uidesign.data.database.DatabaseManager;
 import com.example.uidesign.data.database.Entity_Comment;
 import com.example.uidesign.net.NetGetConfession;
 import com.example.uidesign.net.NetGetDiscussion;
+import com.example.uidesign.tool.CommentAndLikeAdapterSend;
 import com.example.uidesign.ui.BaseActivity;
 import com.example.uidesign.databinding.ActivityCommentToMeBinding;
 import com.example.uidesign.ui.item_detail.ItemDetailActivity;
@@ -45,6 +46,7 @@ public class CommentToMeActivity extends BaseActivity {
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
             int arg1=msg.arg1;
+            CommentAndLikeAdapterSend obj=(CommentAndLikeAdapterSend)msg.obj;
             switch (msg.what)
             {
                 case 100:
@@ -55,6 +57,7 @@ public class CommentToMeActivity extends BaseActivity {
                         comment.fromName=e.fromName;
                         comment.com=e.content;
                         comment.nowDate=new Date(e.date);
+                        comment.type=e.type;
                         commentList.add(comment);
                     }
 
@@ -62,7 +65,8 @@ public class CommentToMeActivity extends BaseActivity {
                     binding.commentRecyclerView.setAdapter(commentToMeAdapter);
                     break;
                 case 200:
-                    if(msg.obj.equals("receiveConfCom"))
+
+                    if(obj.type.equals("receiveConfCom"))
                     {
                         NetGetConfession netGetConfession=new NetGetConfession();
                         new Thread(new Runnable() {
@@ -82,6 +86,8 @@ public class CommentToMeActivity extends BaseActivity {
                                             intent.putExtra("postID", response.Obj.confessionID);
                                             intent.putExtra("uid", response.Obj.uid);
                                             intent.putExtra("content", response.Obj.confCont);
+                                            intent.putExtra("nickname",obj.nickname);
+                                            intent.putExtra("likeOrNot",response.Obj.bool_like);
                                             startActivity(intent);
                                         }
                                     });

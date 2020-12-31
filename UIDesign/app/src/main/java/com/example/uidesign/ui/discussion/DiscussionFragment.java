@@ -135,6 +135,7 @@ public class DiscussionFragment extends Fragment {
                         //让更新停止,更新列表
                         refreshLayout.finishRefresh();
                         mAdapter.notifyDataSetChanged();
+                        discussionList.scrollToPosition(listData.size()-1);
                     }
                 }, 2000);
             }

@@ -16,6 +16,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.uidesign.R;
 import com.example.uidesign.data.Comment;
 import com.example.uidesign.net.NetSettings;
+import com.example.uidesign.tool.CommentAndLikeAdapterSend;
 
 import java.util.List;
 
@@ -52,8 +53,10 @@ public class CommentToMeAdapter extends RecyclerView.Adapter<CommentToMeAdapter.
                 Message message=handler.obtainMessage();
                 message.what=200;
                 message.arg1=comment.postID;
-                message.obj=comment.type;
-                Log.v("adapter-id","id"+comment.postID);
+                CommentAndLikeAdapterSend commentAndLikeAdapterSend=new CommentAndLikeAdapterSend();
+                commentAndLikeAdapterSend.nickname=comment.fromName;
+                commentAndLikeAdapterSend.type=comment.type;
+                message.obj=commentAndLikeAdapterSend;
                 handler.sendMessage(message);
             }
         });

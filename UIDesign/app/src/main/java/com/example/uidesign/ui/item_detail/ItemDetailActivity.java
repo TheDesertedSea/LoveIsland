@@ -28,6 +28,7 @@ import com.example.uidesign.net.UserSocketManager;
 import com.example.uidesign.ui.BaseActivity;
 import com.example.uidesign.databinding.ActivityItemDetailBinding;
 import com.example.uidesign.ui.item_edit.ItemEditActivity;
+import com.example.uidesign.ui.personal_page.PersonalPageActivity;
 import com.google.gson.Gson;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
@@ -259,6 +260,15 @@ public class ItemDetailActivity extends BaseActivity {
                     //刷新评论列表
                     binding.refreshLayout.autoRefresh();
                 }
+            }
+        });
+
+        binding.avatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(ItemDetailActivity.this, PersonalPageActivity.class);
+                intent.putExtra("uid",uidOfPost);
+                ItemDetailActivity.this.startActivity(intent);
             }
         });
 

@@ -140,6 +140,7 @@ public class ConfessionFragment extends Fragment {
                         //让更新停止,更新列表
                         refreshLayout.finishRefresh();
                         mAdapter.notifyDataSetChanged();
+                        confessionList.scrollToPosition(listData.size()-1);
                     }
                 }, 2000);
             }

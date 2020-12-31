@@ -21,6 +21,7 @@ import com.example.uidesign.ui.confession.ConfessionFragment;
 import com.example.uidesign.ui.confession.ConfessionItem;
 import com.example.uidesign.ui.item_detail.ItemDetailActivity;
 import com.example.uidesign.ui.my_confession.MyConfessionActivity;
+import com.example.uidesign.ui.personal_page.PersonalPageActivity;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -30,12 +31,12 @@ public class MyConfessionAdapter extends RecyclerView.Adapter<MyConfessionAdapte
     private ArrayList<ConfessionItem> mData;
     private MyConfessionAdapter.OnItemClickListener mOnItemClickListener;
 
-    private MyConfessionActivity thisContext;
+    private MyConfessionActivity thisActivity;
     private final String baseIconUrl="http://"+ NetSettings.HOST_1 +":"+NetSettings.PORT_1+"/user/userPortrait/";
 
     //构造方法
-    public MyConfessionAdapter(MyConfessionActivity context, ArrayList<ConfessionItem> data) {
-        this.thisContext = context;
+    public MyConfessionAdapter(MyConfessionActivity activity, ArrayList<ConfessionItem> data) {
+        this.thisActivity = activity;
         this.mData = data;
     }
 
@@ -96,18 +97,27 @@ public class MyConfessionAdapter extends RecyclerView.Adapter<MyConfessionAdapte
             @Override
             public void onClick(View v) {
                 //跳转到详情页面
-                Intent intent = new Intent(thisContext, ItemDetailActivity.class);
+                Intent intent = new Intent(thisActivity, ItemDetailActivity.class);
                 //发送帖子id
                 intent.putExtra("type","confession");
                 intent.putExtra("postID", mData.get(position).confessionID);
                 intent.putExtra("uid", mData.get(position).uid);
                 intent.putExtra("content", mData.get(position).content_text);
-                thisContext.startActivity(intent);
+                thisActivity.startActivity(intent);
             }
         });
 
         //在这里设置数据
         holder.setData(mData.get(position), position);
+
+        holder.mAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(thisActivity, PersonalPageActivity.class);
+                intent.putExtra("uid",mData.get(position).uid);
+                thisActivity.startActivity(intent);
+            }
+        });
     }
 
     //返回条目个数
@@ -160,7 +170,7 @@ public class MyConfessionAdapter extends RecyclerView.Adapter<MyConfessionAdapte
 
             this.mPosition = position;
             //开始设置数据
-            Glide.with(thisContext).load(baseIconUrl + confessionItem.uid).diskCacheStrategy(DiskCacheStrategy.NONE).into(mAvatar);
+            Glide.with(thisActivity).load(baseIconUrl + confessionItem.uid).diskCacheStrategy(DiskCacheStrategy.NONE).into(mAvatar);
             mUsername.setText(confessionItem.title_username);
             mContentText.setText(confessionItem.content_text);
             if(confessionItem.like_or_not == 1) {
