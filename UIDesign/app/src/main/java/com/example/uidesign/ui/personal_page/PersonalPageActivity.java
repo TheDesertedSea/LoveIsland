@@ -70,7 +70,7 @@ public class PersonalPageActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(thisContext, MyConfessionActivity.class);
-                intent.putExtra("uid",LogginedUser.getInstance().getUid());
+                intent.putExtra("uid",uid);
                 intent.putExtra("sex",userInfo.sex);
                 intent.putExtra("me",false);
                 startActivity(intent);
@@ -81,7 +81,7 @@ public class PersonalPageActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(thisContext, MyDiscussionActivity.class);
-                intent.putExtra("uid",LogginedUser.getInstance().getUid());
+                intent.putExtra("uid",uid);
                 intent.putExtra("sex",userInfo.sex);
                 intent.putExtra("me",false);
                 startActivity(intent);

@@ -154,8 +154,8 @@ public class MyDiscussionAdapter extends RecyclerView.Adapter<MyDiscussionAdapte
         private TextView mUsername;
         private TextView mContentText;
 //        private ImageView mContentImage;
-        private ImageButton mLikeButton;
-        private ImageButton mCommentButton;
+        private ImageView mLikeButton;
+        private ImageView mCommentButton;
         private int mPosition;
 
         public InnerHolder(@NonNull View itemView) {
@@ -166,8 +166,8 @@ public class MyDiscussionAdapter extends RecyclerView.Adapter<MyDiscussionAdapte
             mUsername = (TextView) itemView.findViewById(R.id.item_title_username);
             mContentText = (TextView) itemView.findViewById(R.id.item_content_text);
 //            mContentImage = (ImageView) itemView.findViewById(R.id.item_content_image);
-            mLikeButton = (ImageButton) itemView.findViewById(R.id.item_like);
-            mCommentButton = (ImageButton) itemView.findViewById(R.id.item_comment);
+            mLikeButton =  itemView.findViewById(R.id.item_like);
+            mCommentButton = itemView.findViewById(R.id.item_comment);
         }
 
         //用于设置数据
@@ -178,6 +178,9 @@ public class MyDiscussionAdapter extends RecyclerView.Adapter<MyDiscussionAdapte
             Glide.with(thisActivity).load(baseIconUrl + discussionItem.uid).diskCacheStrategy(DiskCacheStrategy.NONE).into(mAvatar);
             mUsername.setText(discussionItem.title_username);
             mContentText.setText(discussionItem.content_text);
+            if(discussionItem.like_or_not == 1) {
+                mLikeButton.setImageResource(R.drawable.ic_liked_24dp);
+            }
 //            mContentImage.setImageResource(discussionItem.content_imageId);
         }
     }

@@ -71,6 +71,7 @@ public class NetGetUserConfession {
 
         Gson gson_pull = new Gson();
         String requestJson = gson_pull.toJson(requestClass);
+        Log.v("user-conf-req",requestJson);
 
         RequestBody requestBody = RequestBody.create(requestJson, MediaType.get("application/json"));
 
@@ -88,6 +89,7 @@ public class NetGetUserConfession {
                 return null;
             }
             String responseJson = responseBody.string();
+            Log.v("user-conf-res",responseJson);
             JsonArray jsonElements = JsonParser.parseString(responseJson).getAsJsonArray();
             Gson gson_get = new Gson();
             for(JsonElement e:jsonElements)

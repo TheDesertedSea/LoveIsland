@@ -108,11 +108,18 @@ public class MyDiscussionActivity extends BaseActivity {
                         listData.add(addingItem);
                     }
                 }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAdapter.notifyDataSetChanged();
+                        binding.recyclerView.scrollToPosition(listData.size()-1);
+                    }
+                });
             }
         }).start();
 
         //Recyclerview设置样式/布局管理器
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true);
         discussionList.setLayoutManager(layoutManager);
         //设置item的分割线
         discussionList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));

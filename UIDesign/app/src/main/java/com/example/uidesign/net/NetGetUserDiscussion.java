@@ -21,8 +21,8 @@ import okhttp3.ResponseBody;
 
 public class NetGetUserDiscussion {
     private static final String SCHEME = "http";
-    private static final String FORMAT = "host:30010/forum/pull_userdiscuss";
-    private static final String PATH_SEGMENTS = "forum/pull_userdiscuss";
+    private static final String FORMAT = "host:30010/discuss/pull_userdiscuss";
+    private static final String PATH_SEGMENTS = "discuss/pull_userdiscuss";
 
     //返回结果
     public static final NetGetUserDiscussion.ResponseClass FAIL = null;
@@ -70,6 +70,7 @@ public class NetGetUserDiscussion {
 
         Gson gson_pull = new Gson();
         String requestJson = gson_pull.toJson(requestClass);
+        Log.v("user-dis-req",requestJson);
 
         RequestBody requestBody = RequestBody.create(requestJson, MediaType.get("application/json"));
 
@@ -87,6 +88,7 @@ public class NetGetUserDiscussion {
                 return null;
             }
             String responseJson = responseBody.string();
+            Log.v("user-dis-res",responseJson);
             JsonArray jsonElements = JsonParser.parseString(responseJson).getAsJsonArray();
             Gson gson_get = new Gson();
             for(JsonElement e:jsonElements)

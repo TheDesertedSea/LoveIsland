@@ -102,8 +102,8 @@ public class MyConfessionActivity extends BaseActivity {
                 NetGetUserConfession.ResponseClass mResponseClass = new NetGetUserConfession.ResponseClass();
                 mResponseClass = netGetUserConfession.getConfession(ouid, Me.getUid());
                 if (mResponseClass != NetGetUserConfession.FAIL) {
-                    ArrayList<NetGetUserConfession.ResponseItem> mResponseItemList = new ArrayList<NetGetUserConfession.ResponseItem>();
-                    for (NetGetUserConfession.ResponseItem i : mResponseItemList) {
+
+                    for (NetGetUserConfession.ResponseItem i : mResponseClass.confessionArray) {
                         ConfessionItem addingItem = new ConfessionItem();
                         addingItem.uid = i.uid;
                         addingItem.title_username = i.nickname;
@@ -114,6 +114,13 @@ public class MyConfessionActivity extends BaseActivity {
                         listData.add(addingItem);
                     }
                 }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAdapter.notifyDataSetChanged();
+                        binding.recyclerView.scrollToPosition(listData.size()-1);
+                    }
+                });
             }
         }).start();
 
@@ -125,7 +132,7 @@ public class MyConfessionActivity extends BaseActivity {
         });
 
         //Recyclerview设置样式/布局管理器
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true);
         confessionList.setLayoutManager(layoutManager);
         //设置item的分割线
         confessionList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
