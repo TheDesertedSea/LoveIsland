@@ -154,6 +154,8 @@ public class DiscussionFragment extends Fragment {
                 intent.putExtra("postID", listData.get(position).discussionID);
                 intent.putExtra("uid", listData.get(position).uid);
                 intent.putExtra("content", listData.get(position).content_text);
+                intent.putExtra("likeOrNot", listData.get(position).like_or_not);
+                intent.putExtra("nickname", listData.get(position).title_username);
                 getActivity().startActivity(intent);
             }
         });

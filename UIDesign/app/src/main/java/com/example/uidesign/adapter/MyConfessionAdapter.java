@@ -68,28 +68,32 @@ public class MyConfessionAdapter extends RecyclerView.Adapter<MyConfessionAdapte
             @Override
             public void onClick(View v) {
                 //播放动画
-                ((ImageButton)v).setImageResource(R.drawable.ic_liked_24dp);
-                //告诉服务器端点赞
-                SocketMsg temp=new SocketMsg();
-                temp.type = "sendConfLike";
-                temp.from = LogginedUser.getInstance().getUid();
-                temp.fromName = LogginedUser.getInstance().getNickName();
-                //帖子主人的id
-                temp.to = mData.get(position).uid;
-                temp.nowDate = System.currentTimeMillis();
-                Gson gson = new Gson();
-                String sendString = gson.toJson(temp);
+                if (mData.get(position).like_or_not == 1) {
+                    ((ImageButton)v).setImageResource(R.drawable.ic_like_non_24dp);
+                } else if (mData.get(position).like_or_not == 0) {
+                    ((ImageButton)v).setImageResource(R.drawable.ic_liked_24dp);
+                    //告诉服务器端点赞
+                    SocketMsg temp=new SocketMsg();
+                    temp.type = "sendConfLike";
+                    temp.from = LogginedUser.getInstance().getUid();
+                    temp.fromName = LogginedUser.getInstance().getNickName();
+                    //帖子主人的id
+                    temp.to = mData.get(position).uid;
+                    temp.nowDate = System.currentTimeMillis();
+                    Gson gson = new Gson();
+                    String sendString = gson.toJson(temp);
 
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            UserSocketManager.getInstance().getDataOutputStream().writeUTF(sendString);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                UserSocketManager.getInstance().getDataOutputStream().writeUTF(sendString);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                }).start();
+                    }).start();
+                }
             }
         });
 

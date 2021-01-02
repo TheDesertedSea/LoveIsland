@@ -10,7 +10,6 @@ import com.google.gson.JsonParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
@@ -20,13 +19,13 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class NetGetUserConfession {
+public class NetGetUserDiscussion {
     private static final String SCHEME = "http";
-    private static final String FORMAT = "host:30010/forum/pull_userconf";
-    private static final String PATH_SEGMENTS = "forum/pull_userconf";
+    private static final String FORMAT = "host:30010/forum/pull_userdiscuss";
+    private static final String PATH_SEGMENTS = "forum/pull_userdiscuss";
 
     //返回结果
-    public static final NetGetUserConfession.ResponseClass FAIL = null;
+    public static final NetGetUserDiscussion.ResponseClass FAIL = null;
 
     //结果信息
     public static final String SUCCESS_INFO = "刷新成功";
@@ -40,24 +39,24 @@ public class NetGetUserConfession {
 
     //返回的一个帖子的信息
     public class ResponseItem {
-        public int confessionID;
+        public int discussID;
         public int uid;
         public String nickname;
-        public String confCont;
-        public int confLikes;
-        public long confTime;
+        public String disCont;
+        public int disLikes;
+        public long disTime;
         public int bool_like;
     }
     //返回的所有信息
     public static class ResponseClass
     {
-        public ArrayList<NetGetUserConfession.ResponseItem> confessionArray;
+        public ArrayList<ResponseItem> discussionArray;
     }
 
-    public NetGetUserConfession.ResponseClass getConfession(int ouid,int suid) {
+    public NetGetUserDiscussion.ResponseClass getDiscussion(int ouid,int suid) {
 
-        NetGetUserConfession.ResponseClass responseClass = new NetGetUserConfession.ResponseClass();
-        responseClass.confessionArray = new ArrayList<NetGetUserConfession.ResponseItem>();
+        NetGetUserDiscussion.ResponseClass responseClass = new NetGetUserDiscussion.ResponseClass();
+        responseClass.discussionArray = new ArrayList<ResponseItem>();
 
         OkHttpClient client = new OkHttpClient();
 
@@ -65,7 +64,7 @@ public class NetGetUserConfession {
                 .build();
         Log.v("httpUrl",url.toString());
 
-        NetGetUserConfession.RequestClass requestClass=new NetGetUserConfession.RequestClass();
+        NetGetUserDiscussion.RequestClass requestClass=new NetGetUserDiscussion.RequestClass();
         requestClass.ouid = ouid;
         requestClass.suid = suid;
 
@@ -92,8 +91,8 @@ public class NetGetUserConfession {
             Gson gson_get = new Gson();
             for(JsonElement e:jsonElements)
             {
-                NetGetUserConfession.ResponseItem temp = gson_get.fromJson(e, NetGetUserConfession.ResponseItem.class);
-                responseClass.confessionArray.add(temp);
+                NetGetUserDiscussion.ResponseItem temp = gson_get.fromJson(e, NetGetUserDiscussion.ResponseItem.class);
+                responseClass.discussionArray.add(temp);
 
             }
             return responseClass;
@@ -104,3 +103,4 @@ public class NetGetUserConfession {
 
     }
 }
+

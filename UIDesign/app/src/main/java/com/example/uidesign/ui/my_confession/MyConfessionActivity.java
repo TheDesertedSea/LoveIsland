@@ -13,6 +13,7 @@ import com.example.uidesign.R;
 import com.example.uidesign.adapter.ConfessionListAdapter;
 import com.example.uidesign.adapter.MyConfessionAdapter;
 import com.example.uidesign.data.LogginedUser;
+import com.example.uidesign.net.NetGetUserConfession;
 import com.example.uidesign.ui.BaseActivity;
 import com.example.uidesign.databinding.ActivityMyConfessionBinding;
 import com.example.uidesign.ui.confession.ConfessionFragment;
@@ -30,6 +31,8 @@ public class MyConfessionActivity extends BaseActivity {
 //    private final MyConfessionActivity thisContext = this;
     private LogginedUser Me = LogginedUser.getInstance();
 
+    private int ouid;
+
     private RecyclerView confessionList;
     private ArrayList<ConfessionItem> listData;
     private MyConfessionAdapter mAdapter;
@@ -45,6 +48,8 @@ public class MyConfessionActivity extends BaseActivity {
         int uid=lastIntent.getIntExtra("uid",-1);
         boolean sex=lastIntent.getBooleanExtra("sex",true);
         boolean me=lastIntent.getBooleanExtra("me",true);
+
+        ouid = uid;
 
         if(!me)
         {
@@ -73,6 +78,12 @@ public class MyConfessionActivity extends BaseActivity {
             public void onItemClick(int position) {
                 //处理点击item的事件，跳转到item详情页
                 Intent intent = new Intent(MyConfessionActivity.this, ItemDetailActivity.class);
+                intent.putExtra("type","confession");
+                intent.putExtra("postID", listData.get(position).confessionID);
+                intent.putExtra("uid", listData.get(position).uid);
+                intent.putExtra("content", listData.get(position).content_text);
+                intent.putExtra("likeOrNot",listData.get(position).like_or_not);
+                intent.putExtra("nickname",listData.get(position).title_username);
                 MyConfessionActivity.this.startActivity(intent);
             }
         });
@@ -84,7 +95,28 @@ public class MyConfessionActivity extends BaseActivity {
         listData = new ArrayList<ConfessionItem>();
 //
 //        //自动刷新，从服务器请求表白帖数据初始化
-//        refreshLayout.autoRefresh();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                NetGetUserConfession netGetUserConfession = new NetGetUserConfession();
+                NetGetUserConfession.ResponseClass mResponseClass = new NetGetUserConfession.ResponseClass();
+                mResponseClass = netGetUserConfession.getConfession(ouid, Me.getUid());
+                if (mResponseClass != NetGetUserConfession.FAIL) {
+                    ArrayList<NetGetUserConfession.ResponseItem> mResponseItemList = new ArrayList<NetGetUserConfession.ResponseItem>();
+                    for (NetGetUserConfession.ResponseItem i : mResponseItemList) {
+                        ConfessionItem addingItem = new ConfessionItem();
+                        addingItem.uid = i.uid;
+                        addingItem.title_username = i.nickname;
+                        addingItem.confessionID = i.confessionID;
+                        addingItem.content_text = i.confCont;
+                        addingItem.like_or_not = i.bool_like;
+
+                        listData.add(addingItem);
+                    }
+                }
+            }
+        }).start();
+
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
