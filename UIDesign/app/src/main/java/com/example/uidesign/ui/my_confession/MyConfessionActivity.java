@@ -111,7 +111,7 @@ public class MyConfessionActivity extends BaseActivity {
                         addingItem.content_text = i.confCont;
                         addingItem.like_or_not = i.bool_like;
 
-                        listData.add(addingItem);
+                        listData.add(0,addingItem);
                     }
                 }
                 runOnUiThread(new Runnable() {
@@ -132,7 +132,7 @@ public class MyConfessionActivity extends BaseActivity {
         });
 
         //Recyclerview设置样式/布局管理器
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         confessionList.setLayoutManager(layoutManager);
         //设置item的分割线
         confessionList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));

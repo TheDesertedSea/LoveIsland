@@ -105,7 +105,7 @@ public class MyDiscussionActivity extends BaseActivity {
                         addingItem.like_or_not = i.bool_like;
                         addingItem.content_text = i.disCont;
 
-                        listData.add(addingItem);
+                        listData.add(0,addingItem);
                     }
                 }
                 runOnUiThread(new Runnable() {
@@ -119,7 +119,7 @@ public class MyDiscussionActivity extends BaseActivity {
         }).start();
 
         //Recyclerview设置样式/布局管理器
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         discussionList.setLayoutManager(layoutManager);
         //设置item的分割线
         discussionList.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));

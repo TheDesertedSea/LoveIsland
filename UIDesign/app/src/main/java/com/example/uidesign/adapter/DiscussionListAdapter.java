@@ -1,6 +1,7 @@
 package com.example.uidesign.adapter;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -17,6 +18,7 @@ import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.net.NetSettings;
 import com.example.uidesign.net.SocketMsg;
 import com.example.uidesign.net.UserSocketManager;
+
 import com.example.uidesign.ui.discussion.DiscussionFragment;
 import com.example.uidesign.ui.discussion.DiscussionItem;
 import com.example.uidesign.ui.item_detail.ItemDetailActivity;
@@ -28,7 +30,7 @@ import java.util.ArrayList;
 
 public class DiscussionListAdapter extends RecyclerView.Adapter<DiscussionListAdapter.InnerHolder> {
     private ArrayList<DiscussionItem> mData;
-    private DiscussionListAdapter.OnItemClickListener mOnItemClickListener;
+    private OnItemClickListener mOnItemClickListener;
 
     private DiscussionFragment thisFragment;
     private final String baseIconUrl="http://"+ NetSettings.HOST_1 +":"+NetSettings.PORT_1+"/user/userPortrait/";
@@ -42,17 +44,18 @@ public class DiscussionListAdapter extends RecyclerView.Adapter<DiscussionListAd
     //用来创建条目View
     @NonNull
     @Override
-    public DiscussionListAdapter.InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public InnerHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //传进去的View是条目的界面
         //拿到view
         //创建内部holder
         View view = View.inflate(parent.getContext(), R.layout.item_discussion_recyclerview, null);
-        return new DiscussionListAdapter.InnerHolder(view);
+        return new InnerHolder(view);
     }
 
     //用于绑定Holder，一般用来设置数据
     @Override
-    public void onBindViewHolder(@NonNull DiscussionListAdapter.InnerHolder holder, int position) {
+    public void onBindViewHolder(@NonNull InnerHolder holder, int position) {
+
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,19 +68,19 @@ public class DiscussionListAdapter extends RecyclerView.Adapter<DiscussionListAd
         holder.mLikeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (mData.get(position).like_or_not == 1) {
-                    ((ImageButton) v).setImageResource(R.drawable.ic_like_non_24dp);
+                //播放动画
+                if(mData.get(position).like_or_not==1)
+                {
+                    ((ImageButton)v).setImageResource(R.drawable.ic_like_non_24dp);
                 } else if (mData.get(position).like_or_not == 0) {
-                    //播放动画
-                    ((ImageButton) v).setImageResource(R.drawable.ic_liked_24dp);
+                    ((ImageButton)v).setImageResource(R.drawable.ic_liked_24dp);
+
                     //告诉服务器端点赞
-                    SocketMsg temp = new SocketMsg();
+                    SocketMsg temp=new SocketMsg();
                     temp.type = "sendDisLike";
                     temp.from = LogginedUser.getInstance().getUid();
                     temp.fromName = LogginedUser.getInstance().getNickName();
-                    //帖子主人的id
-                    temp.to = mData.get(position).uid;
+                    temp.postID = mData.get(position).discussionID;
                     temp.nowDate = System.currentTimeMillis();
                     Gson gson = new Gson();
                     String sendString = gson.toJson(temp);
@@ -93,6 +96,8 @@ public class DiscussionListAdapter extends RecyclerView.Adapter<DiscussionListAd
                         }
                     }).start();
                 }
+
+
             }
         });
 
@@ -102,15 +107,13 @@ public class DiscussionListAdapter extends RecyclerView.Adapter<DiscussionListAd
                 //跳转到详情页面
                 Intent intent = new Intent(thisFragment.getContext(), ItemDetailActivity.class);
                 //发送帖子id
-                intent.putExtra("type", "discussion");
+                intent.putExtra("type","discussion");
                 intent.putExtra("postID", mData.get(position).discussionID);
                 intent.putExtra("uid", mData.get(position).uid);
                 intent.putExtra("content", mData.get(position).content_text);
                 thisFragment.getActivity().startActivity(intent);
             }
         });
-        //在这里设置数据
-        holder.setData(mData.get(position), position);
 
         holder.mAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,6 +123,10 @@ public class DiscussionListAdapter extends RecyclerView.Adapter<DiscussionListAd
                 thisFragment.getActivity().startActivity(intent);
             }
         });
+
+        //在这里设置数据
+        holder.setData(mData.get(position), position);
+
     }
 
     //返回条目个数
@@ -136,12 +143,20 @@ public class DiscussionListAdapter extends RecyclerView.Adapter<DiscussionListAd
      * 2.定义接口内部方法
      * 3.提供设置接口的方法（外部实现）
      * 4.接口方法的调用*/
-    public void setOnItemClickListener(DiscussionListAdapter.OnItemClickListener listener) {
+    public void setOnItemClickListener(OnItemClickListener listener) {
         //设置监听（就是一个回调的接口）
         this.mOnItemClickListener = listener;
     }
 
-    public interface OnItemClickListener {
+//    public void setOnItemLikeClickListener(ItemInnerLikeListener mItemInnerLikeListener) {
+//        this.mItemInnerLikeListener = mItemInnerLikeListener;
+//    }
+//
+//    public void setOnItemCommentClickListener(ItemInnerCommentListener mItemInnerCommentListener) {
+//        this.mItemInnerCommentListener = mItemInnerCommentListener;
+//    }
+
+    public interface OnItemClickListener{
         void onItemClick(int position);
     }
 
@@ -150,9 +165,9 @@ public class DiscussionListAdapter extends RecyclerView.Adapter<DiscussionListAd
         private ImageView mAvatar;
         private TextView mUsername;
         private TextView mContentText;
-//        private ImageView mContentImage;
-        private ImageView mLikeButton;
-        private ImageView mCommentButton;
+        //        private ImageView mContentImage;
+        private ImageButton mLikeButton;
+        private ImageButton mCommentButton;
         private int mPosition;
 
         public InnerHolder(@NonNull View itemView) {
@@ -163,13 +178,12 @@ public class DiscussionListAdapter extends RecyclerView.Adapter<DiscussionListAd
             mUsername = (TextView) itemView.findViewById(R.id.item_title_username);
             mContentText = (TextView) itemView.findViewById(R.id.item_content_text);
 //            mContentImage = (ImageView) itemView.findViewById(R.id.item_content_image);
-            mLikeButton = itemView.findViewById(R.id.item_like);
-            mCommentButton = itemView.findViewById(R.id.item_comment);
-
+            mLikeButton = (ImageButton) itemView.findViewById(R.id.item_like);
+            mCommentButton = (ImageButton) itemView.findViewById(R.id.item_comment);
         }
 
         //用于设置数据
-        public void setData (DiscussionItem discussionItem,int position){
+        public void setData(DiscussionItem discussionItem, int position) {
 
             this.mPosition = position;
             //开始设置数据
@@ -180,6 +194,7 @@ public class DiscussionListAdapter extends RecyclerView.Adapter<DiscussionListAd
 
                 mLikeButton.setImageResource(R.drawable.ic_liked_24dp);
             }
+//            mContentImage.setImageResource(co`nfessionItem.content_imageId);
         }
     }
 }

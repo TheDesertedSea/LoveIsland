@@ -105,7 +105,6 @@ public class ConfessionFragment extends Fragment {
                             Me.setConfession_MaxID(mResponseClass.maxID);
                             //把取得的数据更新到数据集中
                             ArrayList<NetGetConfession.ResponseItem> mResponseItemList = mResponseClass.confessionArray;
-
                             for (NetGetConfession.ResponseItem i : mResponseItemList) {
                                 ConfessionItem addingItem = new ConfessionItem();
                                 addingItem.confessionID = i.confessionID;
@@ -123,7 +122,7 @@ public class ConfessionFragment extends Fragment {
 //                                    }
 //                                }).start();
 
-                                listData.add(addingItem);
+                                listData.add(0,addingItem);
 //                                Log.v("ConfessionListAdapter", "like" + i.bool_like);
                             }
                         } else {
@@ -177,7 +176,7 @@ public class ConfessionFragment extends Fragment {
         refreshLayout.autoRefresh();
 
         //Recyclerview设置样式/布局管理器
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         confessionList.setLayoutManager(layoutManager);
         //设置item的分割线
         confessionList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));

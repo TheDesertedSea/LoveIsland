@@ -3,6 +3,7 @@ package com.example.uidesign.ui.discussion;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +20,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.uidesign.R;
+
 import com.example.uidesign.adapter.DiscussionListAdapter;
 import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.data.UserInfo;
+
 import com.example.uidesign.net.NetGetDiscussion;
 import com.example.uidesign.net.NetPersonalCenter;
+
 import com.example.uidesign.ui.item_detail.ItemDetailActivity;
 import com.example.uidesign.ui.item_edit.ItemEditActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,9 +36,11 @@ import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 
+import static android.content.ContentValues.TAG;
+
 public class DiscussionFragment extends Fragment {
 
-    private final DiscussionFragment thisContext = this;
+    //    private DiscussionFragment discussionFragment = this;
     private LogginedUser Me = LogginedUser.getInstance();
 
     private FloatingActionButton EditItemButton;
@@ -73,6 +79,7 @@ public class DiscussionFragment extends Fragment {
             }
         });
 
+
         //下拉刷新
         //找到控件
         discussionList = (RecyclerView) root.findViewById(R.id.recyclerView);
@@ -96,18 +103,17 @@ public class DiscussionFragment extends Fragment {
                         NetGetDiscussion.ResponseClass mResponseClass = new NetGetDiscussion.ResponseClass();
                         mResponseClass = netGetDiscussion.getDiscussion(Me.getDiscussion_MaxID(), Me.getUid());
                         if (mResponseClass != NetGetDiscussion.FAIL) {
-                            //更新现在最大的讨论帖id
+                            //更新现在最大的表白帖id
                             Me.setDiscussion_MaxID(mResponseClass.maxID);
                             //把取得的数据更新到数据集中
                             ArrayList<NetGetDiscussion.ResponseItem> mResponseItemList = mResponseClass.discussionArray;
 
-
                             for (NetGetDiscussion.ResponseItem i : mResponseItemList) {
                                 DiscussionItem addingItem = new DiscussionItem();
-                                addingItem.content_text = i.disCont;
                                 addingItem.discussionID = i.discussID;
-                                addingItem.like_or_not = i.bool_like;
                                 addingItem.uid = i.uid;
+                                addingItem.content_text = i.disCont;
+                                addingItem.like_or_not = i.bool_like;
                                 addingItem.title_username = i.nickname;
 //                                //通过获得的uid去取得用户名
 //                                new Thread(new Runnable() {
@@ -115,11 +121,12 @@ public class DiscussionFragment extends Fragment {
 //                                    public void run() {
 //                                        NetPersonalCenter mNetPersonalCenter = new NetPersonalCenter();
 //                                        addUserInfo = mNetPersonalCenter.getUserInfo(i.uid);
+//                                        addingItem.title_username = addUserInfo.nickname;
 //                                    }
 //                                }).start();
-//                                addingItem.title_username = addUserInfo.nickname;
 
-                                listData.add(addingItem);
+                                listData.add(0,addingItem);
+//                                Log.v("DiscussionListAdapter", "like" + i.bool_like);
                             }
                         } else {
                             refreshLayout.finishRefresh(false);
@@ -148,14 +155,16 @@ public class DiscussionFragment extends Fragment {
         mAdapter.setOnItemClickListener(new DiscussionListAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
+                Log.v(TAG, "点击item");
                 //处理点击item的事件，跳转到item详情页
                 Intent intent = new Intent(getActivity(), ItemDetailActivity.class);
+                //发送帖子id
                 intent.putExtra("type","discussion");
                 intent.putExtra("postID", listData.get(position).discussionID);
                 intent.putExtra("uid", listData.get(position).uid);
                 intent.putExtra("content", listData.get(position).content_text);
-                intent.putExtra("likeOrNot", listData.get(position).like_or_not);
-                intent.putExtra("nickname", listData.get(position).title_username);
+                intent.putExtra("likeOrNot",listData.get(position).like_or_not);
+                intent.putExtra("nickname",listData.get(position).title_username);
                 getActivity().startActivity(intent);
             }
         });
@@ -170,13 +179,14 @@ public class DiscussionFragment extends Fragment {
         refreshLayout.autoRefresh();
 
         //Recyclerview设置样式/布局管理器
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         discussionList.setLayoutManager(layoutManager);
         //设置item的分割线
         discussionList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         //创建适配器
-        mAdapter = new DiscussionListAdapter(thisContext, listData);
+        mAdapter = new DiscussionListAdapter(this, listData);
         //适配器设置到Recyclerview里面去
         discussionList.setAdapter(mAdapter);
     }
+
 }
