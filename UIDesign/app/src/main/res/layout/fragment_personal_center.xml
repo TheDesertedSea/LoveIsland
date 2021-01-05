@@ -88,7 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#19594F4F"
-            android:src="@drawable/ic_my_confession_black_64dp"
+            android:src="@drawable/ic_my_confession_black_48dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.25"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -100,6 +100,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我的表白"
+            android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="@id/button_my_confession"
             app:layout_constraintRight_toRightOf="@id/button_my_confession"
             app:layout_constraintTop_toBottomOf="@id/button_my_confession" />
@@ -109,7 +110,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#19594F4F"
-            android:src="@drawable/ic_my_discussion_black_64dp"
+            android:src="@drawable/ic_my_discussion_black_48dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.75"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -121,6 +122,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我的讨论"
+            android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="@id/button_my_discussion"
             app:layout_constraintRight_toRightOf="@id/button_my_discussion"
             app:layout_constraintTop_toBottomOf="@id/button_my_discussion" />
