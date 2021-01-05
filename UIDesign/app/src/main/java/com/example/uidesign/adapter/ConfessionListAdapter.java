@@ -1,6 +1,7 @@
 package com.example.uidesign.adapter;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -20,6 +21,7 @@ import com.example.uidesign.net.UserSocketManager;
 import com.example.uidesign.ui.confession.ConfessionFragment;
 import com.example.uidesign.ui.confession.ConfessionItem;
 import com.example.uidesign.ui.item_detail.ItemDetailActivity;
+import com.example.uidesign.ui.personal_page.PersonalPageActivity;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -29,12 +31,12 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
     private ArrayList<ConfessionItem> mData;
     private OnItemClickListener mOnItemClickListener;
 
-    private ConfessionFragment thisContext;
+    private ConfessionFragment thisFragment;
     private final String baseIconUrl="http://"+ NetSettings.HOST_1 +":"+NetSettings.PORT_1+"/user/userPortrait/";
 
     //构造方法
-    public ConfessionListAdapter(ConfessionFragment context, ArrayList<ConfessionItem> data) {
-        this.thisContext = context;
+    public ConfessionListAdapter(ConfessionFragment fragment, ArrayList<ConfessionItem> data) {
+        this.thisFragment = fragment;
         this.mData = data;
     }
 
@@ -66,27 +68,35 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
             @Override
             public void onClick(View v) {
                 //播放动画
-                ((ImageButton)v).setImageResource(R.drawable.ic_liked_24dp);
-                //告诉服务器端点赞
-                SocketMsg temp=new SocketMsg();
-                temp.type = "sendConfLike";
-                temp.from = LogginedUser.getInstance().getUid();
-                temp.fromName = LogginedUser.getInstance().getNickName();
-                temp.postID = mData.get(position).confessionID;
-                temp.nowDate = System.currentTimeMillis();
-                Gson gson = new Gson();
-                String sendString = gson.toJson(temp);
+                if(mData.get(position).like_or_not==1)
+                {
+                    ((ImageButton)v).setImageResource(R.drawable.ic_like_non_24dp);
+                } else if (mData.get(position).like_or_not == 0) {
+                    ((ImageButton)v).setImageResource(R.drawable.ic_liked_24dp);
 
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            UserSocketManager.getInstance().getDataOutputStream().writeUTF(sendString);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                    //告诉服务器端点赞
+                    SocketMsg temp=new SocketMsg();
+                    temp.type = "sendConfLike";
+                    temp.from = LogginedUser.getInstance().getUid();
+                    temp.fromName = LogginedUser.getInstance().getNickName();
+                    temp.postID = mData.get(position).confessionID;
+                    temp.nowDate = System.currentTimeMillis();
+                    Gson gson = new Gson();
+                    String sendString = gson.toJson(temp);
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                UserSocketManager.getInstance().getDataOutputStream().writeUTF(sendString);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         }
-                    }
-                }).start();
+                    }).start();
+                }
+
+
             }
         });
 
@@ -94,13 +104,22 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
             @Override
             public void onClick(View v) {
                 //跳转到详情页面
-                Intent intent = new Intent(thisContext.getActivity(), ItemDetailActivity.class);
+                Intent intent = new Intent(thisFragment.getContext(), ItemDetailActivity.class);
                 //发送帖子id
                 intent.putExtra("type","confession");
                 intent.putExtra("postID", mData.get(position).confessionID);
                 intent.putExtra("uid", mData.get(position).uid);
                 intent.putExtra("content", mData.get(position).content_text);
-                thisContext.getActivity().startActivity(intent);
+                thisFragment.getActivity().startActivity(intent);
+            }
+        });
+
+        holder.mAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(thisFragment.getContext(), PersonalPageActivity.class);
+                intent.putExtra("uid",mData.get(position).uid);
+                thisFragment.getActivity().startActivity(intent);
             }
         });
 
@@ -167,9 +186,13 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
 
             this.mPosition = position;
             //开始设置数据
-            Glide.with(thisContext).load(baseIconUrl + confessionItem.uid).diskCacheStrategy(DiskCacheStrategy.NONE).into(mAvatar);
+            Glide.with(thisFragment).load(baseIconUrl + confessionItem.uid).diskCacheStrategy(DiskCacheStrategy.NONE).into(mAvatar);
             mUsername.setText(confessionItem.title_username);
             mContentText.setText(confessionItem.content_text);
+            if (confessionItem.like_or_not == 1) {
+
+                mLikeButton.setImageResource(R.drawable.ic_liked_24dp);
+            }
 //            mContentImage.setImageResource(confessionItem.content_imageId);
         }
     }

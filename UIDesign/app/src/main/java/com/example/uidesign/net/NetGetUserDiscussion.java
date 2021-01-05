@@ -10,7 +10,6 @@ import com.google.gson.JsonParser;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
@@ -20,38 +19,44 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class NetGetCertainDiscussion {
+public class NetGetUserDiscussion {
     private static final String SCHEME = "http";
-    private static final String FORMAT = "host:30010/discuss/pull_discuss&likes";
-    private static final String PATH_SEGMENTS = "discuss/pull_discuss&likes";
+    private static final String FORMAT = "host:30010/discuss/pull_userdiscuss";
+    private static final String PATH_SEGMENTS = "discuss/pull_userdiscuss";
 
     //返回结果
-    public static final NetGetCertainDiscussion.ResponseClass FAIL = null;
+    public static final NetGetUserDiscussion.ResponseClass FAIL = null;
+
+    //结果信息
+    public static final String SUCCESS_INFO = "刷新成功";
+    public static final String FAIL_INFO = "刷新失败";
 
     public static class RequestClass
     {
-        public int discussID;   //帖子的id
-        public int uid; //账号的id
+        public int ouid;
+        public int suid;
     }
 
-    //返回的一个评论的信息
+    //返回的一个帖子的信息
     public class ResponseItem {
-        public int discuss_commentID;
-        public int discussID;//没用
+        public int discussID;
         public int uid;
-        public String dcCont;
-        public long dcTime;
+        public String nickname;
+        public String disCont;
+        public int disLikes;
+        public long disTime;
+        public int bool_like;
     }
     //返回的所有信息
     public static class ResponseClass
     {
-        public ArrayList<NetGetCertainDiscussion.ResponseItem> commentArray;
+        public ArrayList<ResponseItem> discussionArray;
     }
 
-    public NetGetCertainDiscussion.ResponseClass getComment(int postID, int uid) {
+    public NetGetUserDiscussion.ResponseClass getDiscussion(int ouid,int suid) {
 
-        NetGetCertainDiscussion.ResponseClass responseClass = new NetGetCertainDiscussion.ResponseClass();
-        responseClass.commentArray = new ArrayList<ResponseItem>();
+        NetGetUserDiscussion.ResponseClass responseClass = new NetGetUserDiscussion.ResponseClass();
+        responseClass.discussionArray = new ArrayList<ResponseItem>();
 
         OkHttpClient client = new OkHttpClient();
 
@@ -59,18 +64,18 @@ public class NetGetCertainDiscussion {
                 .build();
         Log.v("httpUrl",url.toString());
 
-        NetGetCertainDiscussion.RequestClass requestClass = new NetGetCertainDiscussion.RequestClass();
-        requestClass.discussID = postID;
-        requestClass.uid = uid;
+        NetGetUserDiscussion.RequestClass requestClass=new NetGetUserDiscussion.RequestClass();
+        requestClass.ouid = ouid;
+        requestClass.suid = suid;
 
         Gson gson_pull = new Gson();
         String requestJson = gson_pull.toJson(requestClass);
+        Log.v("user-dis-req",requestJson);
 
         RequestBody requestBody = RequestBody.create(requestJson, MediaType.get("application/json"));
 
         Request request = new Request.Builder()
                 .url(url)
-                .addHeader("token", LogginedUser.getInstance().getToken())
                 .post(requestBody)
                 .build();
 
@@ -83,12 +88,14 @@ public class NetGetCertainDiscussion {
                 return null;
             }
             String responseJson = responseBody.string();
+            Log.v("user-dis-res",responseJson);
             JsonArray jsonElements = JsonParser.parseString(responseJson).getAsJsonArray();
             Gson gson_get = new Gson();
             for(JsonElement e:jsonElements)
             {
-                NetGetCertainDiscussion.ResponseItem temp = gson_get.fromJson(e, NetGetCertainDiscussion.ResponseItem.class);
-                responseClass.commentArray.add(temp);
+                NetGetUserDiscussion.ResponseItem temp = gson_get.fromJson(e, NetGetUserDiscussion.ResponseItem.class);
+                responseClass.discussionArray.add(temp);
+
             }
             return responseClass;
         }catch (IOException e)
@@ -98,3 +105,4 @@ public class NetGetCertainDiscussion {
 
     }
 }
+

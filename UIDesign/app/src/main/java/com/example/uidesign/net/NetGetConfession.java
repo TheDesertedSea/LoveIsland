@@ -46,9 +46,11 @@ public class NetGetConfession {
     public class ResponseItem {
         public int confessionID;
         public int uid;
+        public String nickname;
         public String confCont;
         public int confLikes;
         public long confTime;
+        public int bool_like;
     }
     //返回的所有信息
     public static class ResponseClass
@@ -97,12 +99,13 @@ public class NetGetConfession {
             for(JsonElement e:jsonElements)
             {
                 NetGetConfession.ResponseItem temp = gson_get.fromJson(e, NetGetConfession.ResponseItem.class);
+                Log.v("NetConfession","like" + temp.bool_like);
                 responseClass.confessionArray.add(temp);
                 if(responseClass.maxID < temp.confessionID) {
                     responseClass.maxID = temp.confessionID;
                 }
-                Log.v(TAG,"内容"+temp.confCont);
-                Log.v(TAG,"帖子id"+temp.confessionID);
+//                Log.v(TAG,"内容"+temp.confCont);
+//                Log.v(TAG,"帖子id"+temp.confessionID);
             }
             return responseClass;
         }catch (IOException e)
@@ -121,10 +124,11 @@ public class NetGetConfession {
     public class SingleGetRequest
     {
         public int postID;
+        public int uid; //账号的id
     }
 
 
-    public SingleGetResponse getSingleConfession(int postID)
+    public SingleGetResponse getSingleConfession(int postID,int uid)
     {
         OkHttpClient client = new OkHttpClient();
 

@@ -9,15 +9,14 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.uidesign.adapter.MyConfessionAdapter;
 import com.example.uidesign.adapter.MyDiscussionAdapter;
 import com.example.uidesign.data.LogginedUser;
+import com.example.uidesign.net.NetGetUserDiscussion;
 import com.example.uidesign.ui.BaseActivity;
 import com.example.uidesign.databinding.ActivityMyDiscussionBinding;
-import com.example.uidesign.ui.confession.ConfessionItem;
 import com.example.uidesign.ui.discussion.DiscussionItem;
 import com.example.uidesign.ui.item_detail.ItemDetailActivity;
-import com.example.uidesign.ui.my_confession.MyConfessionActivity;
+
 
 import java.util.ArrayList;
 
@@ -27,6 +26,8 @@ public class MyDiscussionActivity extends BaseActivity {
     private Activity thisActivity=this;
 
     private LogginedUser Me = LogginedUser.getInstance();
+
+    private int ouid;
 
     private RecyclerView discussionList;
     private ArrayList<DiscussionItem> listData;
@@ -42,6 +43,8 @@ public class MyDiscussionActivity extends BaseActivity {
         int uid=lastIntent.getIntExtra("uid",-1);
         boolean sex=lastIntent.getBooleanExtra("sex",true);
         boolean me=lastIntent.getBooleanExtra("me",true);
+
+        ouid = uid;
 
         if(!me)
         {
@@ -69,6 +72,12 @@ public class MyDiscussionActivity extends BaseActivity {
             public void onItemClick(int position) {
                 //处理点击item的事件，跳转到item详情页
                 Intent intent = new Intent(MyDiscussionActivity.this, ItemDetailActivity.class);
+                intent.putExtra("type","discussion");
+                intent.putExtra("postID", listData.get(position).discussionID);
+                intent.putExtra("uid", listData.get(position).uid);
+                intent.putExtra("content", listData.get(position).content_text);
+                intent.putExtra("likeOrNot", listData.get(position).like_or_not);
+                intent.putExtra("nickname", listData.get(position).title_username);
                 MyDiscussionActivity.this.startActivity(intent);
             }
         });
@@ -80,7 +89,34 @@ public class MyDiscussionActivity extends BaseActivity {
         listData = new ArrayList<DiscussionItem>();
 //
 //        //自动刷新，从服务器请求表白帖数据初始化
-//        refreshLayout.autoRefresh();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                NetGetUserDiscussion netGetUserDiscussion = new NetGetUserDiscussion();
+                NetGetUserDiscussion.ResponseClass mResponseClass = new NetGetUserDiscussion.ResponseClass();
+                mResponseClass = netGetUserDiscussion.getDiscussion(ouid, Me.getUid());
+                if (mResponseClass != NetGetUserDiscussion.FAIL) {
+                    ArrayList<NetGetUserDiscussion.ResponseItem> mResponseItemList = mResponseClass.discussionArray;
+                    for (NetGetUserDiscussion.ResponseItem i : mResponseItemList) {
+                        DiscussionItem addingItem = new DiscussionItem();
+                        addingItem.uid = i.uid;
+                        addingItem.discussionID = i.discussID;
+                        addingItem.title_username = i.nickname;
+                        addingItem.like_or_not = i.bool_like;
+                        addingItem.content_text = i.disCont;
+
+                        listData.add(0,addingItem);
+                    }
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAdapter.notifyDataSetChanged();
+                        binding.recyclerView.scrollToPosition(listData.size()-1);
+                    }
+                });
+            }
+        }).start();
 
         //Recyclerview设置样式/布局管理器
         LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);

@@ -16,6 +16,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.uidesign.R;
 import com.example.uidesign.data.Like;
 import com.example.uidesign.net.NetSettings;
+import com.example.uidesign.tool.CommentAndLikeAdapterSend;
 
 import java.util.List;
 
@@ -52,8 +53,11 @@ public class ThumbToMeAdapter extends RecyclerView.Adapter<ThumbToMeAdapter.View
                 Message message=thumbToMeActivityHandler.obtainMessage();
                 message.what=200;
                 message.arg1=like.postID;
-                message.obj=like.type;
-                Log.v("adapter-id","id"+like.postID+" "+message.arg1);
+                CommentAndLikeAdapterSend commentAndLikeAdapterSend=new CommentAndLikeAdapterSend();
+                commentAndLikeAdapterSend.nickname=like.fromName;
+                commentAndLikeAdapterSend.type=like.type;
+                Log.v("type",commentAndLikeAdapterSend.type);
+                message.obj=commentAndLikeAdapterSend;
                 thumbToMeActivityHandler.sendMessage(message);
             }
         });

@@ -99,7 +99,7 @@ public class NetLuckyCard {
         OkHttpClient client=new OkHttpClient();
 
         HttpUrl url = new HttpUrl.Builder().scheme("http").host(NetSettings.HOST_1).port(NetSettings.PORT_1).addPathSegments(
-                PATH_SEGMENTS_MATCH+"/"+uid+"/"+cid)
+                PATH_SEGMENTS_MATCH+"/"+uid+"/"+cid+"/"+System.currentTimeMillis())
                 .build();
         Log.v("httpUrl",url.toString());
 
