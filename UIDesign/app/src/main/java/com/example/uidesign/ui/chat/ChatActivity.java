@@ -17,6 +17,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.uidesign.ProjectSettings;
 import com.example.uidesign.data.ChatMsg;
 import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.data.UserInfo;
@@ -155,30 +156,35 @@ public class ChatActivity extends AppCompatActivity {
                 adapter.notifyItemInserted(msgList.size()-1);
                 binding.messageRecyclerView.scrollToPosition(msgList.size()-1);
 
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Entity_ChatMsg entity_chatMsg=new Entity_ChatMsg();
-                        entity_chatMsg.from=temp.from;
-                        entity_chatMsg.to=temp.to;
-                        entity_chatMsg.content=temp.msg;
-                        entity_chatMsg.date=temp.nowDate;
-                        assert DatabaseManager.getAppDatabase() != null;
-                        DatabaseManager.getAppDatabase().dao_chatMsg().insertAll(entity_chatMsg);
-                    }
-                }).start();
-
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            UserSocketManager.getInstance().getDataOutputStream().writeUTF(sendString);
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                if(!ProjectSettings.UI_TEST)
+                {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Entity_ChatMsg entity_chatMsg=new Entity_ChatMsg();
+                            entity_chatMsg.from=temp.from;
+                            entity_chatMsg.to=temp.to;
+                            entity_chatMsg.content=temp.msg;
+                            entity_chatMsg.date=temp.nowDate;
+                            assert DatabaseManager.getAppDatabase() != null;
+                            DatabaseManager.getAppDatabase().dao_chatMsg().insertAll(entity_chatMsg);
                         }
-                    }
-                }).start();
+                    }).start();
+
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                UserSocketManager.getInstance().getDataOutputStream().writeUTF(sendString);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }).start();
+                }
+
+
             }
         });
 

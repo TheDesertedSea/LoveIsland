@@ -2,6 +2,7 @@ package com.example.uidesign.net;
 
 import android.util.Log;
 
+import com.example.uidesign.ProjectSettings;
 import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.data.UserInfo;
 import com.google.gson.Gson;
@@ -20,7 +21,6 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class NetPersonalCenter {
-    private static final boolean DEBUG=false;
 
     private static final String SCHEME="http";
     private static final String FORMAT_ICON_EDIT="host:30010/user/setPortrait/:uid";
@@ -66,7 +66,7 @@ public class NetPersonalCenter {
 
     public UserInfo getUserInfo(int uid)
     {
-        if(DEBUG)
+        if(ProjectSettings.UI_TEST)
         {
             UserInfo userInfo=new UserInfo();
             userInfo.nickname="荒海";
@@ -117,7 +117,7 @@ public class NetPersonalCenter {
 
     public int setUserInfo(int uid,String nickName,String school,String introduction)
     {
-        if(DEBUG)
+        if(ProjectSettings.UI_TEST)
         {
             return PERSONAL_INFO_EDIT_SUCCESS;
         }
@@ -173,7 +173,7 @@ public class NetPersonalCenter {
 
     public boolean setIcon(File picFile,int uid)
     {
-        if(DEBUG)
+        if(ProjectSettings.UI_TEST)
         {
             return true;
         }

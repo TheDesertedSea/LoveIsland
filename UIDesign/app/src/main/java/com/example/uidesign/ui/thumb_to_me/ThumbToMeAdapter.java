@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.uidesign.ProjectSettings;
 import com.example.uidesign.R;
 import com.example.uidesign.data.Like;
 import com.example.uidesign.net.NetSettings;
@@ -41,9 +42,11 @@ public class ThumbToMeAdapter extends RecyclerView.Adapter<ThumbToMeAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ThumbToMeAdapter.ViewHolder holder, int position) {
         Like like=likeList.get(position);
-        Glide.with(context)
-                .load(baseIconUrl+like.from)
-                .diskCacheStrategy(DiskCacheStrategy.NONE).into(holder.icon);
+        if(!ProjectSettings.UI_TEST) {
+            Glide.with(context)
+                    .load(baseIconUrl + like.from)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE).into(holder.icon);
+        }
         holder.nickName.setText(like.fromName);
         holder.date.setText(like.nowDate.toString());
         holder.content.setText("在你的帖子下赞了你");

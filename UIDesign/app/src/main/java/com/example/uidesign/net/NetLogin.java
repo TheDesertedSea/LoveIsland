@@ -3,6 +3,7 @@ package com.example.uidesign.net;
 import android.util.Log;
 
 import com.example.uidesign.BaseApplication;
+import com.example.uidesign.ProjectSettings;
 import com.example.uidesign.data.LogginedUser;
 import com.google.gson.Gson;
 
@@ -15,7 +16,6 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class NetLogin {
-    private static final boolean DEBUG=false;
 
     private static final String SCHEME="http";
     private static final String FORMAT="host:30010/login/login?mailbox=****&password=****&time=****";
@@ -56,8 +56,10 @@ public class NetLogin {
 
     public int login(String username, String password, BaseApplication baseApplication)
     {
-        if(DEBUG)
+        if(ProjectSettings.UI_TEST)
         {
+            LogginedUser.getInstance().setUid(1);
+            LogginedUser.getInstance().setNickName("mumuhan");
             return OK;
         }
 
@@ -92,7 +94,6 @@ public class NetLogin {
             SuccessContent successContent=(SuccessContent)responseClass.Obj;
             LogginedUser.getInstance().setUid(successContent.uid);
             LogginedUser.getInstance().setNickName(successContent.nickname);
-            LogginedUser.getInstance().setToken(successContent.token);
             new Thread(new Runnable() {
                 @Override
                 public void run() {

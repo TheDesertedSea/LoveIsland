@@ -2,6 +2,7 @@ package com.example.uidesign.net;
 
 import android.util.Log;
 
+import com.example.uidesign.ProjectSettings;
 import com.example.uidesign.data.LogginedUser;
 import com.google.gson.Gson;
 
@@ -43,7 +44,10 @@ public class NetSendConfession {
     }
 
     public String sendConfession(int uid, String content_text, long date) {
-
+        if(ProjectSettings.UI_TEST)
+        {
+            return SUCCESS;
+        }
         OkHttpClient client = new OkHttpClient();
 
         HttpUrl url = new HttpUrl.Builder().scheme("http").host(NetSettings.HOST_1).port(NetSettings.PORT_1).addPathSegments(PATH_SEGMENTS)

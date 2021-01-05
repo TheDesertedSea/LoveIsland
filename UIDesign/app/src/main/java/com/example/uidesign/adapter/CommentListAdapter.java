@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.uidesign.ProjectSettings;
 import com.example.uidesign.R;
 import com.example.uidesign.data.Comment;
 import com.example.uidesign.net.NetSettings;
@@ -74,14 +75,18 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
             avatar = itemView.findViewById(R.id.comment_avatar);
             username = itemView.findViewById(R.id.comment_username);
             context = itemView.findViewById(R.id.comment_context);
+            timeText=itemView.findViewById(R.id.time);
         }
 
         public void setData(Comment comment, int position) {
             Log.v("CommentListAdapter", "进入setdata");
             this.mPosition = position;
-            Glide.with(thisActivity).load(baseIconUrl + comment.from).diskCacheStrategy(DiskCacheStrategy.NONE).into(avatar);
+            if(!ProjectSettings.UI_TEST) {
+                Glide.with(thisActivity).load(baseIconUrl + comment.from).diskCacheStrategy(DiskCacheStrategy.NONE).into(avatar);
+            }
             username.setText(comment.fromName);
             context.setText(comment.com);
+            timeText.setText(comment.nowDate.toString());
         }
     }
 

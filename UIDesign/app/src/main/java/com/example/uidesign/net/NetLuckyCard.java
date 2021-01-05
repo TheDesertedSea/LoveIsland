@@ -3,6 +3,7 @@ package com.example.uidesign.net;
 import android.util.Log;
 
 
+import com.example.uidesign.ProjectSettings;
 import com.example.uidesign.data.CardType;
 import com.example.uidesign.data.LogginedUser;
 import com.google.gson.Gson;
@@ -23,7 +24,6 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class NetLuckyCard {
-    private static final boolean DEBUG=false;
 
     private static final String SCHEME="http";
     private static final String FORMAT_GET="host:30010/card/getcard/:uid";
@@ -40,7 +40,7 @@ public class NetLuckyCard {
     public ArrayList<CardType> getLuckyCard(int uid)
     {
         ArrayList<CardType> cards=new ArrayList<CardType>();
-        if(DEBUG) {
+        if(ProjectSettings.UI_TEST) {
             CardType card=new CardType();
             card.cid=0;
             card.cardName="炸鸡";
@@ -89,7 +89,7 @@ public class NetLuckyCard {
 
     public MatchResponseClass matchCard(int cid,int uid)
     {
-        if(DEBUG) {
+        if(ProjectSettings.UI_TEST) {
             MatchResponseClass matchResponseClass=new MatchResponseClass();
             matchResponseClass.user=uid;
             matchResponseClass.nickname="yahaha";

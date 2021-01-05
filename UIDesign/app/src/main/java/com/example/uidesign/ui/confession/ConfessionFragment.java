@@ -33,6 +33,7 @@ import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import static android.content.ContentValues.TAG;
 
@@ -112,6 +113,7 @@ public class ConfessionFragment extends Fragment {
                                 addingItem.content_text = i.confCont;
                                 addingItem.like_or_not = i.bool_like;
                                 addingItem.title_username = i.nickname;
+                                addingItem.time=new Date(i.confTime);
 //                                //通过获得的uid去取得用户名
 //                                new Thread(new Runnable() {
 //                                    @Override

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.uidesign.ProjectSettings;
 import com.example.uidesign.R;
 import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.net.NetSettings;
@@ -83,16 +84,18 @@ public class MyConfessionAdapter extends RecyclerView.Adapter<MyConfessionAdapte
                     Gson gson = new Gson();
                     String sendString = gson.toJson(temp);
 
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                UserSocketManager.getInstance().getDataOutputStream().writeUTF(sendString);
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                    if(!ProjectSettings.UI_TEST) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    UserSocketManager.getInstance().getDataOutputStream().writeUTF(sendString);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
-                        }
-                    }).start();
+                        }).start();
+                    }
                 }
             }
         });
@@ -174,7 +177,9 @@ public class MyConfessionAdapter extends RecyclerView.Adapter<MyConfessionAdapte
 
             this.mPosition = position;
             //开始设置数据
-            Glide.with(thisActivity).load(baseIconUrl + confessionItem.uid).diskCacheStrategy(DiskCacheStrategy.NONE).into(mAvatar);
+            if(!ProjectSettings.UI_TEST) {
+                Glide.with(thisActivity).load(baseIconUrl + confessionItem.uid).diskCacheStrategy(DiskCacheStrategy.NONE).into(mAvatar);
+            }
             mUsername.setText(confessionItem.title_username);
             mContentText.setText(confessionItem.content_text);
             if(confessionItem.like_or_not == 1) {

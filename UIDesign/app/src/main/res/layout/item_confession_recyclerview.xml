@@ -22,22 +22,21 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/item_title_avatar"
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_default_avatar_24dp"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:padding="5dp"
+                    android:src="@drawable/lilimu"
                     app:civ_border_color="#FF000000"
                     app:civ_border_width="2dp"
-                    android:padding="5dp"
-                />
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/item_title_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="用户名"
-                    android:textSize="18sp"
+                    android:textSize="20sp"
                     app:layout_constraintLeft_toRightOf="@id/item_title_avatar"
                     app:layout_constraintTop_toTopOf="@id/item_title_avatar"
                     android:paddingTop="5dp"
@@ -48,7 +47,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2020-11-30 18:12"
-                    android:textSize="14sp"
+                    android:textSize="16sp"
+                    android:paddingBottom="5dp"
                     app:layout_constraintBottom_toBottomOf="@id/item_title_avatar"
                     app:layout_constraintLeft_toRightOf="@id/item_title_avatar" />
 

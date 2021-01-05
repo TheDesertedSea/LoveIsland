@@ -2,6 +2,7 @@ package com.example.uidesign.net;
 
 import android.util.Log;
 
+import com.example.uidesign.ProjectSettings;
 import com.example.uidesign.data.LogginedUser;
 import com.google.gson.Gson;
 
@@ -16,7 +17,6 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class NetSignUp {
-    private static final boolean DEBUG=false;
 
     private static final String SCHEME="http";
     private static final String FORMAT="host:30010/login/register";
@@ -48,7 +48,7 @@ public class NetSignUp {
 
     public int signUp(String username,String password,String nickName,boolean sex,String school)
     {
-        if(DEBUG)
+        if(ProjectSettings.UI_TEST)
         {
             return OK;
         }

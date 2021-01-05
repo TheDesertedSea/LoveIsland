@@ -23,6 +23,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.uidesign.ProjectSettings;
 import com.example.uidesign.R;
 import com.example.uidesign.data.CachedLoginData;
 import com.example.uidesign.data.LogginedUser;
@@ -192,11 +193,12 @@ public class PersonalCenterFragment extends Fragment {
     public void onResume() {
         super.onResume();
         netPersonalCenter=new NetPersonalCenter();
-        Glide.with(thisFragment).load(baseIconUrl+LogginedUser.getInstance().getUid())
+        if(!ProjectSettings.UI_TEST) {
+            Glide.with(thisFragment).load(baseIconUrl + LogginedUser.getInstance().getUid())
 //                .skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .into(iconView);
-
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(iconView);
+        }
         new Thread(new Runnable() {
             @Override
             public void run() {

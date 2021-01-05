@@ -2,6 +2,7 @@ package com.example.uidesign.net;
 
 import android.util.Log;
 
+import com.example.uidesign.ProjectSettings;
 import com.example.uidesign.data.CardType;
 import com.example.uidesign.data.ColdBootItem;
 import com.example.uidesign.data.LogginedUser;
@@ -24,7 +25,6 @@ import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class NetColdBoot {
-    private static final boolean DEBUG=false;
 
     private static final String GET_FORMAT="HOST:30010/card/domain";
     private static final String GET_PATH_SEGMENTS="card/domain";
@@ -38,7 +38,7 @@ public class NetColdBoot {
     public List<ColdBootItem> getColdBootItem(int uid)
     {
         List<ColdBootItem> result=new ArrayList<ColdBootItem>();
-        if(DEBUG)
+        if(ProjectSettings.UI_TEST)
         {
             ColdBootItem coldBootItem=new ColdBootItem();
             coldBootItem.domainID=0;
@@ -97,7 +97,7 @@ public class NetColdBoot {
 
     public boolean sendColdBootItem(int uid,List<Integer> list)
     {
-        if(DEBUG)
+        if(ProjectSettings.UI_TEST)
         {
             return true;
         }

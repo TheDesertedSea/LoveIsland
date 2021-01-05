@@ -2,6 +2,7 @@ package com.example.uidesign.net;
 
 import android.util.Log;
 
+import com.example.uidesign.ProjectSettings;
 import com.example.uidesign.data.LogginedUser;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -54,6 +55,23 @@ public class NetGetUserDiscussion {
     }
 
     public NetGetUserDiscussion.ResponseClass getDiscussion(int ouid,int suid) {
+
+        if(ProjectSettings.UI_TEST)
+        {
+            ArrayList<ResponseItem> discussionArray=new ArrayList<>();
+            ResponseItem responseItem=new ResponseItem();
+            responseItem.uid=LogginedUser.getInstance().getUid();
+            responseItem.discussID=1;
+            responseItem.uid=1;
+            responseItem.nickname="MObistan";
+            responseItem.disCont="LOVEEOVL OHOHOHOHOHOh";
+            responseItem.disTime=System.currentTimeMillis();
+            responseItem.bool_like=0;
+            discussionArray.add(responseItem);
+            ResponseClass responseClass=new ResponseClass();
+            responseClass.discussionArray=discussionArray;
+            return responseClass;
+        }
 
         NetGetUserDiscussion.ResponseClass responseClass = new NetGetUserDiscussion.ResponseClass();
         responseClass.discussionArray = new ArrayList<ResponseItem>();

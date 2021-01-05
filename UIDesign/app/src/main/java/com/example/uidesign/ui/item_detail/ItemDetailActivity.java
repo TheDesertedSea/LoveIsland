@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.uidesign.ProjectSettings;
 import com.example.uidesign.R;
 import com.example.uidesign.adapter.CommentListAdapter;
 import com.example.uidesign.data.Comment;
@@ -213,16 +214,18 @@ public class ItemDetailActivity extends BaseActivity {
                     Gson gson = new Gson();
                     String sendString = gson.toJson(temp);
 
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                UserSocketManager.getInstance().getDataOutputStream().writeUTF(sendString);
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                    if(!ProjectSettings.UI_TEST) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    UserSocketManager.getInstance().getDataOutputStream().writeUTF(sendString);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
-                        }
-                    }).start();
+                        }).start();
+                    }
                     //把键盘收下
                     binding.editComment.setText("");
                     binding.editComment.clearFocus();
@@ -241,17 +244,18 @@ public class ItemDetailActivity extends BaseActivity {
                     temp.nowDate = System.currentTimeMillis();
                     Gson gson = new Gson();
                     String sendString = gson.toJson(temp);
-
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                UserSocketManager.getInstance().getDataOutputStream().writeUTF(sendString);
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                    if(!ProjectSettings.UI_TEST) {
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    UserSocketManager.getInstance().getDataOutputStream().writeUTF(sendString);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
-                        }
-                    }).start();
+                        }).start();
+                    }
                     //把键盘收下
                     binding.editComment.setText("");
                     binding.editComment.clearFocus();

@@ -2,6 +2,7 @@ package com.example.uidesign.net;
 
 import android.util.Log;
 
+import com.example.uidesign.ProjectSettings;
 import com.example.uidesign.data.LogginedUser;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -57,7 +58,23 @@ public class NetGetDiscussion {
     }
 
     public NetGetDiscussion.ResponseClass getDiscussion(int discussID, int uid) {
-
+        if(ProjectSettings.UI_TEST)
+        {
+            ArrayList<ResponseItem> discussionArray=new ArrayList<>();
+            ResponseItem responseItem=new ResponseItem();
+            responseItem.uid=LogginedUser.getInstance().getUid();
+            responseItem.discussID=1;
+            responseItem.uid=1;
+            responseItem.nickname="MObistan";
+            responseItem.disCont="LOVEEOVL OHOHOHOHOHOh";
+            responseItem.disTime=System.currentTimeMillis();
+            responseItem.bool_like=0;
+            discussionArray.add(responseItem);
+            ResponseClass responseClass=new ResponseClass();
+            responseClass.discussionArray=discussionArray;
+            responseClass.maxID=1;
+            return responseClass;
+        }
         NetGetDiscussion.ResponseClass responseClass = new NetGetDiscussion.ResponseClass();
         responseClass.discussionArray = new ArrayList<NetGetDiscussion.ResponseItem>();
         responseClass.maxID = 0;
@@ -123,6 +140,23 @@ public class NetGetDiscussion {
 
     public NetGetDiscussion.SingleGetResponse getSingleDiscussion(int postID)
     {
+        if(ProjectSettings.UI_TEST)
+        {
+            ResponseItem responseItem=new ResponseItem();
+            responseItem.uid=LogginedUser.getInstance().getUid();
+            responseItem.discussID=1;
+            responseItem.uid=1;
+            responseItem.nickname="MObistan";
+            responseItem.disCont="LOVEEOVL OHOHOHOHOHOh";
+            responseItem.disTime=System.currentTimeMillis();
+            responseItem.bool_like=0;
+            SingleGetResponse responseClass=new SingleGetResponse();
+            responseClass.Obj=responseItem;
+            responseClass.success=1;
+            return responseClass;
+        }
+
+
         OkHttpClient client = new OkHttpClient();
 
         Log.v("postID",String.valueOf(postID));

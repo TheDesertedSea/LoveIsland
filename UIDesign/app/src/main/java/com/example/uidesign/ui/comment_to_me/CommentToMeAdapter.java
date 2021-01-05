@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.uidesign.ProjectSettings;
 import com.example.uidesign.R;
 import com.example.uidesign.data.Comment;
 import com.example.uidesign.net.NetSettings;
@@ -41,9 +42,11 @@ public class CommentToMeAdapter extends RecyclerView.Adapter<CommentToMeAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Comment comment=commentList.get(position);
-        Glide.with(context)
-                .load(baseIconUrl+comment.from)
-                .diskCacheStrategy(DiskCacheStrategy.NONE).into(holder.icon);
+        if(!ProjectSettings.UI_TEST) {
+            Glide.with(context)
+                    .load(baseIconUrl + comment.from)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE).into(holder.icon);
+        }
         holder.nickName.setText(comment.fromName);
         holder.date.setText(comment.nowDate.toString());
         holder.content.setText("评论了你： "+comment.com);

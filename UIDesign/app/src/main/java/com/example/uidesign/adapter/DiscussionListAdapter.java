@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.uidesign.ProjectSettings;
 import com.example.uidesign.R;
 import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.net.NetSettings;
@@ -76,25 +77,27 @@ public class DiscussionListAdapter extends RecyclerView.Adapter<DiscussionListAd
                     ((ImageButton)v).setImageResource(R.drawable.ic_liked_24dp);
 
                     //告诉服务器端点赞
-                    SocketMsg temp=new SocketMsg();
-                    temp.type = "sendDisLike";
-                    temp.from = LogginedUser.getInstance().getUid();
-                    temp.fromName = LogginedUser.getInstance().getNickName();
-                    temp.postID = mData.get(position).discussionID;
-                    temp.nowDate = System.currentTimeMillis();
-                    Gson gson = new Gson();
-                    String sendString = gson.toJson(temp);
+                    if(!ProjectSettings.UI_TEST) {
+                        SocketMsg temp = new SocketMsg();
+                        temp.type = "sendDisLike";
+                        temp.from = LogginedUser.getInstance().getUid();
+                        temp.fromName = LogginedUser.getInstance().getNickName();
+                        temp.postID = mData.get(position).discussionID;
+                        temp.nowDate = System.currentTimeMillis();
+                        Gson gson = new Gson();
+                        String sendString = gson.toJson(temp);
 
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                UserSocketManager.getInstance().getDataOutputStream().writeUTF(sendString);
-                            } catch (IOException e) {
-                                e.printStackTrace();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    UserSocketManager.getInstance().getDataOutputStream().writeUTF(sendString);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
                             }
-                        }
-                    }).start();
+                        }).start();
+                    }
                 }
 
 
@@ -165,6 +168,7 @@ public class DiscussionListAdapter extends RecyclerView.Adapter<DiscussionListAd
         private ImageView mAvatar;
         private TextView mUsername;
         private TextView mContentText;
+        private TextView timeText;
         //        private ImageView mContentImage;
         private ImageButton mLikeButton;
         private ImageButton mCommentButton;
@@ -177,6 +181,7 @@ public class DiscussionListAdapter extends RecyclerView.Adapter<DiscussionListAd
             mAvatar = (ImageView) itemView.findViewById(R.id.item_title_avatar);
             mUsername = (TextView) itemView.findViewById(R.id.item_title_username);
             mContentText = (TextView) itemView.findViewById(R.id.item_content_text);
+            timeText=itemView.findViewById(R.id.time);
 //            mContentImage = (ImageView) itemView.findViewById(R.id.item_content_image);
             mLikeButton = (ImageButton) itemView.findViewById(R.id.item_like);
             mCommentButton = (ImageButton) itemView.findViewById(R.id.item_comment);
@@ -187,9 +192,12 @@ public class DiscussionListAdapter extends RecyclerView.Adapter<DiscussionListAd
 
             this.mPosition = position;
             //开始设置数据
-            Glide.with(thisFragment).load(baseIconUrl + discussionItem.uid).diskCacheStrategy(DiskCacheStrategy.NONE).into(mAvatar);
+            if(!ProjectSettings.UI_TEST) {
+                Glide.with(thisFragment).load(baseIconUrl + discussionItem.uid).diskCacheStrategy(DiskCacheStrategy.NONE).into(mAvatar);
+            }
             mUsername.setText(discussionItem.title_username);
             mContentText.setText(discussionItem.content_text);
+            timeText.setText(discussionItem.time.toString());
             if (discussionItem.like_or_not == 1) {
 
                 mLikeButton.setImageResource(R.drawable.ic_liked_24dp);

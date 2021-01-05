@@ -6,6 +6,7 @@ import com.example.uidesign.data.Comment;
 import com.example.uidesign.data.LogginedUser;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ConfessionItem {
     public int uid;
@@ -14,6 +15,7 @@ public class ConfessionItem {
     public String content_text;
     public int content_imageId;
     public int like_or_not;
+    public Date time;
 //    public ArrayList<Comment> commentList;
 
 }

@@ -2,6 +2,7 @@ package com.example.uidesign.net;
 
 import android.util.Log;
 
+import com.example.uidesign.ProjectSettings;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -48,6 +49,22 @@ public class NetGetCommentOfDiscussion {
     }
 
     public NetGetCommentOfDiscussion.ResponseClass getComment(int postID, int uid) {
+
+        if(ProjectSettings.UI_TEST)
+        {
+            ArrayList<NetGetCommentOfDiscussion.ResponseItem> commentArray=new ArrayList<>();
+            NetGetCommentOfDiscussion.ResponseItem responseItem=new NetGetCommentOfDiscussion.ResponseItem();
+            responseItem.discuss_commentID=1;
+            responseItem.discussID=1;
+            responseItem.uid=1;
+            responseItem.nickname="MObistan";
+            responseItem.dcCont="LOVEEOVL OHOHOHOHOHOh";
+            responseItem.dcTime=System.currentTimeMillis();
+            commentArray.add(responseItem);
+            NetGetCommentOfDiscussion.ResponseClass responseClass=new NetGetCommentOfDiscussion.ResponseClass();
+            responseClass.commentArray=commentArray;
+            return responseClass;
+        }
 
         NetGetCommentOfDiscussion.ResponseClass responseClass = new NetGetCommentOfDiscussion.ResponseClass();
         responseClass.commentArray = new ArrayList<ResponseItem>();

@@ -2,6 +2,7 @@ package com.example.uidesign.net;
 
 import android.util.Log;
 
+import com.example.uidesign.ProjectSettings;
 import com.example.uidesign.data.LogginedUser;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -55,6 +56,23 @@ public class NetGetUserConfession {
     }
 
     public NetGetUserConfession.ResponseClass getConfession(int ouid,int suid) {
+
+        if(ProjectSettings.UI_TEST)
+        {
+            ArrayList<ResponseItem> confessionArray=new ArrayList<>();
+            ResponseItem responseItem=new ResponseItem();
+            responseItem.uid=LogginedUser.getInstance().getUid();
+            responseItem.confessionID=1;
+            responseItem.uid=1;
+            responseItem.nickname="MObistan";
+            responseItem.confCont="LOVEEOVL OHOHOHOHOHOh";
+            responseItem.confTime=System.currentTimeMillis();
+            responseItem.bool_like=0;
+            confessionArray.add(responseItem);
+            ResponseClass responseClass=new ResponseClass();
+            responseClass.confessionArray=confessionArray;
+            return responseClass;
+        }
 
         NetGetUserConfession.ResponseClass responseClass = new NetGetUserConfession.ResponseClass();
         responseClass.confessionArray = new ArrayList<NetGetUserConfession.ResponseItem>();

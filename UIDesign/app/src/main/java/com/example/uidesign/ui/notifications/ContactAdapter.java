@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.example.uidesign.ProjectSettings;
 import com.example.uidesign.data.database.Contact;
 import com.example.uidesign.R;
 import com.example.uidesign.net.NetSettings;
@@ -43,9 +44,11 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Contact contact=contactList.get(position);
-        Glide.with(context)
-                .load(baseIconUrl+contact.uid)
-                .diskCacheStrategy(DiskCacheStrategy.NONE).into(holder.icon);
+        if(!ProjectSettings.UI_TEST) {
+            Glide.with(context)
+                    .load(baseIconUrl + contact.uid)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE).into(holder.icon);
+        }
         holder.nickName.setText(contact.nickName);
         holder.date.setText(contact.date.toString());
         holder.content.setText(contact.latestMsg);
