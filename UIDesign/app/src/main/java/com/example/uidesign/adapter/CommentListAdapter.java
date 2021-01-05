@@ -53,6 +53,7 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
         private ImageView avatar;
         private TextView username;
         private TextView context;
+        private TextView timeText;
         private int mPosition;
 
         public InnerHolder(@NonNull View itemView) {

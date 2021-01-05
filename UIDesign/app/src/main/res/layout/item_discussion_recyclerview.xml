@@ -15,32 +15,45 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <RelativeLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/item_title"
                 android:layout_width="match_parent"
-                android:layout_height="50dp">
+                android:layout_height="wrap_content">
 
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/item_title_avatar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/ic_default_avatar_24dp" />
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_default_avatar_24dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:civ_border_color="#FF000000"
+                    app:civ_border_width="2dp"
+                    android:padding="5dp"
+                    />
 
                 <TextView
                     android:id="@+id/item_title_username"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_toRightOf="@id/item_title_avatar"
-                    android:padding="10dp"
+                    android:layout_height="wrap_content"
                     android:text="用户名"
-                    android:textSize="15sp" />
+                    android:textSize="18sp"
+                    app:layout_constraintLeft_toRightOf="@id/item_title_avatar"
+                    app:layout_constraintTop_toTopOf="@id/item_title_avatar"
+                    android:paddingTop="5dp"
+                    />
 
-            </RelativeLayout>
+                <TextView
+                    android:id="@+id/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2020-11-30 18:12"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="@id/item_title_avatar"
+                    app:layout_constraintLeft_toRightOf="@id/item_title_avatar" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <RelativeLayout
                 android:id="@+id/item_content"
