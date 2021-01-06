@@ -7,6 +7,18 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="theme_color">#F596AA</color>
+    <color name="theme_color">#40F596AA</color>
+    <color name="text_color">#D5F086FC</color>
     <color name="gray">#747474</color>
+    <color name="background_color">#12FF00DD</color>
+    <color name="background_color2">#1E00CCFF</color>
+    <color name="theme_color2">#1100FF19</color>
+    <color name="button_color">#4537B31B</color>
+    <color name="title_color">#00A6A6</color>
+    <color name="zone_color1">#4A76D1D0</color>
+    <color name="button_color2">#BE80D6FF</color>
+    <color name="button_color_card">#3900FF66</color>
+    <color name="button_color3">#1100FF19</color>
+    <color name="button_color4">#D55AAC78</color>
+    <color name="background_color3">#0C31CFCF</color>
 </resources>

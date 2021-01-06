@@ -9,7 +9,7 @@
         android:id="@+id/chat_layout_right"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#CDF9EB"
+        android:background="@color/background_color2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -47,12 +47,12 @@
             android:id="@+id/chat_content_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingTop="10dp"
+            android:paddingRight="25dp"
+            android:paddingBottom="5dp"
             android:text="快点来上课，等会要签到"
             android:textSize="16sp"
-            android:paddingTop="10dp"
-            android:paddingBottom="5dp"
-            android:paddingRight="25dp"
-            android:paddingLeft="5dp"
             app:layout_constraintRight_toRightOf="@id/icon_right"
             app:layout_constraintTop_toBottomOf="@id/date_right" />
 

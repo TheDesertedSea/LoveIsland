@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:backgroundTint="#0000FF66"
+    android:backgroundTint="#41BC7C7C"
     tools:context=".ui.notifications.NotificationsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/top_zone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#1E00CCFF"
+        android:background="@color/theme_color2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

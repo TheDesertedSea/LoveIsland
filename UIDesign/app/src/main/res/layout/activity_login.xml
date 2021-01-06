@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1180FF00"
+    android:background="@color/theme_color2"
     tools:context=".ui.login.LoginActivity">
 
     <TextView
@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
         android:text="偕行"
-        android:textColor="#0C704D"
-        android:textSize="32dp"
+        android:textColor="@color/title_color"
+        android:textSize="48sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

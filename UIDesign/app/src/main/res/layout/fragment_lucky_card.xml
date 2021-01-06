@@ -4,19 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1E00CCFF"
+    android:background="@color/theme_color2"
     tools:context=".ui.lucky_card.LuckyCardFragment">
 
     <Button
         android:id="@+id/refresh_button"
         android:layout_width="100dp"
         android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/button_color"
         android:text="换一批"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="10dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_1"
@@ -37,7 +38,7 @@
             android:layout_height="175dp"
             android:layout_marginLeft="2.5dp"
             android:layout_marginTop="2.5dp"
-            android:background="#3900FF66"
+            android:background="@color/button_color_card"
             android:text="加载中" />
 
     </androidx.cardview.widget.CardView>
@@ -60,7 +61,7 @@
             android:layout_height="175dp"
             android:layout_marginLeft="2.5dp"
             android:layout_marginTop="2.5dp"
-            android:background="#3900FF66"
+            android:background="@color/button_color_card"
             android:text="加载中" />
 
     </androidx.cardview.widget.CardView>
@@ -83,7 +84,7 @@
             android:layout_height="175dp"
             android:layout_marginLeft="2.5dp"
             android:layout_marginTop="2.5dp"
-            android:background="#3900FF66"
+            android:background="@color/button_color_card"
             android:text="加载中" />
 
     </androidx.cardview.widget.CardView>
@@ -105,7 +106,7 @@
             android:layout_height="175dp"
             android:layout_marginLeft="2.5dp"
             android:layout_marginTop="2.5dp"
-            android:background="#3900FF66"
+            android:background="@color/button_color_card"
             android:text="加载中" />
 
     </androidx.cardview.widget.CardView>
@@ -128,7 +129,7 @@
             android:layout_height="175dp"
             android:layout_marginLeft="2.5dp"
             android:layout_marginTop="2.5dp"
-            android:background="#3900FF66"
+            android:background="@color/button_color_card"
             android:text="加载中" />
 
     </androidx.cardview.widget.CardView>
@@ -150,7 +151,7 @@
             android:layout_height="175dp"
             android:layout_marginLeft="2.5dp"
             android:layout_marginTop="2.5dp"
-            android:background="#3900FF66"
+            android:background="@color/button_color_card"
             android:text="加载中" />
 
     </androidx.cardview.widget.CardView>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1180FF00"
+    android:background="@color/theme_color2"
     tools:context=".ui.coldboot.ColdBootActivity">
 
     <TextView
@@ -128,6 +128,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:layout_marginRight="75dp"
+        android:background="@color/white"
+        android:backgroundTint="@color/button_color"
         android:text="下一步"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/check_group">
