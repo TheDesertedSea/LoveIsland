@@ -97,7 +97,12 @@ public class ItemDetailActivity extends BaseActivity {
 
         ContextOfPost = intent.getStringExtra("content");
 
-        Glide.with(this).load(baseIconUrl + uidOfPost).diskCacheStrategy(DiskCacheStrategy.NONE).into(binding.avatar);
+        if(!ProjectSettings.UI_TEST)
+        {
+            Glide.with(this).load(baseIconUrl + uidOfPost).diskCacheStrategy(DiskCacheStrategy.NONE).into(binding.avatar);
+        }
+
+
         binding.content.setText(ContextOfPost);
 
         //看是否已经点赞

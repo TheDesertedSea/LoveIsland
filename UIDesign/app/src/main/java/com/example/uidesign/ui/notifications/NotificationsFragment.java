@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -71,6 +72,7 @@ public class NotificationsFragment extends Fragment {
                         contactList.add(contact2);
                     }
                     contactAdapter=new ContactAdapter(contactList,thisContext,notificationsFragmentHandler);
+                    recyclerView.addItemDecoration(new DividerItemDecoration(thisContext, DividerItemDecoration.VERTICAL));
                     recyclerView.setAdapter(contactAdapter);
                     UserSocketManager.getInstance().bInNotifications=true;
                     break;

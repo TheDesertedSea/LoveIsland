@@ -74,9 +74,10 @@ public class NetGetConfession {
             responseItem.confTime=System.currentTimeMillis();
             responseItem.bool_like=0;
             confessionArray.add(responseItem);
+            confessionArray.add(responseItem);
             ResponseClass responseClass=new ResponseClass();
             responseClass.confessionArray=confessionArray;
-            responseClass.maxID=1;
+            responseClass.maxID=2;
             return responseClass;
         }
 

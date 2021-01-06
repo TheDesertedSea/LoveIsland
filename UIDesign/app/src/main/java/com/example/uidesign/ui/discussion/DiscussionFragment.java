@@ -184,7 +184,7 @@ public class DiscussionFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         discussionList.setLayoutManager(layoutManager);
         //设置item的分割线
-        discussionList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+        //discussionList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         //创建适配器
         mAdapter = new DiscussionListAdapter(this, listData);
         //适配器设置到Recyclerview里面去

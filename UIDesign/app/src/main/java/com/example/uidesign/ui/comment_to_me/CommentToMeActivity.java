@@ -12,6 +12,7 @@ import android.view.View;
 
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.uidesign.data.Comment;
@@ -62,6 +63,7 @@ public class CommentToMeActivity extends BaseActivity {
                     }
 
                     commentToMeAdapter=new CommentToMeAdapter(commentList,thisContext,commentToMeActivityHandler);
+                    binding.commentRecyclerView.addItemDecoration(new DividerItemDecoration(thisContext, DividerItemDecoration.VERTICAL));
                     binding.commentRecyclerView.setAdapter(commentToMeAdapter);
                     break;
                 case 200:

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.uidesign.data.Comment;
@@ -65,6 +66,7 @@ public class ThumbToMeActivity extends BaseActivity {
                     }
 
                     thumbToMeAdapter=new ThumbToMeAdapter(likeList,thisContext,thumbToMeActivityHandler);
+                    binding.likeRecyclerView.addItemDecoration(new DividerItemDecoration(thisContext, DividerItemDecoration.VERTICAL));
                     binding.likeRecyclerView.setAdapter(thumbToMeAdapter);
                     break;
                 case 200:

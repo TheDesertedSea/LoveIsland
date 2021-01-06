@@ -4,14 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3E00FF7B"
-    android:backgroundTint="#41BC7C7C"
     tools:context=".ui.personal_center.PersonalCenterFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/top_zone_personal_center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="382dp"
         android:background="@color/theme_color2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -23,7 +21,7 @@
             android:layout_height="96dp"
             android:layout_marginTop="50dp"
             android:src="@drawable/lilimu"
-            app:civ_border_color="#FF000000"
+            app:civ_border_color="@color/gray"
             app:civ_border_width="2dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -35,9 +33,9 @@
             android:id="@+id/button_edit_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:layout_marginRight="50dp"
-            android:backgroundTint="@color/button_color"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="4dp"
+            android:backgroundTint="#0000FF19"
             android:src="@drawable/ic_edit_black_36dp"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -77,7 +75,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="351dp"
         android:background="@color/background_color3"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -87,13 +85,14 @@
             android:id="@+id/button_my_confession"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#19594F4F"
+            android:backgroundTint="#00594F4F"
             android:src="@drawable/ic_my_confession_black_48dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.25"
+            app:layout_constraintBottom_toTopOf="@+id/logout_button"
+            app:layout_constraintHorizontal_bias="0.26"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.28" />
 
         <TextView
             android:id="@+id/text_button_m_c"
@@ -109,13 +108,14 @@
             android:id="@+id/button_my_discussion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#19594F4F"
+            android:backgroundTint="#00594F4F"
             android:src="@drawable/ic_my_discussion_black_48dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.75"
+            app:layout_constraintBottom_toTopOf="@+id/logout_button"
+            app:layout_constraintHorizontal_bias="0.74"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.28" />
 
         <TextView
             android:id="@+id/text_button_m_d"
@@ -126,17 +126,18 @@
             app:layout_constraintLeft_toLeftOf="@id/button_my_discussion"
             app:layout_constraintRight_toRightOf="@id/button_my_discussion"
             app:layout_constraintTop_toBottomOf="@id/button_my_discussion" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/logout_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/button_color"
-        android:text="登出当前账号"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        <Button
+            android:id="@+id/logout_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#2337B31B"
+            android:text="登出当前账号"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.669" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

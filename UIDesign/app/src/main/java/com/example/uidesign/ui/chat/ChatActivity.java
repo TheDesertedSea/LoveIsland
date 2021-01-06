@@ -2,6 +2,7 @@ package com.example.uidesign.ui.chat;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.Activity;
@@ -84,6 +85,7 @@ public class ChatActivity extends AppCompatActivity {
 
                     adapter=new ChatMsgAdapter(msgList,LogginedUser.getInstance().getNickName(),
                             otherNickName,thisContext,chatActivityHandler);
+                    binding.messageRecyclerView.addItemDecoration(new DividerItemDecoration(thisContext, DividerItemDecoration.VERTICAL));
                     binding.messageRecyclerView.setAdapter(adapter);
                     binding.chatTitle.setText(otherNickName);
                     break;

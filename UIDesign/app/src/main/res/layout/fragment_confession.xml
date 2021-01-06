@@ -34,7 +34,7 @@
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/zone_color1"
+        android:background="@color/theme_color2"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -50,7 +50,7 @@
         android:layout_weight="1"
         android:clickable="true"
         android:src="@drawable/ic_add_circle_black_24dp"
-        app:backgroundTint="#BE80FFCC"
+        app:backgroundTint="#BE70DFB3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 

@@ -93,7 +93,7 @@ public class PersonalPageActivity extends BaseActivity {
             }
         });
 
-        binding.chatButton.setOnClickListener(new View.OnClickListener() {
+        binding.chatButtonImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(thisContext, ChatActivity.class);

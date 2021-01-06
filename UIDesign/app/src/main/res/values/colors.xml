@@ -9,7 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="theme_color">#40F596AA</color>
     <color name="text_color">#D5F086FC</color>
-    <color name="gray">#747474</color>
+    <color name="gray">#86747474</color>
     <color name="background_color">#12FF00DD</color>
     <color name="background_color2">#1E00CCFF</color>
     <color name="theme_color2">#1100FF19</color>
@@ -21,4 +21,5 @@
     <color name="button_color3">#1100FF19</color>
     <color name="button_color4">#D55AAC78</color>
     <color name="background_color3">#0C31CFCF</color>
+    <color name="background_color4">#BC7C7C</color>
 </resources>

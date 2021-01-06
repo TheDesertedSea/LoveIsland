@@ -60,6 +60,7 @@ public class NetGetCommentOfConfession {
             responseItem.ccCont="LOVEEOVL OHOHOHOHOHOh";
             responseItem.ccTime=System.currentTimeMillis();
             commentArray.add(responseItem);
+            commentArray.add(responseItem);
             ResponseClass responseClass=new ResponseClass();
             responseClass.commentArray=commentArray;
             return responseClass;

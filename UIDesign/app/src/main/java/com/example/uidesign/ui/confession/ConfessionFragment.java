@@ -181,7 +181,7 @@ public class ConfessionFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         confessionList.setLayoutManager(layoutManager);
         //设置item的分割线
-        confessionList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
+//        confessionList.addItemDecoration(new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL));
         //创建适配器
         mAdapter = new ConfessionListAdapter(this, listData);
         //适配器设置到Recyclerview里面去
