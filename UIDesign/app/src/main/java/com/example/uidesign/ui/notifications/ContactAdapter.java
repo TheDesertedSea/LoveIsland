@@ -47,7 +47,9 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
         if(!ProjectSettings.UI_TEST) {
             Glide.with(context)
                     .load(baseIconUrl + contact.uid)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE).into(holder.icon);
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .apply(ProjectSettings.options)
+                    .into(holder.icon);
         }
         holder.nickName.setText(contact.nickName);
         holder.date.setText(contact.date.toString());

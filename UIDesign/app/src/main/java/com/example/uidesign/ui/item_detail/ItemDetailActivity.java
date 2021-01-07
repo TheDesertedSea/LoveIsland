@@ -99,7 +99,11 @@ public class ItemDetailActivity extends BaseActivity {
 
         if(!ProjectSettings.UI_TEST)
         {
-            Glide.with(this).load(baseIconUrl + uidOfPost).diskCacheStrategy(DiskCacheStrategy.NONE).into(binding.avatar);
+            Glide.with(this)
+                    .load(baseIconUrl + uidOfPost)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .apply(ProjectSettings.options)
+                    .into(binding.avatar);
         }
 
 

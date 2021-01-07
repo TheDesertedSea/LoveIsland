@@ -193,7 +193,12 @@ public class DiscussionListAdapter extends RecyclerView.Adapter<DiscussionListAd
             this.mPosition = position;
             //开始设置数据
             if(!ProjectSettings.UI_TEST) {
-                Glide.with(thisFragment).load(baseIconUrl + discussionItem.uid).diskCacheStrategy(DiskCacheStrategy.NONE).into(mAvatar);
+                Glide
+                        .with(thisFragment)
+                        .load(baseIconUrl + discussionItem.uid)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .apply(ProjectSettings.options)
+                        .into(mAvatar);
             }
             mUsername.setText(discussionItem.title_username);
             mContentText.setText(discussionItem.content_text);

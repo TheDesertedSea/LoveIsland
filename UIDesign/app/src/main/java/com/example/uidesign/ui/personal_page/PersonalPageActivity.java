@@ -44,7 +44,9 @@ public class PersonalPageActivity extends BaseActivity {
         {
             Glide.with(thisContext)
                     .load(baseIconUrl+uid)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE).into(binding.userIcon);
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .apply(ProjectSettings.options)
+                    .into(binding.userIcon);
         }
 
         new Thread(new Runnable() {

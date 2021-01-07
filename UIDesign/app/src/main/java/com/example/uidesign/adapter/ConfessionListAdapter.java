@@ -192,7 +192,12 @@ public class ConfessionListAdapter extends RecyclerView.Adapter<ConfessionListAd
             this.mPosition = position;
             //开始设置数据
             if(!ProjectSettings.UI_TEST) {
-                Glide.with(thisFragment).load(baseIconUrl + confessionItem.uid).diskCacheStrategy(DiskCacheStrategy.NONE).into(mAvatar);
+                Glide
+                        .with(thisFragment)
+                        .load(baseIconUrl + confessionItem.uid)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .apply(ProjectSettings.options)
+                        .into(mAvatar);
             }
             mUsername.setText(confessionItem.title_username);
             mContentText.setText(confessionItem.content_text);

@@ -45,7 +45,9 @@ public class ThumbToMeAdapter extends RecyclerView.Adapter<ThumbToMeAdapter.View
         if(!ProjectSettings.UI_TEST) {
             Glide.with(context)
                     .load(baseIconUrl + like.from)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE).into(holder.icon);
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .apply(ProjectSettings.options)
+                    .into(holder.icon);
         }
         holder.nickName.setText(like.fromName);
         holder.date.setText(like.nowDate.toString());

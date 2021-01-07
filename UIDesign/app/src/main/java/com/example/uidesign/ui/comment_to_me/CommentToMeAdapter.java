@@ -45,7 +45,9 @@ public class CommentToMeAdapter extends RecyclerView.Adapter<CommentToMeAdapter.
         if(!ProjectSettings.UI_TEST) {
             Glide.with(context)
                     .load(baseIconUrl + comment.from)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE).into(holder.icon);
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .apply(ProjectSettings.options)
+                    .into(holder.icon);
         }
         holder.nickName.setText(comment.fromName);
         holder.date.setText(comment.nowDate.toString());

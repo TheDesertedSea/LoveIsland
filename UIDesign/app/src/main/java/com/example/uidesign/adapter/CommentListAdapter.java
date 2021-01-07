@@ -82,7 +82,12 @@ public class CommentListAdapter extends RecyclerView.Adapter<CommentListAdapter.
             Log.v("CommentListAdapter", "进入setdata");
             this.mPosition = position;
             if(!ProjectSettings.UI_TEST) {
-                Glide.with(thisActivity).load(baseIconUrl + comment.from).diskCacheStrategy(DiskCacheStrategy.NONE).into(avatar);
+                Glide
+                        .with(thisActivity)
+                        .load(baseIconUrl + comment.from)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .apply(ProjectSettings.options)
+                        .into(avatar);
             }
             username.setText(comment.fromName);
             context.setText(comment.com);

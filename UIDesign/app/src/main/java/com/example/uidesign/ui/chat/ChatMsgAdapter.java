@@ -86,7 +86,11 @@ public class ChatMsgAdapter extends RecyclerView.Adapter<ChatMsgAdapter.ViewHold
         {
             holder.rightLayout.setVisibility(View.GONE);
             if(!ProjectSettings.UI_TEST) {
-                Glide.with(context).load(baseIconUrl + chatMsg.getFrom()).into(holder.leftIcon);
+                Glide
+                        .with(context)
+                        .load(baseIconUrl + chatMsg.getFrom())
+                        .apply(ProjectSettings.options)
+                        .into(holder.leftIcon);
             }
             holder.leftIcon.setOnClickListener(new View.OnClickListener() {
                 @Override

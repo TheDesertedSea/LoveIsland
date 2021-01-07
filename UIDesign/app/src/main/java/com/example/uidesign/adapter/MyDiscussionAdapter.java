@@ -179,7 +179,12 @@ public class MyDiscussionAdapter extends RecyclerView.Adapter<MyDiscussionAdapte
             this.mPosition = position;
             //开始设置数据
             if(!ProjectSettings.UI_TEST) {
-                Glide.with(thisActivity).load(baseIconUrl + discussionItem.uid).diskCacheStrategy(DiskCacheStrategy.NONE).into(mAvatar);
+                Glide
+                        .with(thisActivity)
+                        .load(baseIconUrl + discussionItem.uid)
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .apply(ProjectSettings.options)
+                        .into(mAvatar);
             }
             mUsername.setText(discussionItem.title_username);
             mContentText.setText(discussionItem.content_text);
