@@ -141,7 +141,7 @@ public class ItemDetailActivity extends BaseActivity {
 //                            LogginedUser.getInstance().setConfession_MaxID(mResponseClass.maxID);
                                 //把取得的数据更新到数据集中
                                 ArrayList<NetGetCommentOfConfession.ResponseItem> mResponseItemList = mResponseClass.commentArray;
-
+                                comments.clear();
                                 for (NetGetCommentOfConfession.ResponseItem i : mResponseItemList) {
                                     Comment addingItem = new Comment();
                                     addingItem.from = i.uid;

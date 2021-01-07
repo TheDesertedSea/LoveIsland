@@ -103,6 +103,7 @@ public class MyConfessionActivity extends BaseActivity {
                 mResponseClass = netGetUserConfession.getConfession(ouid, Me.getUid());
                 if (mResponseClass != NetGetUserConfession.FAIL) {
 
+                    listData.clear();
                     for (NetGetUserConfession.ResponseItem i : mResponseClass.confessionArray) {
                         ConfessionItem addingItem = new ConfessionItem();
                         addingItem.uid = i.uid;

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -57,7 +58,7 @@ public class ItemEditActivity extends BaseActivity {
                             Log.v(TAG, "run");
                             NetSendConfession netSendConfession = new NetSendConfession();
 
-                            String result = netSendConfession.sendConfession(Me.getUid(), binding.commentInput.getText().toString(), nowDate);
+                            String result = netSendConfession.sendConfession(Me.getUid(), binding.contentInput.getText().toString(), nowDate);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -83,7 +84,7 @@ public class ItemEditActivity extends BaseActivity {
                         @Override
                         public void run() {
                             NetSendDiscussion netSendDiscussion = new NetSendDiscussion();
-                            String result = netSendDiscussion.sendDiscussion(Me.getUid(), binding.commentInput.getText().toString(), nowDate);
+                            String result = netSendDiscussion.sendDiscussion(Me.getUid(), binding.contentInput.getText().toString(), nowDate);
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
@@ -106,6 +107,9 @@ public class ItemEditActivity extends BaseActivity {
                 }
             }
         });
+
+        binding.contentInput.setImeOptions(EditorInfo.IME_ACTION_NONE);
+        binding.contentInput.setInputType(EditorInfo.TYPE_CLASS_TEXT);
 
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override

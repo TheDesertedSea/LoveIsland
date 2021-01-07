@@ -106,6 +106,7 @@ public class ConfessionFragment extends Fragment {
                             Me.setConfession_MaxID(mResponseClass.maxID);
                             //把取得的数据更新到数据集中
                             ArrayList<NetGetConfession.ResponseItem> mResponseItemList = mResponseClass.confessionArray;
+                            listData.clear();
                             for (NetGetConfession.ResponseItem i : mResponseItemList) {
                                 ConfessionItem addingItem = new ConfessionItem();
                                 addingItem.confessionID = i.confessionID;

@@ -108,7 +108,7 @@ public class DiscussionFragment extends Fragment {
                             Me.setDiscussion_MaxID(mResponseClass.maxID);
                             //把取得的数据更新到数据集中
                             ArrayList<NetGetDiscussion.ResponseItem> mResponseItemList = mResponseClass.discussionArray;
-
+                            listData.clear();
                             for (NetGetDiscussion.ResponseItem i : mResponseItemList) {
                                 DiscussionItem addingItem = new DiscussionItem();
                                 addingItem.discussionID = i.discussID;

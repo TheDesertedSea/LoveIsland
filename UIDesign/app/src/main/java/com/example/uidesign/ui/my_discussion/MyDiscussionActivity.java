@@ -97,6 +97,7 @@ public class MyDiscussionActivity extends BaseActivity {
                 mResponseClass = netGetUserDiscussion.getDiscussion(ouid, Me.getUid());
                 if (mResponseClass != NetGetUserDiscussion.FAIL) {
                     ArrayList<NetGetUserDiscussion.ResponseItem> mResponseItemList = mResponseClass.discussionArray;
+                    listData.clear();
                     for (NetGetUserDiscussion.ResponseItem i : mResponseItemList) {
                         DiscussionItem addingItem = new DiscussionItem();
                         addingItem.uid = i.uid;

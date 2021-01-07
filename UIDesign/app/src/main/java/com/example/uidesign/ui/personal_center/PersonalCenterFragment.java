@@ -100,7 +100,12 @@ public class PersonalCenterFragment extends Fragment {
 
         Log.v("iconUrl",baseIconUrl+LogginedUser.getInstance().getUid());
 
-
+        if(!ProjectSettings.UI_TEST) {
+            Glide.with(thisFragment).load(baseIconUrl + LogginedUser.getInstance().getUid())
+//                .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .into(iconView);
+        }
 
         ImageButton editButton=root.findViewById(R.id.button_edit_info);
         editButton.setOnClickListener(new View.OnClickListener() {
