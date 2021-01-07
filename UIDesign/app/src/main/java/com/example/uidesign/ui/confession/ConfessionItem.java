@@ -1,11 +1,6 @@
 package com.example.uidesign.ui.confession;
 
-import android.widget.ImageView;
 
-import com.example.uidesign.data.Comment;
-import com.example.uidesign.data.LogginedUser;
-
-import java.util.ArrayList;
 import java.util.Date;
 
 public class ConfessionItem {

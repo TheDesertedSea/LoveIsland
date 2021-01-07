@@ -10,7 +10,6 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.uidesign.ProjectSettings;
-import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.data.UserInfo;
 import com.example.uidesign.net.NetPersonalCenter;
 import com.example.uidesign.net.NetSettings;

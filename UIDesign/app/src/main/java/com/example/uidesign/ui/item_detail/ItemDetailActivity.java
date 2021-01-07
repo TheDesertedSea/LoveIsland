@@ -28,7 +28,6 @@ import com.example.uidesign.net.SocketMsg;
 import com.example.uidesign.net.UserSocketManager;
 import com.example.uidesign.ui.BaseActivity;
 import com.example.uidesign.databinding.ActivityItemDetailBinding;
-import com.example.uidesign.ui.item_edit.ItemEditActivity;
 import com.example.uidesign.ui.personal_page.PersonalPageActivity;
 import com.google.gson.Gson;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;

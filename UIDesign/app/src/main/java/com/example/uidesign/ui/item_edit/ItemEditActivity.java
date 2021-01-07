@@ -15,9 +15,6 @@ import com.example.uidesign.net.NetSendConfession;
 import com.example.uidesign.net.NetSendDiscussion;
 import com.example.uidesign.ui.BaseActivity;
 import com.example.uidesign.databinding.ActivityItemEditBinding;
-import com.example.uidesign.ui.item_detail.ItemDetailActivity;
-
-import java.util.Date;
 
 public class ItemEditActivity extends BaseActivity {
 

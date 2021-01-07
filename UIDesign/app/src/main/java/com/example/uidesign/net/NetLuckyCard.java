@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.example.uidesign.ProjectSettings;
 import com.example.uidesign.data.CardType;
-import com.example.uidesign.data.LogginedUser;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -16,10 +15,8 @@ import java.util.ArrayList;
 
 
 import okhttp3.HttpUrl;
-import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 

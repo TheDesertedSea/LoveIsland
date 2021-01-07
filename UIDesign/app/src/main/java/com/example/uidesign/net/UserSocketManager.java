@@ -4,7 +4,6 @@ import android.os.Message;
 import android.util.Log;
 
 
-import com.example.uidesign.BaseApplication;
 import com.example.uidesign.data.ChatMsg;
 import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.data.database.AppDatabase;
@@ -17,9 +16,6 @@ import com.example.uidesign.data.database.Entity_Like;
 import com.example.uidesign.ui.chat.ChatActivity;
 import com.example.uidesign.ui.notifications.NotificationsFragment;
 import com.google.gson.Gson;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 
 import java.io.DataInputStream;

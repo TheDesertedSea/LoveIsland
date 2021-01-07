@@ -3,7 +3,6 @@ package com.example.uidesign.net;
 import android.util.Log;
 
 import com.example.uidesign.ProjectSettings;
-import com.example.uidesign.data.CardType;
 import com.example.uidesign.data.ColdBootItem;
 import com.example.uidesign.data.LogginedUser;
 import com.google.gson.Gson;

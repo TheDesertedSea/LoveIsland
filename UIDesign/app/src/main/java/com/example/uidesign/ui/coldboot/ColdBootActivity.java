@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.CompoundButton;
 
 import com.example.uidesign.data.ColdBootItem;
 import com.example.uidesign.data.LogginedUser;

@@ -3,7 +3,6 @@ package com.example.uidesign.net;
 import android.util.Log;
 
 import com.example.uidesign.ProjectSettings;
-import com.example.uidesign.data.LogginedUser;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -16,7 +15,6 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-import static android.content.ContentValues.TAG;
 
 public class NetSendDiscussion {
     private static final String SCHEME = "http";

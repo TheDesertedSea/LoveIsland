@@ -18,7 +18,6 @@ import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.net.NetSettings;
 import com.example.uidesign.net.SocketMsg;
 import com.example.uidesign.net.UserSocketManager;
-import com.example.uidesign.ui.confession.ConfessionFragment;
 import com.example.uidesign.ui.confession.ConfessionItem;
 import com.example.uidesign.ui.item_detail.ItemDetailActivity;
 import com.example.uidesign.ui.my_confession.MyConfessionActivity;

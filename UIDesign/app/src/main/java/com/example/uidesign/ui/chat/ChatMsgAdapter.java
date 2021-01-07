@@ -1,7 +1,6 @@
 package com.example.uidesign.ui.chat;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;

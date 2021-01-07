@@ -1,6 +1,5 @@
 package com.example.uidesign.ui.notifications;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import com.example.uidesign.R;
-import com.example.uidesign.data.ChatMsg;
 import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.data.database.Contact;
 import com.example.uidesign.data.database.DatabaseManager;

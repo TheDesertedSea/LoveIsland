@@ -8,26 +8,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.example.uidesign.ProjectSettings;
 import com.example.uidesign.data.ChatMsg;
 import com.example.uidesign.data.LogginedUser;
-import com.example.uidesign.data.UserInfo;
 import com.example.uidesign.net.SocketMsg;
 import com.example.uidesign.net.UserSocketManager;
 import com.example.uidesign.data.database.DatabaseManager;
 import com.example.uidesign.data.database.Entity_ChatMsg;
 import com.example.uidesign.databinding.ActivityChatBinding;
-import com.example.uidesign.net.NetPersonalCenter;
 import com.example.uidesign.ui.personal_page.PersonalPageActivity;
 import com.google.gson.Gson;
 

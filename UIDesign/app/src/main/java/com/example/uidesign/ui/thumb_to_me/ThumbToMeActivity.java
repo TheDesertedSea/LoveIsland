@@ -13,18 +13,15 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.uidesign.data.Comment;
 import com.example.uidesign.data.Like;
 import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.data.database.DatabaseManager;
-import com.example.uidesign.data.database.Entity_Comment;
 import com.example.uidesign.data.database.Entity_Like;
 import com.example.uidesign.net.NetGetConfession;
 import com.example.uidesign.net.NetGetDiscussion;
 import com.example.uidesign.tool.CommentAndLikeAdapterSend;
 import com.example.uidesign.ui.BaseActivity;
 import com.example.uidesign.databinding.ActivityThumbToMeBinding;
-import com.example.uidesign.ui.comment_to_me.CommentToMeAdapter;
 import com.example.uidesign.ui.item_detail.ItemDetailActivity;
 
 import java.util.ArrayList;

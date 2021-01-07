@@ -9,17 +9,13 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.uidesign.R;
-import com.example.uidesign.adapter.ConfessionListAdapter;
 import com.example.uidesign.adapter.MyConfessionAdapter;
 import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.net.NetGetUserConfession;
 import com.example.uidesign.ui.BaseActivity;
 import com.example.uidesign.databinding.ActivityMyConfessionBinding;
-import com.example.uidesign.ui.confession.ConfessionFragment;
 import com.example.uidesign.ui.confession.ConfessionItem;
 import com.example.uidesign.ui.item_detail.ItemDetailActivity;
-import com.scwang.smart.refresh.layout.api.RefreshLayout;
 
 import java.util.ArrayList;
 

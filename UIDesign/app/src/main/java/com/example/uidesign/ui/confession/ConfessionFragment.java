@@ -8,14 +8,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 
 import androidx.annotation.NonNull;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,7 +23,6 @@ import com.example.uidesign.adapter.ConfessionListAdapter;
 import com.example.uidesign.data.LogginedUser;
 import com.example.uidesign.data.UserInfo;
 import com.example.uidesign.net.NetGetConfession;
-import com.example.uidesign.net.NetPersonalCenter;
 import com.example.uidesign.ui.item_detail.ItemDetailActivity;
 import com.example.uidesign.ui.item_edit.ItemEditActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
