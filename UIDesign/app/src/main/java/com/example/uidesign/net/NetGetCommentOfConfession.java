@@ -100,6 +100,7 @@ public class NetGetCommentOfConfession {
             String responseJson = responseBody.string();
             Log.v("TAG", "json"+responseJson);
             JsonArray jsonElements = JsonParser.parseString(responseJson).getAsJsonArray();
+
             Gson gson_get = new Gson();
             for(JsonElement e:jsonElements)
             {

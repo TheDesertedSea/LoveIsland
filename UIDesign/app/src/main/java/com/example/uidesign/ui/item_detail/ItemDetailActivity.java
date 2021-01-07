@@ -107,6 +107,7 @@ public class ItemDetailActivity extends BaseActivity {
 
 
         binding.content.setText(ContextOfPost);
+        binding.username.setText(nicknameOfPost);
 
         //看是否已经点赞
         if (likeOrNotOfPost == 1) {
@@ -155,7 +156,6 @@ public class ItemDetailActivity extends BaseActivity {
                                     addingItem.nowDate = new Date(i.ccTime);
 
                                     comments.add(addingItem);
-                                    Log.v("TAG", "add");
                                 }
                             } else {
                                 refreshLayout.finishRefresh(false);

@@ -52,6 +52,7 @@ public class PersonalCenterFragment extends Fragment {
     private TextView sexAndSchoolText;
     private TextView introductionText;
     private Button logOutButton;
+    private boolean bUserInfoLoaded=false;
 //    private boolean bIconReady=false;
 
     private final String baseIconUrl="http://"+ NetSettings.HOST_1 +":"+NetSettings.PORT_1+"/user/userPortrait/";
@@ -80,6 +81,7 @@ public class PersonalCenterFragment extends Fragment {
 
                     sexAndSchoolText.setText(sexAndSchool);
                     introductionText.setText(userInfo.introduction);
+                    bUserInfoLoaded=true;
                     break;
 
             }
@@ -104,6 +106,10 @@ public class PersonalCenterFragment extends Fragment {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!bUserInfoLoaded)
+                {
+                    return;
+                }
 //                if(!bIconReady)
 //                {
 //                    return;
@@ -125,6 +131,10 @@ public class PersonalCenterFragment extends Fragment {
         myConfessionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!bUserInfoLoaded)
+                {
+                    return;
+                }
                 Intent intent=new Intent(getContext(), MyConfessionActivity.class);
                 intent.putExtra("uid",LogginedUser.getInstance().getUid());
                 intent.putExtra("sex",userInfo.sex);
@@ -135,6 +145,10 @@ public class PersonalCenterFragment extends Fragment {
         myDiscussionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!bUserInfoLoaded)
+                {
+                    return;
+                }
                 Intent intent=new Intent(getContext(), MyDiscussionActivity.class);
                 intent.putExtra("uid",LogginedUser.getInstance().getUid());
                 intent.putExtra("sex",userInfo.sex);

@@ -129,8 +129,8 @@
 
         <Button
             android:id="@+id/logout_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="113dp"
+            android:layout_height="38dp"
             android:background="#2337B31B"
             android:text="登出当前账号"
             app:layout_constraintBottom_toBottomOf="parent"

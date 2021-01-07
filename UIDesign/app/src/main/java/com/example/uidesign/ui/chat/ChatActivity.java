@@ -129,10 +129,6 @@ public class ChatActivity extends AppCompatActivity {
             }
         }).start();
 
-
-        binding.messageInput.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        binding.messageInput.setInputType(EditorInfo.TYPE_CLASS_TEXT);
-
         binding.sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

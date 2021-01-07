@@ -25,6 +25,7 @@ public class PersonalPageActivity extends BaseActivity {
     private Activity thisActivity=this;
     private Context thisContext=this;
     private UserInfo userInfo;
+    private boolean bUserInfoLoaded=false;
 
     private final String baseIconUrl="http://"+ NetSettings.HOST_1 +":"+NetSettings.PORT_1+"/user/userPortrait/";
 
@@ -67,6 +68,7 @@ public class PersonalPageActivity extends BaseActivity {
                         }
                         binding.sexSchoolPersonalPage.setText(sexAndSchool);
                         binding.introPersonalCenter.setText(userInfo.introduction);
+                        bUserInfoLoaded=true;
                     }
                 });
             }
@@ -75,6 +77,10 @@ public class PersonalPageActivity extends BaseActivity {
         binding.buttonHisConfession.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!bUserInfoLoaded)
+                {
+                    return;
+                }
                 Intent intent=new Intent(thisContext, MyConfessionActivity.class);
                 intent.putExtra("uid",uid);
                 intent.putExtra("sex",userInfo.sex);
@@ -86,6 +92,10 @@ public class PersonalPageActivity extends BaseActivity {
         binding.buttonHisDiscussion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!bUserInfoLoaded)
+                {
+                    return;
+                }
                 Intent intent=new Intent(thisContext, MyDiscussionActivity.class);
                 intent.putExtra("uid",uid);
                 intent.putExtra("sex",userInfo.sex);
@@ -97,6 +107,10 @@ public class PersonalPageActivity extends BaseActivity {
         binding.chatButtonImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(!bUserInfoLoaded)
+                {
+                    return;
+                }
                 Intent intent=new Intent(thisContext, ChatActivity.class);
                 intent.putExtra("user",uid);
                 intent.putExtra("nickname",userInfo.nickname);

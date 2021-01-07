@@ -105,9 +105,6 @@ public class ItemEditActivity extends BaseActivity {
             }
         });
 
-        binding.contentInput.setImeOptions(EditorInfo.IME_ACTION_NONE);
-        binding.contentInput.setInputType(EditorInfo.TYPE_CLASS_TEXT);
-
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
