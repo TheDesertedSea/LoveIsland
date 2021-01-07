@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1180FF00"
     tools:context=".ui.item_edit.ItemEditActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -45,7 +44,6 @@
         android:id="@+id/comment_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#1D00FFB7"
         android:hint="输入帖子内容"
         android:padding="20dp"
         app:layout_constraintEnd_toEndOf="parent"
