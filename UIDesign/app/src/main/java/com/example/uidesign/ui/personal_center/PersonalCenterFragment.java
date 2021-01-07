@@ -23,6 +23,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.Request;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.SizeReadyCallback;
+import com.bumptech.glide.request.target.Target;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.uidesign.ProjectSettings;
 import com.example.uidesign.R;
 import com.example.uidesign.data.CachedLoginData;
@@ -35,6 +40,7 @@ import com.example.uidesign.ui.my_discussion.MyDiscussionActivity;
 import com.example.uidesign.ui.personal_info_edit.PersonalInfoEditActivity;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import java.io.ByteArrayOutputStream;
@@ -53,6 +59,7 @@ public class PersonalCenterFragment extends Fragment {
     private TextView sexAndSchoolText;
     private TextView introductionText;
     private Button logOutButton;
+//    private boolean bIconReady=false;
 
     private final String baseIconUrl="http://"+ NetSettings.HOST_1 +":"+NetSettings.PORT_1+"/user/userPortrait/";
 
@@ -104,6 +111,10 @@ public class PersonalCenterFragment extends Fragment {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                if(!bIconReady)
+//                {
+//                    return;
+//                }
                 Intent intent=new Intent(getContext(), PersonalInfoEditActivity.class);
                 Drawable iconDrawable=iconView.getDrawable();
                 Bitmap bitmap=drawableToBitmap(iconDrawable);
