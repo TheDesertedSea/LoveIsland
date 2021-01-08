@@ -1,8 +1,11 @@
 package com.example.uidesign.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+
 import com.example.uidesign.R;
+
 import com.example.uidesign.databinding.ActivityMainBinding;
 
 import androidx.appcompat.app.ActionBar;
@@ -32,5 +35,6 @@ public class MainActivity extends BaseActivity {
 
 
     }
+
 
 }

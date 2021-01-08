@@ -61,6 +61,8 @@ public class PersonalInfoEditActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         thisContext=this;
 
+
+
         binding=ActivityPersonalInfoEditBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
@@ -80,7 +82,6 @@ public class PersonalInfoEditActivity extends BaseActivity {
         binding.schoolInput.setText(school);
         binding.personalIntroInput.setText(introduction);
 
-
         binding.userIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +97,7 @@ public class PersonalInfoEditActivity extends BaseActivity {
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 thisActivity.finish();
             }
         });
@@ -398,4 +400,6 @@ public class PersonalInfoEditActivity extends BaseActivity {
         intent.putExtra(MediaStore.EXTRA_OUTPUT,photoUri);
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
     }
+
+
 }
