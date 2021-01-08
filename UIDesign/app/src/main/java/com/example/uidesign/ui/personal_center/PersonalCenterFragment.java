@@ -68,7 +68,7 @@ public class PersonalCenterFragment extends Fragment {
                 case 100:
                     Log.v("?","?"+msg.what);
                     nickNameText.setText(userInfo.nickname);
-                    String sexAndSchool=", "+userInfo.school;
+                    String sexAndSchool="， "+userInfo.school;
 
                     if(userInfo.sex)
                     {
