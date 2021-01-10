@@ -60,11 +60,11 @@ public class PersonalPageActivity extends BaseActivity {
                         String sexAndSchool= "";
                         if(userInfo.sex)
                         {
-                            sexAndSchool="男生"+", "+userInfo.school;
+                            sexAndSchool="男生"+"， "+userInfo.school;
 
                         }else
                         {
-                            sexAndSchool="女生"+", "+userInfo.school;
+                            sexAndSchool="女生"+"， "+userInfo.school;
                         }
                         binding.sexSchoolPersonalPage.setText(sexAndSchool);
                         binding.introPersonalCenter.setText(userInfo.introduction);
