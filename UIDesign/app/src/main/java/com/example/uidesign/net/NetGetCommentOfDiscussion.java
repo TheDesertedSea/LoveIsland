@@ -21,8 +21,8 @@ import okhttp3.ResponseBody;
 
 public class NetGetCommentOfDiscussion {
     private static final String SCHEME = "http";
-    private static final String FORMAT = "host:30010/discuss/pull_discuss&likes";
-    private static final String PATH_SEGMENTS = "discuss/pull_discuss&likes";
+    private static final String FORMAT = "host:30010/discuss/pull_comment";
+    private static final String PATH_SEGMENTS = "discuss/pull_comment";
 
     //返回结果
     public static final NetGetCommentOfDiscussion.ResponseClass FAIL = null;
@@ -98,6 +98,7 @@ public class NetGetCommentOfDiscussion {
                 return null;
             }
             String responseJson = responseBody.string();
+            Log.v("bug",responseJson);
             JsonArray jsonElements = JsonParser.parseString(responseJson).getAsJsonArray();
             Gson gson_get = new Gson();
             for(JsonElement e:jsonElements)

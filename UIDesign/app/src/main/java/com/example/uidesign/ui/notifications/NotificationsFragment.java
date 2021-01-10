@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +69,7 @@ public class NotificationsFragment extends Fragment {
                         contact2.latestMsg=e.latest_content;
                         contact2.date=new Date(e.date);
                         contactList.add(contact2);
+                        Log.v("1","1");
                     }
                     contactAdapter=new ContactAdapter(contactList,thisContext,notificationsFragmentHandler);
                     recyclerView.addItemDecoration(new DividerItemDecoration(thisContext, DividerItemDecoration.VERTICAL));

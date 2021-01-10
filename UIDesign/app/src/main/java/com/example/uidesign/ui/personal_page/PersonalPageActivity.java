@@ -62,9 +62,12 @@ public class PersonalPageActivity extends BaseActivity {
                         {
                             sexAndSchool="男生"+"， "+userInfo.school;
 
+
                         }else
                         {
                             sexAndSchool="女生"+"， "+userInfo.school;
+                            binding.textButtonHC.setText("她的表白");
+                            binding.textButtonHD.setText("她的讨论");
                         }
                         binding.sexSchoolPersonalPage.setText(sexAndSchool);
                         binding.introPersonalCenter.setText(userInfo.introduction);

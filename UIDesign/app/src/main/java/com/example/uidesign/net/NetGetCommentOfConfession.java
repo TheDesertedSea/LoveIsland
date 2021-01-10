@@ -81,7 +81,6 @@ public class NetGetCommentOfConfession {
 
         Gson gson_pull = new Gson();
         String requestJson = gson_pull.toJson(requestClass);
-
         RequestBody requestBody = RequestBody.create(requestJson, MediaType.get("application/json"));
 
         Request request = new Request.Builder()

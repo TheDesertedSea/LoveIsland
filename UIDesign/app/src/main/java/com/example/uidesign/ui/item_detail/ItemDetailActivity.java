@@ -163,7 +163,7 @@ public class ItemDetailActivity extends BaseActivity {
                         } else if (identifyString.equals("discussion")) {
                             NetGetCommentOfDiscussion netGetCommentOfDiscussion = new NetGetCommentOfDiscussion();
                             NetGetCommentOfDiscussion.ResponseClass mResponseClass = new NetGetCommentOfDiscussion.ResponseClass();
-                            mResponseClass = netGetCommentOfDiscussion.getComment(LogginedUser.getInstance().getConfession_MaxID(), LogginedUser.getInstance().getUid());
+                            mResponseClass = netGetCommentOfDiscussion.getComment(postID, LogginedUser.getInstance().getUid());
                             if (mResponseClass != NetGetCommentOfDiscussion.FAIL) {
                                 //更新现在最大的表白帖id
 //                            LogginedUser.getInstance().setConfession_MaxID(mResponseClass.maxID);
@@ -252,6 +252,7 @@ public class ItemDetailActivity extends BaseActivity {
                     temp.nowDate = System.currentTimeMillis();
                     Gson gson = new Gson();
                     String sendString = gson.toJson(temp);
+                    Log.v("bnug",sendString);
                     if(!ProjectSettings.UI_TEST) {
                         new Thread(new Runnable() {
                             @Override
